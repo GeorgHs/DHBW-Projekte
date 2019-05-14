@@ -7,6 +7,9 @@
         <element id="directory" name="classes">
           <element id="module-output" name="SocialNetwork" />
         </element>
+        <element id="directory" name="lib">
+          <element id="file-copy" path="$PROJECT_DIR$/WebContent/WEB-INF/lib/jstl-1.2.jar" />
+        </element>
       </element>
     </root>
   </artifact>
