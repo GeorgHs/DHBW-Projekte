@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" serverName="wsn.hburger.space">
+    <serverData>
+      <paths name="wsn.hburger.space">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/opt/tomcat/webapps/ROOT" local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+  </component>
+</project>
