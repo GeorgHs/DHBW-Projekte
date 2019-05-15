@@ -1,3 +1,5 @@
+package controller;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -6,15 +8,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
-@WebServlet(name = "ApiServlet", urlPatterns={"/api/*"})
+@WebServlet(name = "controller.ApiServlet", urlPatterns={"/api/*"})
 public class ApiServlet extends HttpServlet {
-    private BaseApi[] controllers;
+    private BaseApiController[] controllers;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        this.controllers = new BaseApi[] {
-                new ProfileApi(),
+        this.controllers = new BaseApiController[] {
+                new ProfileApiController(),
         };
     }
 
@@ -36,7 +38,7 @@ public class ApiServlet extends HttpServlet {
 
     private void serviceApi(HttpServletRequest request, HttpServletResponse response){
         String url = request.getRequestURI().replace("/api/", "");
-        for (BaseApi controller : controllers) {
+        for (BaseApiController controller : controllers) {
             String method_name = null;
             switch (request.getMethod()) {
                 case "GET":
@@ -59,6 +61,8 @@ public class ApiServlet extends HttpServlet {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+            } else {
+                response.setStatus(404);
             }
         }
     }

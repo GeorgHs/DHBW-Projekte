@@ -1,4 +1,4 @@
-# Created by https://www.gitignore.io/api/java
+# Created by https://www.gitignore.io/controller/java
 # Edit at https://www.gitignore.io/?templates=java
 
 ### Java ###
@@ -15,4 +15,4 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 
-# End of https://www.gitignore.io/api/java
+# End of https://www.gitignore.io/controller/java
