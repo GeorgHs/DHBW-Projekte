@@ -6,15 +6,8 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="da4c0983-03af-4d77-8cfa-cea44a529a8b" name="Default Changelist" comment="added JSON capabilities to API">
-      <change afterPath="$PROJECT_DIR$/WebContent/WEB-INF/lib/json.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/WebContent/register.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="da4c0983-03af-4d77-8cfa-cea44a529a8b" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SocialNetwork.iml" beforeDir="false" afterPath="$PROJECT_DIR$/SocialNetwork.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ApiServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ApiServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/BaseApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/BaseApiController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ProfileApi.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/controller/ProfileApiController.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -177,7 +170,7 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.2" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -292,12 +285,20 @@
       <workItem from="1557921565768" duration="1171000" />
       <workItem from="1557937400705" duration="3382000" />
       <workItem from="1557940842222" duration="37000" />
-      <workItem from="1557940970586" duration="465000" />
+      <workItem from="1557940970586" duration="586000" />
     </task>
+    <task id="LOCAL-00001" summary="added JSON capabilities to API">
+      <created>1557941486735</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1557941486735</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="14684000" />
+    <option name="totallyTimeSpent" value="14805000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="32" width="1936" height="1056" extended-state="6" />
