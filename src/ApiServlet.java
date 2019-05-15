@@ -4,7 +4,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
 @WebServlet(name = "ApiServlet", urlPatterns={"/api/*"})
@@ -19,24 +18,23 @@ public class ApiServlet extends HttpServlet {
         };
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
         serviceApi(request, response);
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         serviceApi(request, response);
     }
 
-    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest request, HttpServletResponse response) throws IOException {
         serviceApi(request, response);
     }
 
-    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest request, HttpServletResponse response) throws IOException {
         serviceApi(request, response);
     }
 
-    private void serviceApi(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        PrintWriter out = response.getWriter();
+    private void serviceApi(HttpServletRequest request, HttpServletResponse response){
         String url = request.getRequestURI().replace("/api/", "");
         for (BaseApi controller : controllers) {
             String method_name = null;
@@ -56,8 +54,8 @@ public class ApiServlet extends HttpServlet {
             }
             if (method_name != null) {
                 try {
-                    Method method = controller.getClass().getDeclaredMethod(method_name);
-                    out.println(method.invoke(controller));
+                    Method method = controller.getClass().getDeclaredMethod(method_name, HttpServletRequest.class, HttpServletResponse.class);
+                    method.invoke(controller, request, response);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
