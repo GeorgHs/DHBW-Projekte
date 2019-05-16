@@ -1,5 +1,4 @@
 package controller;
-import controller.BaseApiController;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -7,9 +6,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
+/**
+ * Main API Controller
+ */
 @WebServlet(name = "controller.ApiServlet", urlPatterns={"/api/*"})
 public class ApiServlet extends HttpServlet {
     private BaseApiController[] controllers;
@@ -39,6 +40,11 @@ public class ApiServlet extends HttpServlet {
         serviceApi(request, response);
     }
 
+    /**
+     * Leitet anfragen an den Controller weiter, der sich für die aufgerufene URL als zuständig deklariert hat
+     * @param request
+     * @param response
+     */
     private void serviceApi(HttpServletRequest request, HttpServletResponse response){
         String url = request.getRequestURI().replace("/api/", "");
         for (BaseApiController controller : controllers) {

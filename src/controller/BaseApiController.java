@@ -59,7 +59,12 @@ abstract class BaseApiController {
         url_mappings_delete = new HashMap<>();
     }
 
-    JSONObject parseJSON(HttpServletRequest request) {
+    /**
+     * Parse JSON-Data from request and return it
+     * @param request
+     * @return
+     */
+    JSONObject getJSON(HttpServletRequest request) {
         StringBuffer jb = new StringBuffer();
         String line = null;
         try {
@@ -79,6 +84,11 @@ abstract class BaseApiController {
         return null;
     }
 
+    /**
+     * Send a String as HTTP Response
+     * @param response
+     * @param content
+     */
     void sendResponse(HttpServletResponse response, String content) {
         try {
             PrintWriter out = null;
