@@ -1,3 +1,4 @@
+<%@ page import="org.apache.catalina.connector.RequestFacade" %>
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <html lang="de">
@@ -9,5 +10,11 @@
 </head>
 <body>
 <%@include file="./WEB-INF/includes/navbar.jsp"%>
+<jsp:useBean id="Profil" class="models.Profile" />
+
+<jsp:getProperty name="Profil" property="user_id"/>
+<jsp:getProperty name="Profil" property="email"/>
+<jsp:getProperty name="Profil" property="username"/>
+
 </body>
 </html>
