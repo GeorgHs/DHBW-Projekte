@@ -27,8 +27,9 @@ public class SessionController {
 
     /**
      * Check if user is logged in and redirect to login pge if not
-     * @param request
-     * @param response
+     *
+     * @param request  http request
+     * @param response http response
      */
     public static void checkLogin(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
@@ -50,8 +51,9 @@ public class SessionController {
 
     /**
      * Create a JWT Token
-     * @param subject
-     * @return
+     *
+     * @param subject user id
+     * @return jwt
      */
     public static String createJWT(String subject) {
         try {
@@ -60,7 +62,7 @@ public class SessionController {
                     .withIssuer("auth0")
                     .withSubject(subject)
                     .sign(algorithm);
-        } catch (JWTCreationException exception){
+        } catch (JWTCreationException exception) {
             //Invalid Signing configuration / Couldn't convert Claims.
         }
         return null;
@@ -68,8 +70,9 @@ public class SessionController {
 
     /**
      * Decode a JWT Token
-     * @param token
-     * @return
+     *
+     * @param token encoded jwt
+     * @return decoded jwt
      */
     public static DecodedJWT decodeJWT(String token) {
         if (token == null || token.length() == 0) {
@@ -81,7 +84,7 @@ public class SessionController {
                     .withIssuer("auth0")
                     .build(); //Reusable verifier instance
             return verifier.verify(token);
-        } catch (JWTVerificationException exception){
+        } catch (JWTVerificationException exception) {
             //Invalid signature/claims
         }
         return null;
