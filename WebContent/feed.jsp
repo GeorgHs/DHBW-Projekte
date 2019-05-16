@@ -7,5 +7,7 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+<script src="js/scripts.js"></script>
+<script src="js/websockets.js"></script>
 </body>
 </html>
