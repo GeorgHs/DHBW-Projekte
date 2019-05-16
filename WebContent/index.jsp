@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<%@include file="./WEB-INF/includes/navbar.jsp"%>
-<c:redirect url="/feed.jsp"/>
+<c:redirect url="/api/login"/>
 </body>
 </html>
