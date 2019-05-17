@@ -9,6 +9,9 @@ public class Post {
     private Media media;
 
     public Post(){
+        this.text = "abc";
+        this.user = new Profile();
+        this.media = null;
     }
 
     public String getText() {
