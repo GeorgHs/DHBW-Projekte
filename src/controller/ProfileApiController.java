@@ -5,7 +5,6 @@ import org.json.JSONObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
 class ProfileApiController extends BaseApiController {
 
@@ -20,7 +19,7 @@ class ProfileApiController extends BaseApiController {
     }
 
     public void postexample(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        JSONObject data = this.parseJSON(request);
+        JSONObject data = this.getJSON(request);
         String test = data.getString("test");
         sendResponse(response, test);
     }
