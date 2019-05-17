@@ -16,21 +16,7 @@
     <input type="text" id="password">
     <input type="button" name="submit" id="submit_login" value="Login">
 </form>
-<script>
-    $("#submit_login").on("click", function() {
-        $.ajax({
-            type: "POST",
-            url: "/api/login",
-            dataType: 'json',
-            async: true,
-            data: "{'username': '" + $("#username").val() + "', 'password' : '" + $("#password").val() + "'}",
-            statusCode: {
-                200: function() {
-                    location.replace("/feed.jsp");
-                }
-            }
-        });
-    })
-</script>
+<script src="js/scripts.js"></script>
+<script src="js/login.js"></script>
 </body>
 </html>

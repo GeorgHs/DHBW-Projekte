@@ -21,6 +21,10 @@ public class SessionController {
         socket_sessions.put(user_identifier, session);
     }
 
+    public static void deleteWebsocketSession(String user_identifier) {
+        socket_sessions.remove(user_identifier);
+    }
+
     public static Session getWebsocketSession(String user_identifier) {
         return socket_sessions.get(user_identifier);
     }

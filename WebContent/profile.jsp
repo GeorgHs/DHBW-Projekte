@@ -20,5 +20,7 @@
 <jsp:getProperty name="Profil" property="email"/>
 <jsp:getProperty name="Profil" property="username"/>
 
+<script src="js/scripts.js"></script>
+<script src="js/websockets.js"></script>
 </body>
 </html>
