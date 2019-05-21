@@ -46,7 +46,7 @@ public class SessionController {
         // check if not logged in
         if (SessionController.decodeJWT(jwt) == null) {
             try {
-                response.sendRedirect("/login.jsp");
+                response.sendRedirect("/login");
             } catch (IOException e) {
                 e.printStackTrace();
             }

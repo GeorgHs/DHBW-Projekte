@@ -9,6 +9,6 @@
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-<c:redirect url="feed.jsp"/>
+<c:redirect url="/feed"/>
 </body>
 </html>

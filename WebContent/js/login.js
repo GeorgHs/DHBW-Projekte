@@ -8,7 +8,7 @@ $(document).ready(function() {
             data: "{'username': '" + $("#username").val() + "', 'password' : '" + $("#password").val() + "'}",
             statusCode: {
                 200: function() {
-                    location.replace("/feed.jsp");
+                    location.replace("/feed");
                 }
             }
         });
