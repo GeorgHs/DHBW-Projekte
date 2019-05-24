@@ -25,8 +25,23 @@ public class SessionController {
         socket_sessions.remove(user_identifier);
     }
 
-    public static Session getWebsocketSession(String user_identifier) {
+    public static Session getWebsocketSessionById(String user_identifier) {
         return socket_sessions.get(user_identifier);
+    }
+
+    public static Map<String, Session> getWebsocketSessions() {
+        return socket_sessions;
+    }
+
+    public static String getIdByWebsocketSession(Session session) {
+        for (Map.Entry<String, Session> entry : socket_sessions.entrySet()) {
+            String key = entry.getKey();
+            Object value = entry.getValue();
+            if (value == session) {
+                return key;
+            }
+        }
+        return null;
     }
 
     /**
