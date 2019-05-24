@@ -16,7 +16,8 @@
 <%@include file="/includes/navbar.jsp"%>
 <jsp:useBean id="Profil" class="models.Profile" />
 
-<jsp:getProperty name="Profil" property="user_id"/>
+<jsp:setProperty name="Profil" property="id" value="1"/>
+<jsp:getProperty name="Profil" property="id"/>
 <jsp:getProperty name="Profil" property="email"/>
 <jsp:getProperty name="Profil" property="username"/>
 

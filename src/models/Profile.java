@@ -1,51 +1,34 @@
 package models;
 
-
 import controller.DatabaseController;
 
 import java.sql.ResultSet;
 
 public class Profile {
 
-    private int user_id;
+    private String id;
     private String username;
     private String email;
-    private DatabaseController db = new DatabaseController();
 
-    public Object getUser_id() {
-
-        try {
-        ResultSet resultSet = db.executeSQL("Select user_id from profiles where user_id=1;");
-
-            if(resultSet.next()) {
-
-                return resultSet.getInt("user_id");
-            }
-        }catch (Exception e){
-
-        }
-    return 0;
-             //return user_id;
-
+    public String getId() {
+        return this.id;
     }
 
-    public void setUser_id(int user_id) {
-        this.user_id = user_id;
+    public void setId(String id) {
+        this.id = id;
+        try {
+            ResultSet resultSet = DatabaseController.executeSQL("Select * from profiles where user_id=" + this.id + ";");
+            if (resultSet.next()) {
+                 this.username = resultSet.getString("username");
+                 this.email = resultSet.getString("email");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public String getUsername() {
-
-        try {
-            ResultSet resultSet = db.executeSQL("Select username from profiles where user_id=1;");
-
-            if(resultSet.next()) {
-                System.out.println();
-                return resultSet.getString("username");
-            }
-        }catch (Exception e){
-
-        }
-        return "";
+        return this.username;
     }
 
     public void setUsername(String username) {
@@ -53,8 +36,7 @@ public class Profile {
     }
 
     public String getEmail() {
-        return "elon@tesla.com";
-        //return email;
+        return this.email;
     }
 
     public void setEmail(String email) {
