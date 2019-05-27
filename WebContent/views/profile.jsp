@@ -14,7 +14,6 @@
 <jsp:useBean id="Post" class="models.Post" />
 
 <jsp:setProperty name="Profil" property="id" value="1"/>
-<jsp:setProperty name="Post" property="id" value="0"/>
 <jsp:getProperty name="Profil" property="id"/>
 <jsp:getProperty name="Profil" property="email"/>
 <jsp:getProperty name="Profil" property="username"/>

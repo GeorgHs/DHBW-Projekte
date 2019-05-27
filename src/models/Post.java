@@ -1,28 +1,23 @@
 package models;
 
 import controller.DatabaseController;
-
-import java.sql.ResultSet;
 import java.util.Date;
 
 public class Post {
 
-    private String id;
+    private int id;
     private String text;
     private Profile user;
     private Media media;
     private Date created_at;
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
     public void setId(String id) {
         if (id.equals("0")) {
-            ResultSet rs = DatabaseController.executeSQL("INSERT INTO posts (id) VALUES (" + id + ");");
-            this.id = "";
-        } else {
-            this.id = id;
+            this.id = DatabaseController.executeUpdate("INSERT INTO posts (id) VALUES (" + id + ");");
         }
     }
 

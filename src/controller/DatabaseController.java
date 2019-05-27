@@ -3,10 +3,7 @@ package controller;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 
 @WebListener
 public class DatabaseController implements ServletContextListener {
@@ -36,11 +33,11 @@ public class DatabaseController implements ServletContextListener {
     }
 
     /**
-     * Execute SQL Command
+     * Execute SQL Query
      *
      * @param sql command to run
      */
-    public static ResultSet executeSQL(String sql) {
+    public static ResultSet executeQuery(String sql) {
         try {
             PreparedStatement st = con.prepareStatement(sql);
             return st.executeQuery();
@@ -48,5 +45,26 @@ public class DatabaseController implements ServletContextListener {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * Execute SQL Command which modifies data
+     *
+     * @param sql command to run
+     * @return String Key of created row
+     */
+    public static int executeUpdate(String sql) {
+        int lastInsertId = -1;
+        try {
+            PreparedStatement st = con.prepareStatement(sql);
+            st.executeUpdate();
+            ResultSet rs = st.executeQuery("SELECT LAST_INSERT_ID()");
+            if (rs.next()) {
+                lastInsertId = rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return lastInsertId;
     }
 }

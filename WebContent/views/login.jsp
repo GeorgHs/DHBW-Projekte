@@ -8,11 +8,14 @@
 </head>
 <body>
 <form>
-    <input type="text" id="username">
+    <input type="text" id="email">
     <input type="text" id="password">
     <input type="button" name="submit" id="submit_login" value="Login">
 </form>
+<a href="/register"><button class="btn">Registrieren</button></a>
+
 <script src="../js/scripts.js"></script>
+<script src="../js/sha256.min.js"></script>
 <script src="../js/login.js"></script>
 </body>
 </html>

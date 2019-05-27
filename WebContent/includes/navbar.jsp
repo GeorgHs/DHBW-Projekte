@@ -13,5 +13,8 @@
                 <a class="nav-link" href="/profile">Profil</a>
             </li>
         </ul>
+        <ul class="navbar-nav">
+            <button class="btn" id="logoutbtn">Logout</button>
+        </ul>
     </div>
 </nav>
