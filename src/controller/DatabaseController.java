@@ -1,7 +1,5 @@
 package controller;
 
-import org.apache.catalina.connector.Response;
-
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -45,13 +43,10 @@ public class DatabaseController implements ServletContextListener {
     public static ResultSet executeSQL(String sql) {
         try {
             PreparedStatement st = con.prepareStatement(sql);
-            ResultSet resultSet = st.executeQuery();
-            return resultSet;
+            return st.executeQuery();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return null;
     }
-
 }
