@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * Main API Controller
@@ -51,16 +52,32 @@ public class ApiServlet extends HttpServlet {
             String method_name = null;
             switch (request.getMethod()) {
                 case "GET":
-                    method_name = controller.getUrlMappings_Get().get(url);
+                    for(Map.Entry e : controller.getUrlMappings_Get().entrySet()) {
+                        if (url.startsWith(e.getKey().toString())) {
+                            method_name = e.getValue().toString();
+                        }
+                    }
                     break;
                 case "POST":
-                    method_name = controller.getUrlMappings_Post().get(url);
+                    for(Map.Entry e : controller.getUrlMappings_Post().entrySet()) {
+                        if (url.startsWith(e.getKey().toString())) {
+                            method_name = e.getValue().toString();
+                        }
+                    }
                     break;
                 case "PUT":
-                    method_name = controller.getUrlMappings_Put().get(url);
+                    for(Map.Entry e : controller.getUrlMappings_Put().entrySet()) {
+                        if (url.startsWith(e.getKey().toString())) {
+                            method_name = e.getValue().toString();
+                        }
+                    }
                     break;
                 case "DELETE":
-                    method_name = controller.getUrlMappings_Delete().get(url);
+                    for(Map.Entry e : controller.getUrlMappings_Delete().entrySet()) {
+                        if (url.startsWith(e.getKey().toString())) {
+                            method_name = e.getValue().toString();
+                        }
+                    }
                     break;
             }
             if (method_name != null) {

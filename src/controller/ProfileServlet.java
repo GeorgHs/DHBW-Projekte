@@ -10,14 +10,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "ProfileServlet", urlPatterns = {"/profile"})
+@WebServlet(name = "ProfileServlet", urlPatterns = {"/profile/*"})
 public class ProfileServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("id") == null) {
+        String t = request.getRequestURI();
+        if (request.getRequestURI().lastIndexOf('/') == 0) {
             Cookie[] cookies = request.getCookies();
             String jwt = null;
             for (Cookie cookie : cookies) {
@@ -35,7 +36,7 @@ public class ProfileServlet extends HttpServlet {
 
             }
         }else {
-            request.setAttribute("id", request.getParameter("id"));
+            request.setAttribute("id", request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
             request.setAttribute("edit", false);
         }
 
