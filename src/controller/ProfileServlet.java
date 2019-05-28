@@ -1,7 +1,10 @@
 package controller;
 
+import com.auth0.jwt.JWT;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +17,28 @@ public class ProfileServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        if (request.getParameter("id") == null) {
+            Cookie[] cookies = request.getCookies();
+            String jwt = null;
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    jwt = cookie.getValue();
+                }
+            }
+
+            String token = JWT.decode(jwt).getSubject();
+            try {
+                int tokenID = Integer.parseInt(token);
+                request.setAttribute("id", tokenID);
+                request.setAttribute("edit", true);
+            } catch (Exception e) {
+
+            }
+        }else {
+            request.setAttribute("id", request.getParameter("id"));
+            request.setAttribute("edit", false);
+        }
+
         getServletContext().getRequestDispatcher("/views/profile.jsp").forward(request, response);
     }
 }

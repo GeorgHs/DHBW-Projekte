@@ -70,29 +70,8 @@ public class SessionController {
     }
 
 
-    public static int getTokenId(HttpServletRequest request, HttpServletResponse response){
-        Cookie[] cookies = request.getCookies();
-        String jwt = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                jwt = cookie.getValue();
-            }
-        }
-
-        String token = JWT.decode(jwt).getSubject();
-        try{
-            int tokenID =Integer.parseInt(token);
-            request.setAttribute("tokenID", tokenID);
-            return tokenID;
-        }catch (Exception e){
-            try {
-                response.sendRedirect("/login");
-            }catch (Exception ex){
-
-            }
-        }
-        return 0;
-    }
+    //public static int getTokenId(HttpServletRequest request, HttpServletResponse response) {
+    //}
 
     /**
      * Create a JWT Token
