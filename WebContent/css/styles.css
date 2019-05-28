@@ -23,6 +23,9 @@ html{
     margin-top: -75px;
 }
 
+.profile-image {
+    object-fit: cover;
+}
 
 .edit-picture-btn a{
     color: black;

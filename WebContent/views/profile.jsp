@@ -26,9 +26,7 @@
         <div class="col-md-2"></div>
         <div class="col-md-2">
             <div class="profile-image-wrapper">
-
-                <img src="data:image/png;base64, ${Profil.profilePicture}" width="150px"
-                     height="150px">
+                <img src="data:image/png;base64, ${Profil.profilePicture}" class="profile-image" width="150px" height="150px">
                 <div class="edit-picture-btn">
                     <a href="#"><i class="fas fa-pen"></i></a>
                 </div>

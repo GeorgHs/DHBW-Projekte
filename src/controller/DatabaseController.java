@@ -15,11 +15,11 @@ public class DatabaseController implements ServletContextListener {
         // This function runs on server startup. Connect to database here
         try {
             String dbDriver = "com.mysql.cj.jdbc.Driver";
-            String dbURL = "jdbc:mysql://wsn.hburger.space:3306/";
+            String dbURL = Env.dburl;
             // Database name to access
             String dbName = "social_network?serverTimezone=UTC";
-            String dbUsername = "root";
-            String dbPassword = "webengineering";
+            String dbUsername = Env.dbuser;
+            String dbPassword = Env.dbpass;
 
             Class.forName(dbDriver);
             con = DriverManager.getConnection(dbURL + dbName,
