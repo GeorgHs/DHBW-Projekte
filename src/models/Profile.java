@@ -15,6 +15,8 @@ public class Profile {
     private String id;
     private String username;
     private String email;
+    private int profilePictureId;
+    private int titlePictureId;
     private String profilePicture;
     private String titlePicture;
 
@@ -29,7 +31,8 @@ public class Profile {
             if (resultSet.next()) {
                  this.username = resultSet.getString("username");
                  this.email = resultSet.getString("email");
-
+                 this.profilePictureId = resultSet.getInt("profilepicture_id");
+                 this.titlePictureId = resultSet.getInt("titlepicture_id");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -56,7 +59,7 @@ public class Profile {
 
     public String getProfilePicture() {
         try {
-            ResultSet mediaQuery = DatabaseController.executeQuery("SELECT * FROM media WHERE user_id=" + this.id + " AND media_type='profile';");
+            ResultSet mediaQuery = DatabaseController.executeQuery("SELECT * FROM media WHERE id=" + this.profilePictureId + ";");
             if(mediaQuery.next()){
                 this.profilePicture = mediaQuery.getString("media");
             }
@@ -74,7 +77,7 @@ public class Profile {
 
     public String getTitlePicture() {
         try {
-            ResultSet mediaQuery = DatabaseController.executeQuery("SELECT * FROM media WHERE user_id=" + this.id +" AND media_type='title';");
+            ResultSet mediaQuery = DatabaseController.executeQuery("SELECT * FROM media WHERE id=" + this.titlePictureId +";");
             if(mediaQuery.next()){
                 this.titlePicture = mediaQuery.getString("media");
             }
