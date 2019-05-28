@@ -15,7 +15,7 @@ $(document).ready(function() {
                 }
             }
         });
-    })
+    });
 
     $("#submit_register").on("click", function() {
         $.ajax({
@@ -34,5 +34,5 @@ $(document).ready(function() {
                 }
             }
         });
-    })
+    });
 });

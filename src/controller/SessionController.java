@@ -3,7 +3,6 @@ package controller;
 import com.auth0.jwt.*;
 import com.auth0.jwt.algorithms.*;
 import com.auth0.jwt.exceptions.*;
-import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
 
 import javax.servlet.http.Cookie;
@@ -15,7 +14,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class SessionController {
-    private static String secret = "secret";
     private static Map<String, Session> socket_sessions = new HashMap<>();
 
     public static void saveWebsocketSession(String user_identifier, Session session) {
@@ -59,6 +57,7 @@ public class SessionController {
                 jwt = cookie.getValue();
             }
         }
+
         // check if not logged in
         if (SessionController.decodeJWT(jwt) == null) {
             try {
@@ -81,7 +80,7 @@ public class SessionController {
      */
     public static String createJWT(String subject) {
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(Env.jwtsecret);
             return JWT.create()
                     .withIssuer("auth0")
                     .withSubject(subject)
@@ -103,7 +102,7 @@ public class SessionController {
             return null;
         }
         try {
-            Algorithm algorithm = Algorithm.HMAC256(secret);
+            Algorithm algorithm = Algorithm.HMAC256(Env.jwtsecret);
             JWTVerifier verifier = JWT.require(algorithm)
                     .withIssuer("auth0")
                     .build(); //Reusable verifier instance
