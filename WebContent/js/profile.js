@@ -18,6 +18,21 @@ function base64(file, callback){
 
 function convertToBase64() {
     base64( $('input[type="file"]'), function(data){
-        console.log(data.base64)
+        $.ajax({
+            type: "POST",
+            url: "/api/profile/profilepicture/",
+            dataType: 'json',
+            async: true,
+            data: "{'picture': '" + data.base64 + "'}",
+            statusCode: {
+                200: function() {
+                    $('.cancel').click();
+                },
+                403: function() {
+
+                }
+            }
+        });
     });
+
 }

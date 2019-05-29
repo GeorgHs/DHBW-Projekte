@@ -69,8 +69,6 @@ public class SessionController {
     }
 
 
-    //public static int getTokenId(HttpServletRequest request, HttpServletResponse response) {
-    //}
 
     /**
      * Create a JWT Token
