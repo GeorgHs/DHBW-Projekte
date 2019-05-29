@@ -1,24 +1,19 @@
 package models;
 
-import controller.DatabaseController;
-import java.util.Date;
-
 public class Post {
 
     private int id;
     private String text;
     private Profile user;
-    private Media media;
-    private Date created_at;
+    private Media media = null;
+    private String created_at;
 
     public int getId() {
         return id;
     }
 
     public void setId(String id) {
-        if (id.equals("0")) {
-            this.id = DatabaseController.executeUpdate("INSERT INTO posts (id) VALUES (" + id + ");");
-        }
+        this.id = Integer.parseInt(id);
     }
 
     public String getText() {
@@ -45,21 +40,11 @@ public class Post {
         this.media = media;
     }
 
-    public Date getCreated() {
-        return created;
-    }
-
-    public void setCreated(Date created) {
-        this.created = created;
-    }
-
-    private Date created;
-
-    public Date getCreated_at() {
+    public String getCreated_at() {
         return created_at;
     }
 
-    public void setCreated_at(Date created_at) {
+    public void setCreated_at(String created_at) {
         this.created_at = created_at;
     }
 }

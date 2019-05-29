@@ -112,4 +112,21 @@ public class SessionController {
         }
         return null;
     }
+
+    public static int getCurrentUserId(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        String jwt = null;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                jwt = cookie.getValue();
+            }
+        }
+
+        if (jwt == null) {
+            return -1;
+        }
+
+        String id = JWT.decode(jwt).getSubject();
+        return Integer.parseInt(id);
+    }
 }

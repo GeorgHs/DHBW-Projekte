@@ -21,7 +21,8 @@ public class ApiServlet extends HttpServlet {
         super.init();
         this.controllers = new BaseApiController[] {
                 new ProfileApiController(),
-                new LoginApiController()
+                new LoginApiController(),
+                new PostApiController(),
         };
     }
 

@@ -2,18 +2,13 @@ package models;
 
 import controller.DatabaseController;
 
-import javax.servlet.http.Cookie;
-import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 import java.sql.ResultSet;
-import java.util.Map;
 
 public class Profile {
 
     private String id;
     private String username;
+    private String handle;
     private String email;
     private int profilePictureId;
     private int titlePictureId;
@@ -28,8 +23,9 @@ public class Profile {
         this.id = id;
         try {
             ResultSet resultSet = DatabaseController.executeQuery("SELECT * FROM profiles WHERE id=" + this.id + ";");
-            if (resultSet.next()) {
+            if (resultSet != null && resultSet.next()) {
                  this.username = resultSet.getString("username");
+                 this.handle = resultSet.getString("handle");
                  this.email = resultSet.getString("email");
                  this.profilePictureId = resultSet.getInt("profilepicture_id");
                  this.titlePictureId = resultSet.getInt("titlepicture_id");
@@ -92,4 +88,12 @@ public class Profile {
     }
 
 
+    public String getHandle() {
+        return handle;
+    }
+
+    public void setHandle(String handle) {
+        this.handle = handle;
+        DatabaseController.executeUpdate("UPDATE profiles SET handle=" + handle + " WHERE id=" + this.id);
+    }
 }

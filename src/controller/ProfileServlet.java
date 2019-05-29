@@ -19,22 +19,8 @@ public class ProfileServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String t = request.getRequestURI();
         if (request.getRequestURI().lastIndexOf('/') == 0) {
-            Cookie[] cookies = request.getCookies();
-            String jwt = null;
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    jwt = cookie.getValue();
-                }
-            }
-
-            String token = JWT.decode(jwt).getSubject();
-            try {
-                int tokenID = Integer.parseInt(token);
-                request.setAttribute("id", tokenID);
-                request.setAttribute("edit", true);
-            } catch (Exception e) {
-
-            }
+            request.setAttribute("id", SessionController.getCurrentUserId(request));
+            request.setAttribute("edit", true);
         }else {
             request.setAttribute("id", request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
             request.setAttribute("edit", false);

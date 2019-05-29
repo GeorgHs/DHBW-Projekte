@@ -2,7 +2,8 @@ html{
     width: 100%;
 }
 
-/*-Profil*/
+/* Profil */
+
 .profile-heading{
     width: 100%;
 }
@@ -43,4 +44,30 @@ html{
 
 .edit-picture-btn a i{
     margin-top: 12px;
+}
+
+/* Feed */
+
+.post{
+    width: 400px;
+    height: auto;
+    margin: 5px;
+    position: relative;
+    padding: 5px;
+}
+
+.post .card-body {
+    padding: 0px;
+}
+
+.post-avatar img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 100%;
+}
+
+.handle {
+    margin-left: 5px;
+    color: darkgrey;
 }
