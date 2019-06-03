@@ -2,6 +2,9 @@ html{
     width: 100%;
 }
 
+body{
+    background: lightskyblue;
+}
 /* Profil */
 
 .profile-heading{
