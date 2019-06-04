@@ -23,6 +23,7 @@ public class ProfileServlet extends HttpServlet {
             request.setAttribute("edit", true);
         }else {
             request.setAttribute("id", request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
+            request.setAttribute("tokenId", SessionController.getCurrentUserId(request));
             request.setAttribute("edit", false);
         }
 

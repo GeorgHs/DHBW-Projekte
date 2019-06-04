@@ -17,7 +17,7 @@ public class Profile {
     private String titlePicture;
     private ArrayList<Profile> follower = new ArrayList<Profile>();
     private ArrayList<Profile> subscriptions = new ArrayList<Profile>();
-
+    private boolean following;
 
     public String getId() {
         return this.id;
@@ -37,24 +37,6 @@ public class Profile {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        /* Get follower and subscriber
-else{
-                    String userId = followQuery.getString("user_id1");
-                    Profile user = new Profile();
-                    user.setId(userId);
-                    if (!this.subscriptions.contains(user)) {
-                        this.subscriptions.add(user);
-                    }
-                }
-
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }*/
-
-
-
 
     }
 
@@ -172,7 +154,18 @@ else{
         return this.subscriptions;
     }
 
-    public void setSubscriptions(ArrayList<Profile> subscriptions) {
-        this.subscriptions = subscriptions;
+    public boolean isFollowing(String id) {
+        following = false;
+        if(!this.id.equals(id)){
+        ResultSet res = DatabaseController.executeQuery("SELECT * FROM followings WHERE user_id1='"+this.id+"' AND user_id2='"+id+"';");
+        try {
+            if (res.next()) {
+                following = true;
+            }
+        }catch (Exception e){
+
+        }
+        }
+        return following;
     }
 }

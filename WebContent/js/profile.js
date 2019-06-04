@@ -25,7 +25,7 @@ function changeModal(type) {
 }
 
 function convertToBase64(picture) {
-    if($('input[type="file"]')[0].files[0] !== undefined) {
+    if ($('input[type="file"]')[0].files[0] !== undefined) {
         base64($('input[type="file"]'), function (data) {
             $.ajax({
                 type: "POST",
@@ -43,8 +43,26 @@ function convertToBase64(picture) {
                 }
             });
         });
-    }else{
+    } else {
         $('.cancel').click();
     }
-
 }
+    function follow(id) {
+
+        $.ajax({
+            type: "POST",
+            url: "/api/profile/follow",
+            dataType: 'json',
+            async: true,
+            data: "{'id': '" + id+ "'}",
+            statusCode: {
+                200: function () {
+                    window.location.reload();
+                },
+                404: function () {
+                    window.location.reload();
+                }
+            }
+        });
+
+    }
