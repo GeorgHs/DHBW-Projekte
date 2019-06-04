@@ -1,5 +1,12 @@
-$(document).ready(function() {
-    $("#submit_login").on("click", function() {
+$(document).ready(function () {
+    $("#submit_login").on("click", login);
+    $(document).on("keydown", function (e) {
+        if (e.originalEvent.key === "Enter") {
+            login();
+        }
+    });
+
+    function login() {
         $.ajax({
             type: "POST",
             url: "/api/login",
@@ -7,32 +14,15 @@ $(document).ready(function() {
             async: true,
             data: "{'email': '" + $("#email").val() + "', 'password' : '" + sha256($("#password").val()) + "'}",
             statusCode: {
-                200: function() {
+                200: function () {
                     location.replace("/feed");
                 },
-                403: function() {
-                    console.log("Wrong email/password")
+                403: function () {
+                    $("#email").addClass("is-invalid");
+                    $("#password").addClass("is-invalid");
+                    $("#invalid-login").css("display", "block");
                 }
             }
         });
-    });
-
-    $("#submit_register").on("click", function() {
-        $.ajax({
-            type: "POST",
-            url: "/api/register",
-            dataType: 'json',
-            async: true,
-            data: "{" +
-                "'username': '" + $("#username").val() + "', " +
-                "'email' : '" + $("#email").val() + "', " +
-                "'password' : '" + sha256($("#password").val()) +
-                "'}",
-            statusCode: {
-                200: function() {
-                    location.replace("/feed");
-                }
-            }
-        });
-    });
+    }
 });

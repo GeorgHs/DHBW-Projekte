@@ -85,6 +85,7 @@ public class ApiServlet extends HttpServlet {
                 try {
                     Method method = controller.getClass().getDeclaredMethod(method_name, HttpServletRequest.class, HttpServletResponse.class);
                     method.invoke(controller, request, response);
+                    break;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

@@ -13,12 +13,20 @@
 
 <jsp:useBean id="search" class="models.Search"/>
 <jsp:setProperty name="search" property="query" value="${param.q}"/>
-<c:forEach items="${search.results}" var="p">
-    <div class="search_result">
-        <img src="data:image;base64,${p.profilePicture}">
-        <a href="/profile/${p.id}">${p.username}</a>
-    </div>
-</c:forEach>
+<div class="page_heading">
+    <h3>Suchergebnisse:</h3>
+</div>
+<div class="profile_card_container">
+    <c:forEach items="${search.results}" var="p">
+        <div class="profile_card card search_result">
+            <img class="card-img-top" src="data:image;base64,${p.titlePicture}">
+            <img class="profile-image" src="data:image;base64,${p.profilePicture}">
+            <div class="card-body">
+                <a href="/profile/${p.id}">${p.username} <span class="handle">@${p.handle}</span></a>
+            </div>
+        </div>
+    </c:forEach>
+</div>
 <c:if test="${search.no_results}">
     <p>no results found</p>
 </c:if>

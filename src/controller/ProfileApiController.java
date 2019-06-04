@@ -19,6 +19,7 @@ class ProfileApiController extends BaseApiController {
         this.addUrlMapping_Post("profile/titlepicture", "setTitlepicture");
         this.addUrlMapping_Post("profile/postexample", "postexample");
         this.addUrlMapping_Post("profile/follow", "followUser");
+        this.addUrlMapping_Post("profile/isValidHandle", "isValidHandle");
     }
 
     public void getUsername(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -88,5 +89,21 @@ class ProfileApiController extends BaseApiController {
         }
         response.setStatus(200);
         sendResponse(response, "OK");
+    }
+
+    public void isValidHandle(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = this.getJSON(request);
+        String handle = data.getString("handle");
+        ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE handle='" + handle + "';");
+        try {
+            response.setStatus(200);
+            if (rs != null && rs.next()) {
+                sendResponse(response, "false");
+            } else {
+                sendResponse(response, "true");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 }

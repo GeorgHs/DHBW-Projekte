@@ -53,23 +53,28 @@ public class SessionController {
         Cookie[] cookies = request.getCookies();
         String jwt = null;
 
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    jwt = cookie.getValue();
-                }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                jwt = cookie.getValue();
             }
+        }
 
-
+        String requestUri = request.getRequestURI();
         // check if not logged in
-        if (SessionController.decodeJWT(jwt) == null) {
+        if (SessionController.decodeJWT(jwt) == null && !(requestUri.equals("/views/login.jsp") || requestUri.equals("/views/register.jsp"))) {
             try {
                 response.sendRedirect("/login");
             } catch (IOException e) {
                 e.printStackTrace();
             }
+        } else if (SessionController.decodeJWT(jwt) != null && (requestUri.equals("/views/login.jsp") || requestUri.equals("/views/register.jsp"))) {
+            try {
+                response.sendRedirect("/feed");
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
-
 
 
     /**
@@ -116,11 +121,11 @@ public class SessionController {
     public static int getCurrentUserId(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         String jwt = null;
-            for (Cookie cookie : cookies) {
-                if (cookie.getName().equals("token")) {
-                    jwt = cookie.getValue();
-                }
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                jwt = cookie.getValue();
             }
+        }
 
         if (jwt == null) {
             return -1;

@@ -32,9 +32,7 @@ class LoginApiController extends BaseApiController {
         ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE email='" + email + "' AND password='" + password + "';");
 
         try {
-            if (!rs.next()) {
-                response.setStatus(403);
-            } else {
+            if (rs != null && rs.next()) {
                 String id = rs.getString("id");
 
                 Cookie jwt_cookie = new Cookie("token", SessionController.createJWT(id));
@@ -42,6 +40,8 @@ class LoginApiController extends BaseApiController {
                 jwt_cookie.setMaxAge(604800);
                 response.addCookie(jwt_cookie);
                 response.setStatus(200);
+            } else {
+                response.setStatus(403);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -59,8 +59,26 @@ class LoginApiController extends BaseApiController {
         String username = data.getString("username");
         String email = data.getString("email");
         String password = data.getString("password");
+        String handle = data.getString("handle");
 
-        String sql = "INSERT INTO profiles (username, email, password) VALUES ('" + username + "', '" + email + "', '" + password + "')";
+        if (username.length() == 0 || email.length() == 0 || password.length() == 0 || handle.length() == 0) {
+            response.setStatus(500);
+            return;
+        }
+
+        // Validate Handle
+        ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE handle='" + handle + "';");
+        try {
+            if (rs != null && rs.next()) {
+                response.setStatus(500);
+                sendResponse(response, "false");
+                return;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        String sql = "INSERT INTO profiles (username, email, password, handle) VALUES ('" + username + "', '" + email + "', '" + password + "', '" + handle + "')";
         int id = DatabaseController.executeUpdate(sql);
         if (id == -1) {
             response.setStatus(500);
