@@ -17,30 +17,57 @@
 <jsp:setProperty name="Profil" property="id" value="${id}"/>
 <!--<jsp:getProperty name="Profil" property="id"/>-->
 <div class="profile-heading container-fluid p-0">
-    <div class="title-picture-wrapper" style="background: url('data:image/jpeg;base64,${Profil.titlePicture}');">
+    <div class="title-picture-wrapper" style="background: url('data:image;base64,${Profil.titlePicture}');">
         <c:if test="${edit}">
             <div class="edit-picture-btn">
-                <a href="#"><i class="fas fa-pen"></i></a>
+                <a data-toggle="modal" data-target="#profileModal" onclick="changeModal('title')"><i class="fas fa-pen"></i></a>
             </div>
         </c:if>
     </div>
     <div class="row">
-        <div class="col-md-2"></div>
         <div class="col-md-2">
+
+
+        </div>
+        <div class="col-md-2" style="max-width: 150px;">
             <div class="profile-image-wrapper">
-                <img src="data:image/png;base64, ${Profil.profilePicture}" width="150px"
+                <img src="data:image;base64, ${Profil.profilePicture}" width="150px"
                      height="150px" class="profile-image">
                 <c:if test="${edit}">
                     <div class="edit-picture-btn">
-                        <a data-toggle="modal" data-target="#profileModal"><i class="fas fa-pen"></i></a>
+                        <a data-toggle="modal" data-target="#profileModal" onclick="changeModal('profile')"><i class="fas fa-pen"></i></a>
                     </div>
                 </c:if>
             </div>
+            <jsp:getProperty name="Profil" property="email"/>
+            <jsp:getProperty name="Profil" property="username"/>
         </div>
         <div class="col-md-7">
-            <div style="height: 75px;">
-                <jsp:getProperty name="Profil" property="email"/>
-                <jsp:getProperty name="Profil" property="username"/>
+            <div class="profile-card card">
+                <div class="card-body">
+                    <div class="card-button active">
+                        <h2>Posts</h2>
+                        <h3>34</h3>
+                    </div>
+                    <div class="card-button">
+                        <h2>Folge ich</h2>
+                        <h3>${Profil.subscriptions.size()}</h3>
+                    </div>
+                    <div class="card-button">
+                        <h2>Follower</h2>
+                        <h3>${Profil.follower.size()}</h3>
+                    </div>
+
+
+                </div>
+                <c:forEach items="${Profil.follower}" var="follow">
+                    ${follow.handle}
+
+                </c:forEach>
+                <c:forEach items="${Profil.subscriptions}" var="subscriptions">
+                    ${subscriptions.handle}
+
+                </c:forEach>
             </div>
             <c:if test="${edit}">
                 <div class="input-group mb-3">
@@ -52,7 +79,16 @@
                 </div>
             </c:if>
         </div>
-        <div class="col-md-1"></div>
+        <div class="col-md-1">
+            <c:choose>
+                <c:when test="${edit}">
+                    <button class="btn">Profil bearbeiten</button>
+                </c:when>
+                <c:otherwise>
+                    <button class="btn float-right">Folgen</button>
+                </c:otherwise>
+            </c:choose>
+        </div>
     </div>
 </div>
 
@@ -71,7 +107,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" onclick="convertToBase64()">Save changes</button>
+                <button type="button" class="btn btn-primary send" onclick="convertToBase64('profilepicture')">Save changes</button>
             </div>
         </div>
     </div>

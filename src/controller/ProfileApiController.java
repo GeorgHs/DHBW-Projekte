@@ -15,7 +15,7 @@ class ProfileApiController extends BaseApiController {
     ProfileApiController() {
         super();
         this.addUrlMapping_Get("profile/username", "getUsername");
-        this.addUrlMapping_Post("profile/profilepicture/", "setProfilepicture");
+        this.addUrlMapping_Post("profile/profilepicture", "setProfilepicture");
         this.addUrlMapping_Post("profile/titlepicture", "setTitlepicture");
         this.addUrlMapping_Post("profile/postexample", "postexample");
     }
@@ -42,6 +42,23 @@ class ProfileApiController extends BaseApiController {
     public void setProfilepicture(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JSONObject data = this.getJSON(request);
         String picture = data.getString("picture");
+        String token = this.getTokenId(request);
+
+        DatabaseController.executeUpdate("UPDATE media SET media='"+picture+"' WHERE user_id="+token+" AND media_type='profile';");
+        response.setStatus(200);
+        sendResponse(response, picture);
+    }
+    public void setTitlepicture(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        JSONObject data = this.getJSON(request);
+        String picture = data.getString("picture");
+        String token = this.getTokenId(request);
+
+        DatabaseController.executeUpdate("UPDATE media SET media='"+picture+"' WHERE user_id="+token+" AND media_type='title';");
+        response.setStatus(200);
+        sendResponse(response, picture);
+    }
+
+    private String getTokenId(HttpServletRequest request){
         Cookie[] cookies = request.getCookies();
         String jwt = null;
         for (Cookie cookie : cookies) {
@@ -51,9 +68,6 @@ class ProfileApiController extends BaseApiController {
         }
 
         String token = JWT.decode(jwt).getSubject();
-
-        DatabaseController.executeUpdate("UPDATE media SET media='"+picture+"' WHERE user_id="+token+" AND media_type='profile';");
-
-        sendResponse(response, picture);
+        return token;
     }
 }

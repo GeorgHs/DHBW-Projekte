@@ -3,6 +3,7 @@ package models;
 import controller.DatabaseController;
 
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 public class Profile {
 
@@ -14,6 +15,9 @@ public class Profile {
     private int titlePictureId;
     private String profilePicture;
     private String titlePicture;
+    private ArrayList<Profile> follower = new ArrayList<Profile>();
+    private ArrayList<Profile> subscriptions = new ArrayList<Profile>();
+
 
     public String getId() {
         return this.id;
@@ -33,6 +37,25 @@ public class Profile {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        /* Get follower and subscriber
+else{
+                    String userId = followQuery.getString("user_id1");
+                    Profile user = new Profile();
+                    user.setId(userId);
+                    if (!this.subscriptions.contains(user)) {
+                        this.subscriptions.add(user);
+                    }
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }*/
+
+
+
+
     }
 
     public String getUsername() {
@@ -95,5 +118,61 @@ public class Profile {
     public void setHandle(String handle) {
         this.handle = handle;
         DatabaseController.executeUpdate("UPDATE profiles SET handle=" + handle + " WHERE id=" + this.id);
+    }
+
+    public ArrayList<Profile> getFollower() {
+        try {
+        ResultSet followQuery = DatabaseController.executeQuery("SELECT * FROM followings WHERE user_id1=" + this.id +";");
+        while(followQuery.next()) {
+                String userId = followQuery.getString("user_id2");
+                Profile user = new Profile();
+                user.setId(userId);
+                int contains = 0;
+                for (Profile f:follower) {
+                    if(f.id.equals(userId)){
+                        contains++;
+                    }
+                }
+                if (contains == 0) {
+                this.follower.add(user);
+            }
+
+        }
+        }catch (Exception e){
+
+        }
+        return this.follower;
+    }
+
+    public void setFollower(Profile followId) {
+        this.follower.add(followId);
+    }
+
+    public ArrayList<Profile> getSubscriptions() {
+        try {
+            ResultSet followQuery = DatabaseController.executeQuery("SELECT * FROM followings WHERE user_id2=" + this.id +";");
+            while(followQuery.next()) {
+                String userId = followQuery.getString("user_id1");
+                Profile user = new Profile();
+                user.setId(userId);
+                int contains = 0;
+                for (Profile s:subscriptions) {
+                    if(s.id.equals(userId)){
+                        contains++;
+                    }
+                }
+                if (contains == 0) {
+                    this.subscriptions.add(user);
+                }
+
+            }
+        }catch (Exception e){
+
+        }
+        return this.subscriptions;
+    }
+
+    public void setSubscriptions(ArrayList<Profile> subscriptions) {
+        this.subscriptions = subscriptions;
     }
 }
