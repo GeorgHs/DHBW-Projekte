@@ -18,6 +18,7 @@ class ProfileApiController extends BaseApiController {
         this.addUrlMapping_Post("profile/profilepicture", "setProfilepicture");
         this.addUrlMapping_Post("profile/titlepicture", "setTitlepicture");
         this.addUrlMapping_Post("profile/postexample", "postexample");
+        this.addUrlMapping_Post("profile/follow", "followUser");
     }
 
     public void getUsername(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -69,5 +70,23 @@ class ProfileApiController extends BaseApiController {
 
         String token = JWT.decode(jwt).getSubject();
         return token;
+    }
+
+    public void followUser(HttpServletRequest request, HttpServletResponse response) throws IOException{
+        JSONObject data = this.getJSON(request);
+        String idToFollow = data.getString("id");
+        String tokenId = this.getTokenId(request);
+        ResultSet resultSet = DatabaseController.executeQuery("SELECT * FROM followings where user_id1="+ idToFollow +" AND user_id2="+ tokenId +";");
+        try {
+            if (!resultSet.next()) {
+                DatabaseController.executeUpdate("INSERT INTO followings (user_id1, user_id2) VALUES ('"+idToFollow +"','"+tokenId+"');");
+            }else {
+                DatabaseController.executeUpdate("DELETE FROM followings WHERE user_id1=" + idToFollow + " AND user_id2= "+ tokenId +";");
+            }
+        }catch (Exception e){
+
+        }
+        response.setStatus(200);
+        sendResponse(response, "OK");
     }
 }

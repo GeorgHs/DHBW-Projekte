@@ -45,15 +45,8 @@ html{
 .edit-picture-btn a i{
     margin-top: 12px;
 }
-.profile-card{
-    height: 50px;
-    margin-bottom: 50px;
-
-}
-.profile-card .card-body{
-    display: flex;
-    float: left;
-    padding: 0;
+#profileTab{
+    margin-bottom: 40px;
 }
 .card-button{
     text-align: center;
@@ -70,10 +63,6 @@ html{
     font-size: 15px;
 }
 
-.card-body .active{
-    border-bottom: rgb(221, 221, 221) solid 2px;
-    border-bottom-color: rgb(221, 221, 221);
-}
 
 /* Feed */
 

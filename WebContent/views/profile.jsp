@@ -15,7 +15,7 @@
 <jsp:useBean id="Post" class="models.Post"/>
 
 <jsp:setProperty name="Profil" property="id" value="${id}"/>
-<!--<jsp:getProperty name="Profil" property="id"/>-->
+
 <div class="profile-heading container-fluid p-0">
     <div class="title-picture-wrapper" style="background: url('data:image;base64,${Profil.titlePicture}');">
         <c:if test="${edit}">
@@ -43,7 +43,54 @@
             <jsp:getProperty name="Profil" property="username"/>
         </div>
         <div class="col-md-7">
-            <div class="profile-card card">
+            <ul class="nav nav-tabs" id="profileTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link card-button active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">
+                        <h2>Posts</h2>
+                        <h3>34</h3>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link card-button" id="subscriptions-tab" data-toggle="tab" href="#subscriptions" role="tab" aria-controls="subsrciptions" aria-selected="false">
+                        <h2>Folge ich</h2>
+                        <h3>${Profil.subscriptions.size()}</h3>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link card-button" id="follower-tab" data-toggle="tab" href="#follower" role="tab" aria-controls="follower" aria-selected="false">
+                        <h2>Follower</h2>
+                        <h3>${Profil.follower.size()}</h3>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="profileTabContent">
+                <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                    <c:if test="${edit}">
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Schreib etwas..." aria-label="Username"
+                                   aria-describedby="basic-addon1">
+                            <div class="input-group-prepend">
+                                <button class="input-group-text" onclick="alert('hi');"><i class="fas fa-camera"></i></button>
+                            </div>
+                        </div>
+                    </c:if>
+                </div>
+                <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptions-tab">
+                    <c:forEach items="${Profil.subscriptions}" var="subscriptions">
+                        ${subscriptions.handle}
+
+                    </c:forEach>
+                    asdfasdf
+                </div>
+                <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follower-tab">
+                    <c:forEach items="${Profil.follower}" var="follow">
+                        ${follow.handle}
+
+                    </c:forEach>
+                </div>
+            </div>
+            <!--<div class="profile-card card">
                 <div class="card-body">
                     <div class="card-button active">
                         <h2>Posts</h2>
@@ -60,24 +107,10 @@
 
 
                 </div>
-                <c:forEach items="${Profil.follower}" var="follow">
-                    ${follow.handle}
 
-                </c:forEach>
-                <c:forEach items="${Profil.subscriptions}" var="subscriptions">
-                    ${subscriptions.handle}
 
-                </c:forEach>
-            </div>
-            <c:if test="${edit}">
-                <div class="input-group mb-3">
-                    <input type="text" class="form-control" placeholder="Schreib etwas..." aria-label="Username"
-                           aria-describedby="basic-addon1">
-                    <div class="input-group-prepend">
-                        <button class="input-group-text" onclick="alert('hi');"><i class="fas fa-camera"></i></button>
-                    </div>
-                </div>
-            </c:if>
+            </div>-->
+
         </div>
         <div class="col-md-1">
             <c:choose>
@@ -85,7 +118,15 @@
                     <button class="btn">Profil bearbeiten</button>
                 </c:when>
                 <c:otherwise>
-                    <button class="btn float-right">Folgen</button>
+                    <c:choose>
+                    <c:when test="${Profil.isFollowing(14)}">
+                        <button class="btn float-right" onclick="follow(${Profil.id})">Nicht mehr Folgen</button>
+                    </c:when>
+                        <c:otherwise>
+                            <button class="btn float-right" onclick="follow(${Profil.id})">Folgen</button>
+                        </c:otherwise>
+                    </c:choose>
+
                 </c:otherwise>
             </c:choose>
         </div>
