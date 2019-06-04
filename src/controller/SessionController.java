@@ -52,11 +52,13 @@ public class SessionController {
     public static void checkLogin(HttpServletRequest request, HttpServletResponse response) {
         Cookie[] cookies = request.getCookies();
         String jwt = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                jwt = cookie.getValue();
+
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    jwt = cookie.getValue();
+                }
             }
-        }
+
 
         // check if not logged in
         if (SessionController.decodeJWT(jwt) == null) {
@@ -114,11 +116,11 @@ public class SessionController {
     public static int getCurrentUserId(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         String jwt = null;
-        for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("token")) {
-                jwt = cookie.getValue();
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("token")) {
+                    jwt = cookie.getValue();
+                }
             }
-        }
 
         if (jwt == null) {
             return -1;

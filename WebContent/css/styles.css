@@ -48,6 +48,24 @@ body{
 .edit-picture-btn a i{
     margin-top: 12px;
 }
+#profileTab{
+    margin-bottom: 40px;
+}
+.card-button{
+    text-align: center;
+    margin-right: 10px;
+    width: 100px;
+
+}
+
+.card-button h2{
+    font-size: 15px;
+}
+
+.card-button h3{
+    font-size: 15px;
+}
+
 
 /* Feed */
 
@@ -73,4 +91,17 @@ body{
 .handle {
     margin-left: 5px;
     color: darkgrey;
+}
+
+/* Search */
+
+.search_result {
+    margin: 10px;
+}
+
+.search_result img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    object-fit: cover;
 }
