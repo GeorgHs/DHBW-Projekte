@@ -100,3 +100,16 @@ html{
     margin-left: 5px;
     color: darkgrey;
 }
+
+/* Search */
+
+.search_result {
+    margin: 10px;
+}
+
+.search_result img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    object-fit: cover;
+}
