@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <title>Feed</title>
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
+
+</head>
+<body>
+<!-- Profile -->
+<div class="fenster">
+    <div class="profile-heading container-fluid p-0">
+        <div class="title-picture-wrapper" style="background: url('data:image;base64,${Profil.titlePicture}');"></div>
+        <div class="row">
+            <div class="col-md-2">
+            </div>
+            <div class="col-md-2" style="max-width: 150px;">
+                <div class="profile-image-wrapper">
+                    <img src="data:image;base64, ${Profil.profilePicture}" width="150px"
+                         height="150px" class="profile-image">
+                </div>
+            </div>
+        </div>
+<!-- Feed -->
+    <div class="post card">
+        <div class="card-body container">
+            <div class="row">
+                <div class="post-avatar col-2"><img src="data:image;base64,${post.user.profilePicture}"></div>
+                <div class="col-10">
+                    <div class="post-header"><b>${post.user.username}</b><span class="handle">@${post.user.handle}</span></div>
+                    <div class="post-content">
+                        <p>${post.text}</p>
+                </div>
+                    <div class="post-footer">
+                        <i class="fas fa-heart" style="color: gray;"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</div>
+<!-- Messages -->
+    <div class="message">
+    </div>
+<!-- Impressum -->
+    <div class="impressum">
+        <a href="impressum.html">Impressum</a>
+    </div>
+</div>
+
+</body>
+</html>
