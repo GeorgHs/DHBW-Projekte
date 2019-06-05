@@ -14,9 +14,11 @@
                 <a class="nav-link" href="/profile">Profil</a>
             </li>
             <li>
-                <form action="/search">
-                    <input name="q" type="text">
-                    <button type="submit">Search</button>
+                <form class="form-inline my-2 my-lg-0" action="/search">
+                    <input class="form-control mr-sm-2" name="q" type="text">
+                    <button class="btn" type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
                 </form>
             </li>
         </ul>
