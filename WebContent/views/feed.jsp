@@ -19,13 +19,6 @@
 <div class="container_fluid">
     <div class="row">
         <div class="feed_left col-sm-3">
-            <!--<div class="profile_card card search_result" style="width: 100%;">
-                <img class="card-img-top" src="data:image;base64,${profile.titlePicture}">
-                <img class="profile-image" src="data:image;base64,${profile.profilePicture}">
-                <div class="card-body">
-                    <a href="/profile/${profile.id}">${profile.username} <span class="handle">@${profile.handle}</span></a>
-                </div>
-            </div>-->
             <jsp:include page="../includes/profile-card.jsp">
                 <jsp:param name="id" value="${profile.id}"/>
                 <jsp:param name="username" value="${profile.username}"/>

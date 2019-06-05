@@ -43,6 +43,7 @@
             </p>
         </div>
         <div class="col-md-7">
+            <!--Profil Nav-->
             <ul class="nav nav-tabs" id="profileTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link card-button active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">
@@ -63,9 +64,10 @@
                     </a>
                 </li>
             </ul>
-
+            <!--Tab Content-->
             <div class="tab-content" id="profileTabContent">
                 <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
+                <!--Posts Tab-->
                     <c:if test="${edit}">
                         <div class="input-group mb-3">
                             <input type="text" class="form-control" placeholder="Schreib etwas..." aria-label="Username"
@@ -89,6 +91,7 @@
 
                 </div>
                 <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptions-tab">
+                    <!--Subscriptions Tab-->
                     <div class="row">
                     <c:forEach items="${Profil.subscriptions}" var="subscriptions">
                         <div class="col-md-6">
@@ -104,7 +107,8 @@
                     </div>
                 </div>
                 <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follower-tab">
-                   <div class="row">
+                   <!--Follower Tab-->
+                    <div class="row">
                         <c:forEach items="${Profil.follower}" var="follow">
                             <div class="col-md-6">
                                 <jsp:include page="../includes/profile-card.jsp">
@@ -121,6 +125,7 @@
             </div>
         </div>
         <div class="col-md-1">
+            <!--Edit Profile oder Follow/Unfollow Button-->
             <c:choose>
                 <c:when test="${edit}">
                     <button class="btn">Profil bearbeiten</button>
@@ -134,33 +139,15 @@
                             <button class="btn float-right" onclick="follow(${Profil.id})">Folgen</button>
                         </c:otherwise>
                     </c:choose>
-
                 </c:otherwise>
             </c:choose>
         </div>
     </div>
 </div>
 
-<!-- Modal -->
-<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="profileModalTitle">Profilbild bearbeiten</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <input name="profilePicture" type="file">
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary send" onclick="convertToBase64('profilepicture')">Save changes</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!--Modal zum ändern von den Bildern -->
+<jsp:include page="../includes/change-picture-modal.jsp"></jsp:include>
+
 
 <script src="../js/profile.js"></script>
 <script src="../js/scripts.js"></script>
