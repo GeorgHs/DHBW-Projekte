@@ -18,6 +18,7 @@ public class Profile {
     private ArrayList<Profile> follower = new ArrayList<Profile>();
     private ArrayList<Profile> subscriptions = new ArrayList<Profile>();
     private boolean following;
+    private ArrayList<Post> posts = new ArrayList<Post>();
 
     public String getId() {
         return this.id;
@@ -167,5 +168,42 @@ public class Profile {
         }
         }
         return following;
+    }
+
+    public ArrayList<Post> getPosts() {
+        ResultSet rs = DatabaseController.executeQuery("SELECT * from posts where user_id="+ this.id +";");
+        try {
+            while (rs.next()) {
+                Post post = new Post();
+                post.setId(rs.getString("id"));
+                if(rs.getString("media_id") != null){
+                    ResultSet mediaQuery = DatabaseController.executeQuery("SELECT * from media WHERE id="+ rs.getString("media_id")+";");
+                    if(mediaQuery.next()) {
+                        Media m = new Media();
+                        m.setMedia_id(mediaQuery.getInt("id"));
+                        m.setMedia(mediaQuery.getString("media"));
+                        m.setMedia_type(mediaQuery.getString("media_type"));
+                        m.setUser(this);
+                        post.setMedia(m);
+                    }
+                }
+
+                post.setText(rs.getString("text"));
+                post.setUser(this);
+                int contains = 0;
+                for (Post p: posts) {
+                    if(p.getId() == post.getId() ){
+                        contains++;
+                    }
+                }
+                if (contains == 0) {
+                    this.posts.add(post);
+                }
+
+            }
+        }catch (Exception e){
+
+        }
+        return posts;
     }
 }

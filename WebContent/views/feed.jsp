@@ -36,24 +36,15 @@
         </div>
         <div class="feed_center col-sm-6">
             <c:forEach items="${feed.posts}" var="post">
-                <div class="post card">
-                    <div class="card-body container">
-                        <div class="row">
-                            <div class="post-avatar col-md-2 col-xl-1"><img src="data:image;base64,${post.user.profilePicture}">
-                            </div>
-                            <div class="col-md-10 col-xl-11">
-                                <div class="post-header"><a href="/profile/${post.user.id}"><b>${post.user.username}</b><span class="handle">@${post.user.handle}</span></a></div>
-                                <div class="post-content">
-                                    <p>${post.text}</p>
-                                    <c:if test="${post.media != null}"><img src="data:image;base64,${post.media.media}" class="card-img-top"></c:if>
-                                </div>
-                                <div class="post-footer">
-                                    <i class="fas fa-heart" style="color: lightgray;"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <jsp:include page="../includes/post.jsp">
+                    <jsp:param name="user_id" value="${post.user.id}"/>
+                    <jsp:param name="user_username" value="${post.user.username}"/>
+                    <jsp:param name="user_handle" value="${post.user.handle}"/>
+                    <jsp:param name="user_profilePicture" value="${post.user.profilePicture}"/>
+                    <jsp:param name="text" value="${post.text}"/>
+                    <jsp:param name="media" value="${post.media}"/>
+                    <jsp:param name="media_media" value="${post.media.media}"/>
+                </jsp:include>
             </c:forEach>
         </div>
         <div class="feed_right col-sm-3">

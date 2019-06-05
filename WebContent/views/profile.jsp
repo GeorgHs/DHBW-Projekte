@@ -27,7 +27,6 @@
     <div class="row">
         <div class="col-md-2">
 
-
         </div>
         <div class="col-md-2" style="max-width: 150px;">
             <div class="profile-image-wrapper">
@@ -39,15 +38,16 @@
                     </div>
                 </c:if>
             </div>
-            <jsp:getProperty name="Profil" property="email"/>
-            <jsp:getProperty name="Profil" property="username"/>
+            <p class="h5"><jsp:getProperty name="Profil" property="username"/>
+                <span class="handle">@<jsp:getProperty name="Profil" property="handle"/></span>
+            </p>
         </div>
         <div class="col-md-7">
             <ul class="nav nav-tabs" id="profileTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link card-button active" id="posts-tab" data-toggle="tab" href="#posts" role="tab" aria-controls="posts" aria-selected="true">
                         <h2>Posts</h2>
-                        <h3>34</h3>
+                        <h3>${Profil.posts.size()}</h3>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -75,6 +75,18 @@
                             </div>
                         </div>
                     </c:if>
+                    <c:forEach items="${Profil.posts}" var="post">
+                        <jsp:include page="../includes/post.jsp">
+                            <jsp:param name="user_id" value="${post.user.id}"/>
+                            <jsp:param name="user_username" value="${post.user.username}"/>
+                            <jsp:param name="user_handle" value="${post.user.handle}"/>
+                            <jsp:param name="user_profilePicture" value="${post.user.profilePicture}"/>
+                            <jsp:param name="text" value="${post.text}"/>
+                            <jsp:param name="media" value="${post.media}"/>
+                            <jsp:param name="media_media" value="${post.media.media}"/>
+                        </jsp:include>
+                    </c:forEach>
+
                 </div>
                 <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptions-tab">
                     <div class="row">
