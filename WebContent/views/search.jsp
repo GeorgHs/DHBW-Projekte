@@ -18,13 +18,20 @@
 </div>
 <div class="profile_card_container">
     <c:forEach items="${search.results}" var="p">
-        <div class="profile_card card search_result">
+        <jsp:include page="../includes/profile-card.jsp">
+            <jsp:param name="id" value="${p.id}"/>
+            <jsp:param name="username" value="${p.username}"/>
+            <jsp:param name="profilePicture" value="${p.profilePicture}"/>
+            <jsp:param name="titlePicture" value="${p.titlePicture}"/>
+            <jsp:param name="handle" value="${p.handle}"/>
+        </jsp:include>
+        <!--div class="profile_card card search_result">
             <img class="card-img-top" src="data:image;base64,${p.titlePicture}">
             <img class="profile-image" src="data:image;base64,${p.profilePicture}">
             <div class="card-body">
                 <a href="/profile/${p.id}">${p.username} <span class="handle">@${p.handle}</span></a>
             </div>
-        </div>
+        </div>-->
     </c:forEach>
 </div>
 <c:if test="${search.no_results}">

@@ -77,7 +77,7 @@ class LoginApiController extends BaseApiController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
+        // TODO: Standard Profilbild + Titelbild in media Tabelle anlegen
         String sql = "INSERT INTO profiles (username, email, password, handle) VALUES ('" + username + "', '" + email + "', '" + password + "', '" + handle + "')";
         int id = DatabaseController.executeUpdate(sql);
         if (id == -1) {

@@ -77,40 +77,36 @@
                     </c:if>
                 </div>
                 <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptions-tab">
+                    <div class="row">
                     <c:forEach items="${Profil.subscriptions}" var="subscriptions">
-                        ${subscriptions.handle}
-
+                        <div class="col-md-6">
+                        <jsp:include page="../includes/profile-card.jsp">
+                            <jsp:param name="id" value="${subscriptions.id}"/>
+                            <jsp:param name="username" value="${subscriptions.username}"/>
+                            <jsp:param name="profilePicture" value="${subscriptions.profilePicture}"/>
+                            <jsp:param name="titlePicture" value="${subscriptions.titlePicture}"/>
+                            <jsp:param name="handle" value="${subscriptions.handle}"/>
+                        </jsp:include>
+                        </div>
                     </c:forEach>
-                    asdfasdf
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follower-tab">
-                    <c:forEach items="${Profil.follower}" var="follow">
-                        ${follow.handle}
-
-                    </c:forEach>
+                   <div class="row">
+                        <c:forEach items="${Profil.follower}" var="follow">
+                            <div class="col-md-6">
+                                <jsp:include page="../includes/profile-card.jsp">
+                                    <jsp:param name="id" value="${follow.id}"/>
+                                    <jsp:param name="username" value="${follow.username}"/>
+                                    <jsp:param name="profilePicture" value="${follow.profilePicture}"/>
+                                    <jsp:param name="titlePicture" value="${follow.titlePicture}"/>
+                                    <jsp:param name="handle" value="${follow.handle}"/>
+                                </jsp:include>
+                           </div>
+                        </c:forEach>
+                   </div>
                 </div>
             </div>
-            <!--<div class="profile-card card">
-                <div class="card-body">
-                    <div class="card-button active">
-                        <h2>Posts</h2>
-                        <h3>34</h3>
-                    </div>
-                    <div class="card-button">
-                        <h2>Folge ich</h2>
-                        <h3>${Profil.subscriptions.size()}</h3>
-                    </div>
-                    <div class="card-button">
-                        <h2>Follower</h2>
-                        <h3>${Profil.follower.size()}</h3>
-                    </div>
-
-
-                </div>
-
-
-            </div>-->
-
         </div>
         <div class="col-md-1">
             <c:choose>
