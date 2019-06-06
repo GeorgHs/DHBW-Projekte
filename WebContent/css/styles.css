@@ -85,6 +85,16 @@ html {
     padding: 5px;
 }
 
+.post-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.post-date {
+    color: gray;
+}
+
 .post .card-body {
     padding: 0px;
 }
