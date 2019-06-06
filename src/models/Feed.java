@@ -19,7 +19,7 @@ public class Feed {
 
     public ArrayList<Post> getPosts() {
         posts.clear();
-        ResultSet rs = DatabaseController.executeQuery("SELECT * FROM posts");
+        ResultSet rs = DatabaseController.executeQuery("SELECT * FROM posts ORDER BY created_at DESC");
         try {
             if (rs != null) {
                 while(rs.next()) {
