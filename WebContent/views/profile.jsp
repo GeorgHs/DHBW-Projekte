@@ -69,13 +69,7 @@
                 <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                 <!--Posts Tab-->
                     <c:if test="${edit}">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Schreib etwas..." aria-label="Username"
-                                   aria-describedby="basic-addon1">
-                            <div class="input-group-prepend">
-                                <button class="input-group-text" onclick="alert('hi');"><i class="fas fa-camera"></i></button>
-                            </div>
-                        </div>
+                        <jsp:include page="../includes/create-post.jsp" />
                     </c:if>
                     <c:forEach items="${Profil.posts}" var="post">
                         <jsp:include page="../includes/post.jsp">

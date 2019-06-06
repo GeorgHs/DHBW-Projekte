@@ -20,6 +20,7 @@ class ProfileApiController extends BaseApiController {
         this.addUrlMapping_Post("profile/postexample", "postexample");
         this.addUrlMapping_Post("profile/follow", "followUser");
         this.addUrlMapping_Post("profile/isValidHandle", "isValidHandle");
+        this.addUrlMapping_Post("profile/post", "createPost");
     }
 
     public void getUsername(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -105,5 +106,17 @@ class ProfileApiController extends BaseApiController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public void createPost(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = this.getJSON(request);
+        String media = data.getString("media");
+        if(!media.equals("undefined")){
+             int mediaId = DatabaseController.executeUpdate("INSERT into media (user_id, media_type, media) VALUES ('"+this.getTokenId(request)+"', 'image', '"+data.getString("media")+"');");
+            DatabaseController.executeUpdate("INSERT into posts (user_id, text, media_id) VALUES ('"+this.getTokenId(request)+"', '"+data.getString("text")+"', '"+mediaId+"');");
+        }else {
+            DatabaseController.executeUpdate("INSERT into posts (user_id, text) VALUES ('"+this.getTokenId(request)+"', '"+data.getString("text")+"');");
+        }
+
     }
 }
