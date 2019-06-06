@@ -91,7 +91,6 @@ function convertToBase64(picture) {
     //Wenn Enter gedrückt wird Post erstellen
     $(document).on("keydown", function (e) {
         if (e.originalEvent.key === "Enter" && $('#post-textarea').val().trim() !== '' && !e.shiftKey) {
-            $('#get-picture')
             base64($('#get-picture'), function (data) {
                 $.ajax({
                     type: "POST",
