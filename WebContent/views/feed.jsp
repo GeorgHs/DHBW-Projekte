@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ page import="controller.SessionController" %>
+<% request.setCharacterEncoding("UTF-8"); %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="de">
 <head>
@@ -28,6 +29,7 @@
             </jsp:include>
         </div>
         <div class="feed_center col-sm-6">
+            <jsp:include page="../includes/create-post.jsp"/>
             <c:forEach items="${feed.posts}" var="post">
                 <jsp:include page="../includes/post.jsp">
                     <jsp:param name="user_id" value="${post.user.id}"/>
@@ -49,5 +51,6 @@
 <script src="/js/scripts.js"></script>
 <script src="/js/websockets.js"></script>
 <script src="/js/feed.js"></script>
+<script src="../js/create-post.js"></script>
 </body>
 </html>

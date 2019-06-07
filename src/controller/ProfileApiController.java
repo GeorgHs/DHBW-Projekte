@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Calendar;
 
 class ProfileApiController extends BaseApiController {
 
@@ -111,11 +112,13 @@ class ProfileApiController extends BaseApiController {
     public void createPost(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = this.getJSON(request);
         String media = data.getString("media");
+        Calendar now = Calendar.getInstance();
+        now.setTimeInMillis(System.currentTimeMillis());
         if(!media.equals("undefined")){
              int mediaId = DatabaseController.executeUpdate("INSERT into media (user_id, media_type, media) VALUES ('"+this.getTokenId(request)+"', 'image', '"+data.getString("media")+"');");
-            DatabaseController.executeUpdate("INSERT into posts (user_id, text, media_id) VALUES ('"+this.getTokenId(request)+"', '"+data.getString("text")+"', '"+mediaId+"');");
+            DatabaseController.executeUpdate("INSERT into posts (user_id, text, media_id, created_at) VALUES ('"+this.getTokenId(request)+"', '"+data.getString("text")+"', '"+mediaId+"', '"+now.getTimeInMillis() +"');");
         }else {
-            DatabaseController.executeUpdate("INSERT into posts (user_id, text) VALUES ('"+this.getTokenId(request)+"', '"+data.getString("text")+"');");
+            DatabaseController.executeUpdate("INSERT into posts (user_id, text, created_at) VALUES ('"+this.getTokenId(request)+"', '"+data.getString("text")+"', '"+ now.getTimeInMillis()+"');");
         }
 
     }

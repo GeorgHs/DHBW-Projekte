@@ -80,6 +80,7 @@
                             <jsp:param name="text" value="${post.text}"/>
                             <jsp:param name="media" value="${post.media}"/>
                             <jsp:param name="media_media" value="${post.media.media}"/>
+                            <jsp:param name="created_at_pretty" value="${post.created_at_pretty}"/>
                         </jsp:include>
                     </c:forEach>
 
@@ -144,6 +145,7 @@
 
 
 <script src="../js/profile.js"></script>
+<script src="../js/create-post.js"></script>
 <script src="../js/scripts.js"></script>
 <script src="../js/websockets.js"></script>
 </body>

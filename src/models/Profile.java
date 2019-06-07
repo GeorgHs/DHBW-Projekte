@@ -171,7 +171,7 @@ public class Profile {
     }
 
     public ArrayList<Post> getPosts() {
-        ResultSet rs = DatabaseController.executeQuery("SELECT * from posts where user_id="+ this.id +";");
+        ResultSet rs = DatabaseController.executeQuery("SELECT * from posts where user_id="+ this.id +" ORDER BY created_at DESC;");
         try {
             while (rs.next()) {
                 Post post = new Post();
@@ -190,6 +190,7 @@ public class Profile {
 
                 post.setText(rs.getString("text"));
                 post.setUser(this);
+                post.setCreated_at((rs.getString("created_at")));
                 int contains = 0;
                 for (Post p: posts) {
                     if(p.getId() == post.getId() ){

@@ -56,7 +56,7 @@ public class Post {
 
     public String getCreated_at_pretty() {
         Calendar created = Calendar.getInstance();
-        created.setTimeInMillis(Integer.parseInt(created_at));
+        created.setTimeInMillis(Long.parseLong(created_at));
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
 
