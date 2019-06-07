@@ -122,6 +122,11 @@ html {
     max-height: 500px;
     width: auto;
 }
+
+.delete-post{
+    position: absolute;
+    right: 10px;
+}
 /* Search */
 
 .profile_card_container {

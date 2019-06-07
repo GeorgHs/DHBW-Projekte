@@ -44,3 +44,26 @@ $("#post-textarea").keydown(function(e){
         e.preventDefault();
     }
 });
+
+/*löschen von Posts*/
+    function deletePost(postId, obj) {
+        var postCard = $(obj)[0].parentNode.parentNode;
+        $.ajax({
+            type: "POST",
+            url: "/api/post/delete",
+            dataType: 'json',
+            async: true,
+            data: "{id:"+postId+"}",
+            statusCode: {
+                204: function () {
+                    $(postCard).fadeOut( 600, function () {
+
+                    });
+                    //window.location.reload();
+                },
+                404: function () {
+                    // window.location.reload();
+                }
+            }
+        });
+    }

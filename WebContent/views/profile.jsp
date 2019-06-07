@@ -73,6 +73,7 @@
                     </c:if>
                     <c:forEach items="${Profil.posts}" var="post">
                         <jsp:include page="../includes/post.jsp">
+                            <jsp:param name="id" value="${post.id}"/>
                             <jsp:param name="user_id" value="${post.user.id}"/>
                             <jsp:param name="user_username" value="${post.user.username}"/>
                             <jsp:param name="user_handle" value="${post.user.handle}"/>
@@ -81,6 +82,7 @@
                             <jsp:param name="media" value="${post.media}"/>
                             <jsp:param name="media_media" value="${post.media.media}"/>
                             <jsp:param name="created_at_pretty" value="${post.created_at_pretty}"/>
+                            <jsp:param name="edit" value="${edit}"/>
                         </jsp:include>
                     </c:forEach>
 

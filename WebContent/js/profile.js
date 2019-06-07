@@ -56,7 +56,6 @@ function convertToBase64(picture) {
     }
 }
     function follow(id) {
-
         $.ajax({
             type: "POST",
             url: "/api/profile/follow",
@@ -65,10 +64,10 @@ function convertToBase64(picture) {
             data: "{'id': '" + id+ "'}",
             statusCode: {
                 200: function () {
-                    window.location.reload();
+                    //window.location.reload();
                 },
                 404: function () {
-                    window.location.reload();
+                    //window.location.reload();
                 }
             }
         });
