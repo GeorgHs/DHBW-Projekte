@@ -4,11 +4,15 @@ $(document).ready(function () {
         //console.log(jwt, socket)
 
         socket.onopen = function () {
-            socket.send("Here's some text that the server is urgently awaiting!");
+            socket.send("Here's some text that the server is urgently awaiting!")
         };
 
         socket.onmessage = function (event) {
-            console.log("New Message: ", event.data);
+            var data = JSON.parse(event.data);
+            console.log("New Message: ", data);
+            if (data.type === "info") {
+                showinfo("Information", data.message);
+            }
         }
     }
 });

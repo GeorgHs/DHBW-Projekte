@@ -1,6 +1,7 @@
 package controller;
 
 import com.auth0.jwt.JWT;
+import models.Profile;
 import org.json.JSONObject;
 
 import javax.servlet.http.Cookie;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 class ProfileApiController extends BaseApiController {
@@ -121,5 +123,11 @@ class ProfileApiController extends BaseApiController {
             DatabaseController.executeUpdate("INSERT into posts (user_id, text, created_at) VALUES ('"+this.getTokenId(request)+"', '"+data.getString("text")+"', '"+ now.getTimeInMillis()+"');");
         }
 
+        Profile p = new Profile();
+        p.setId(this.getTokenId(request));
+        ArrayList<Profile> followers = p.getFollower();
+        for (Profile f : followers) {
+            WebsocketController.sendMessage(f.getId(), "info", "New Posts available. Please reload page");
+        }
     }
 }
