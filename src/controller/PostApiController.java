@@ -15,7 +15,7 @@ public class PostApiController extends BaseApiController {
         this.addUrlMapping_Get("post/getposts", "getPosts");
     }
 
-    public void createPost(HttpServletRequest request, HttpServletResponse response) {
+    /*public void createPost(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = getJSON(request);
         int media_id = -1;
         int user_id = SessionController.getCurrentUserId(request);
@@ -24,7 +24,7 @@ public class PostApiController extends BaseApiController {
         }
         DatabaseController.executeUpdate("INSERT INTO posts (user_id, text, media_id, created_at) VALUES ('" + user_id + "', '" + data.getString("text") + "', " + (media_id == -1 ? "NULL" : "'" + media_id + "'") + ", '" + System.currentTimeMillis() + "');");
         response.setStatus(201);
-    }
+    }*/
     public void deletePost(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = getJSON(request);
         int user_id = SessionController.getCurrentUserId(request);
