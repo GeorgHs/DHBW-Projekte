@@ -2,6 +2,7 @@ package controller;
 
 import com.auth0.jwt.JWT;
 import models.Profile;
+import org.apache.catalina.User;
 import org.json.JSONObject;
 
 import javax.servlet.http.Cookie;
@@ -18,6 +19,7 @@ class ProfileApiController extends BaseApiController {
     ProfileApiController() {
         super();
         this.addUrlMapping_Get("profile/username", "getUsername");
+        this.addUrlMapping_Get("profile/current", "getCurrent");
         this.addUrlMapping_Post("profile/profilepicture", "setProfilepicture");
         this.addUrlMapping_Post("profile/titlepicture", "setTitlepicture");
         this.addUrlMapping_Post("profile/postexample", "postexample");
@@ -26,12 +28,20 @@ class ProfileApiController extends BaseApiController {
         this.addUrlMapping_Post("profile/post", "createPost");
     }
 
+    public void getCurrent(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        String id = this.getTokenId(request);
+        Profile user = new Profile();
+        user.setId(id);
+        sendResponse(response, user.getId() + "," + user.getUsername() + "," + user.getHandle() + "," + user.getProfilePicture());
+
+    }
+
     public void getUsername(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String url = request.getRequestURI();
         String id = url.substring(url.lastIndexOf('/') + 1);
         ResultSet rs = DatabaseController.executeQuery("SELECT username FROM profiles WHERE id=" + id);
         try {
-            if (rs != null && rs.next()){
+            if (rs != null && rs.next()) {
                 sendResponse(response, rs.getString(1));
             }
         } catch (SQLException e) {
@@ -50,21 +60,22 @@ class ProfileApiController extends BaseApiController {
         String picture = data.getString("picture");
         String token = this.getTokenId(request);
 
-        DatabaseController.executeUpdate("UPDATE media SET media='"+picture+"' WHERE user_id="+token+" AND media_type='profile';");
+        DatabaseController.executeUpdate("UPDATE media SET media='" + picture + "' WHERE user_id=" + token + " AND media_type='profile';");
         response.setStatus(200);
         sendResponse(response, picture);
     }
+
     public void setTitlepicture(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JSONObject data = this.getJSON(request);
         String picture = data.getString("picture");
         String token = this.getTokenId(request);
 
-        DatabaseController.executeUpdate("UPDATE media SET media='"+picture+"' WHERE user_id="+token+" AND media_type='title';");
+        DatabaseController.executeUpdate("UPDATE media SET media='" + picture + "' WHERE user_id=" + token + " AND media_type='title';");
         response.setStatus(200);
         sendResponse(response, picture);
     }
 
-    private String getTokenId(HttpServletRequest request){
+    private String getTokenId(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         String jwt = null;
         for (Cookie cookie : cookies) {
@@ -77,18 +88,18 @@ class ProfileApiController extends BaseApiController {
         return token;
     }
 
-    public void followUser(HttpServletRequest request, HttpServletResponse response) throws IOException{
+    public void followUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
         JSONObject data = this.getJSON(request);
         String idToFollow = data.getString("id");
         String tokenId = this.getTokenId(request);
-        ResultSet resultSet = DatabaseController.executeQuery("SELECT * FROM followings where user_id1="+ idToFollow +" AND user_id2="+ tokenId +";");
+        ResultSet resultSet = DatabaseController.executeQuery("SELECT * FROM followings where user_id1=" + idToFollow + " AND user_id2=" + tokenId + ";");
         try {
             if (!resultSet.next()) {
-                DatabaseController.executeUpdate("INSERT INTO followings (user_id1, user_id2) VALUES ('"+idToFollow +"','"+tokenId+"');");
-            }else {
-                DatabaseController.executeUpdate("DELETE FROM followings WHERE user_id1=" + idToFollow + " AND user_id2= "+ tokenId +";");
+                DatabaseController.executeUpdate("INSERT INTO followings (user_id1, user_id2) VALUES ('" + idToFollow + "','" + tokenId + "');");
+            } else {
+                DatabaseController.executeUpdate("DELETE FROM followings WHERE user_id1=" + idToFollow + " AND user_id2= " + tokenId + ";");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         response.setStatus(200);
@@ -116,11 +127,11 @@ class ProfileApiController extends BaseApiController {
         String media = data.getString("media");
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
-        if(!media.equals("undefined")){
-             int mediaId = DatabaseController.executeUpdate("INSERT into media (user_id, media_type, media) VALUES ('"+this.getTokenId(request)+"', 'image', '"+data.getString("media")+"');");
-            DatabaseController.executeUpdate("INSERT into posts (user_id, text, media_id, created_at) VALUES ('"+this.getTokenId(request)+"', '"+data.getString("text")+"', '"+mediaId+"', '"+now.getTimeInMillis() +"');");
-        }else {
-            DatabaseController.executeUpdate("INSERT into posts (user_id, text, created_at) VALUES ('"+this.getTokenId(request)+"', '"+data.getString("text")+"', '"+ now.getTimeInMillis()+"');");
+        if (!media.equals("undefined")) {
+            int mediaId = DatabaseController.executeUpdate("INSERT into media (user_id, media_type, media) VALUES ('" + this.getTokenId(request) + "', 'image', '" + data.getString("media") + "');");
+            DatabaseController.executeUpdate("INSERT into posts (user_id, text, media_id, created_at) VALUES ('" + this.getTokenId(request) + "', '" + data.getString("text") + "', '" + mediaId + "', '" + now.getTimeInMillis() + "');");
+        } else {
+            DatabaseController.executeUpdate("INSERT into posts (user_id, text, created_at) VALUES ('" + this.getTokenId(request) + "', '" + data.getString("text") + "', '" + now.getTimeInMillis() + "');");
         }
 
         Profile p = new Profile();

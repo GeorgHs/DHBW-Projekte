@@ -6,7 +6,6 @@ $('#choose-picture').click(function () {
 //Foto darstellen unter halb der Textarea
 $('#get-picture').change(function () {
     base64($('#get-picture'), function (data) {
-        console.log(data.base64);
         $('.new-post-media').html("<img src=data:image;base64,"+data.base64+">");
     });
 });
@@ -26,7 +25,37 @@ $(document).on("keydown", function (e) {
                 data: "{text: '"+text+"', media: '"+ data.base64 +"'}",
                 statusCode: {
                     200: function () {
-                        window.location.reload();
+                        $('#post-textarea').val('');
+                        $('#get-picture').val('');
+                        $('.new-post-media').html('');
+                        var media = '';
+                        if (data.base64 !== undefined){
+                            media = '<img src="data:image;base64,'+data.base64+'" class="card-img-top">';
+                        }
+                        var post = '<div class="post card">\n' +
+                            '    <div class="card-body container">\n' +
+                            '        <div class="row">\n' +
+                            '            <div class="post-avatar col-md-2 col-xl-1"><img src="data:image;base64,'+profilePicture+'">\n' +
+                            '            </div>\n' +
+                            '            <div class="col-md-10 col-xl-11">\n' +
+                            '                <div class="post-header">\n' +
+                            '                    <a href="/profile/'+user_id+'"><b>'+username+'</b><span\n' +
+                            '                            class="handle">@'+handle+'</span></a>\n' +
+                            '                    <p class="post-date">now</p>\n' +
+                            '                </div>\n' +
+                            '                <div class="post-content">\n' +
+                            '                    <p>'+text+'</p>\n' +
+                                            media +
+                            '                </div>\n' +
+                            '                <div class="post-footer">\n' +
+                            '                    <i class="fas fa-heart" style="color: lightgray;"></i>\n' +
+                            '                </div>\n' +
+                            '            </div>\n' +
+                            '        </div>\n' +
+                            '    </div>'
+                        var posts = document.getElementById("feed").innerHTML;
+                        document.getElementById("feed").innerHTML = post;
+                        document.getElementById("feed").innerHTML += posts;
                     },
                     404: function () {
                         // window.location.reload();
@@ -59,7 +88,6 @@ $("#post-textarea").keydown(function(e){
                     $(postCard).fadeOut( 600, function () {
 
                     });
-                    //window.location.reload();
                 },
                 404: function () {
                     // window.location.reload();

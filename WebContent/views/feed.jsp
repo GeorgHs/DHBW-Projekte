@@ -30,18 +30,20 @@
         </div>
         <div class="feed_center col-sm-6">
             <jsp:include page="../includes/create-post.jsp"/>
-            <c:forEach items="${feed.posts}" var="post">
-                <jsp:include page="../includes/post.jsp">
-                    <jsp:param name="user_id" value="${post.user.id}"/>
-                    <jsp:param name="user_username" value="${post.user.username}"/>
-                    <jsp:param name="user_handle" value="${post.user.handle}"/>
-                    <jsp:param name="user_profilePicture" value="${post.user.profilePicture}"/>
-                    <jsp:param name="text" value="${post.text}"/>
-                    <jsp:param name="media" value="${post.media}"/>
-                    <jsp:param name="media_media" value="${post.media.media}"/>
-                    <jsp:param name="created_at_pretty" value="${post.created_at_pretty}"/>
-                </jsp:include>
-            </c:forEach>
+            <div id="feed">
+                <c:forEach items="${feed.posts}" var="post">
+                    <jsp:include page="../includes/post.jsp">
+                        <jsp:param name="user_id" value="${post.user.id}"/>
+                        <jsp:param name="user_username" value="${post.user.username}"/>
+                        <jsp:param name="user_handle" value="${post.user.handle}"/>
+                        <jsp:param name="user_profilePicture" value="${post.user.profilePicture}"/>
+                        <jsp:param name="text" value="${post.text}"/>
+                        <jsp:param name="media" value="${post.media}"/>
+                        <jsp:param name="media_media" value="${post.media.media}"/>
+                        <jsp:param name="created_at_pretty" value="${post.created_at_pretty}"/>
+                    </jsp:include>
+                </c:forEach>
+            </div>
         </div>
         <div class="feed_right col-sm-3">
             <p>Insert DMs here</p>
