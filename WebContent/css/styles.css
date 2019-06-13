@@ -137,7 +137,8 @@ html {
 }
 
 .profile_card {
-    width: 350px;
+    max-width: 350px;
+    width: 100%;
 }
 
 .profile_card .card-img-top {
@@ -184,4 +185,9 @@ html {
     position: fixed;
     bottom: 10px;
     right: 10px;
+}
+
+.centered {
+    margin-left: 50%;
+    transform: translateX(-50%);
 }

@@ -12,10 +12,7 @@
 <body>
 <%SessionController.checkLogin(request, response);%>
 <%@include file="/includes/navbar.jsp" %>
-
-<jsp:useBean id="feed" class="models.Feed"/>
 <jsp:useBean id="profile" class="models.Profile"/>
-<jsp:setProperty name="feed" property="user" value="${id}"/>
 <jsp:setProperty name="profile" property="id" value="${id}"/>
 <div class="container_fluid">
     <div class="row">
@@ -30,18 +27,19 @@
         </div>
         <div class="feed_center col-sm-6">
             <jsp:include page="../includes/create-post.jsp"/>
-            <c:forEach items="${feed.posts}" var="post">
-                <jsp:include page="../includes/post.jsp">
-                    <jsp:param name="user_id" value="${post.user.id}"/>
-                    <jsp:param name="user_username" value="${post.user.username}"/>
-                    <jsp:param name="user_handle" value="${post.user.handle}"/>
-                    <jsp:param name="user_profilePicture" value="${post.user.profilePicture}"/>
-                    <jsp:param name="text" value="${post.text}"/>
-                    <jsp:param name="media" value="${post.media}"/>
-                    <jsp:param name="media_media" value="${post.media.media}"/>
-                    <jsp:param name="created_at_pretty" value="${post.created_at_pretty}"/>
-                </jsp:include>
-            </c:forEach>
+            <!--
+            <jsp:include page="../includes/posts.jsp">
+                <jsp:param name="id" value="${id}"/>
+                <jsp:param name="limit" value="10"/>
+                <jsp:param name="offset" value="0"/>
+            </jsp:include>
+            -->
+            <div class="btn btn-sm centered" id="load_more" onclick="loadMorePosts(5)">
+                <div class="spinner-border" style="display: none" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <p>Load more</p>
+            </div>
         </div>
         <div class="feed_right col-sm-3">
             <p>Insert DMs here</p>

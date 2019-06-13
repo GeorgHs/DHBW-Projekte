@@ -4,14 +4,15 @@ import org.json.JSONObject;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 public class PostApiController extends BaseApiController {
 
     public PostApiController() {
         super();
-        //this.addUrlMapping_Post("post", "createPost");
         this.addUrlMapping_Post("post/like", "addLike");
         this.addUrlMapping_Post("post/delete", "deletePost");
+        this.addUrlMapping_Get("post/getposts", "getPosts");
     }
 
     public void createPost(HttpServletRequest request, HttpServletResponse response) {
@@ -31,5 +32,13 @@ public class PostApiController extends BaseApiController {
         int id = data.getInt("id");
         DatabaseController.executeUpdate("DELETE from posts WHERE id='"+id+"';");
         response.setStatus(204);
+    }
+
+    public void getPosts(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.sendRedirect("/includes/posts.jsp?limit=" + request.getParameter("limit") + "&offset=" + request.getParameter("offset"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

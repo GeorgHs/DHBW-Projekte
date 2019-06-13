@@ -16,6 +16,7 @@ public class WebsocketController {
         DecodedJWT jwt = SessionController.decodeJWT(token);
         if (jwt != null) {
             SessionController.saveWebsocketSession(jwt.getSubject(), session);
+            //sendMessage(jwt.getSubject(), "info", "Welcome User " + jwt.getSubject());
         }
     }
 

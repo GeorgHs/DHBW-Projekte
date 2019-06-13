@@ -4,14 +4,14 @@ import controller.DatabaseController;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class Feed {
 
     private ArrayList<Post> posts = new ArrayList<>();
     private int user;
+    private int limit = 0;
+    private int offset = 0;
 
     public void setUser(int user) {
         this.user = user;
@@ -19,10 +19,10 @@ public class Feed {
 
     public ArrayList<Post> getPosts() {
         posts.clear();
-        ResultSet rs = DatabaseController.executeQuery("SELECT * FROM posts ORDER BY created_at DESC");
+        ResultSet rs = DatabaseController.executeQuery("SELECT * FROM posts ORDER BY created_at DESC " + (limit != 0 ? "LIMIT " + limit + " OFFSET " + offset : ""));
         try {
             if (rs != null) {
-                while(rs.next()) {
+                while (rs.next()) {
                     Post post = new Post();
                     post.setId(rs.getString("id"));
                     Profile user = new Profile();
@@ -47,5 +47,25 @@ public class Feed {
             e.printStackTrace();
         }
         return posts;
+    }
+
+    public int getLimit() {
+        return limit;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public int getOffset() {
+        return offset;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
+    }
+
+    public int getUser() {
+        return user;
     }
 }
