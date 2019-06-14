@@ -35,6 +35,9 @@ function loadPosts(limit, offset) {
         async: true,
         statusCode: {
             200: function (res) {
+                if (res.trim().length === 0) {
+                    $(".feed_center #load_more").css("display", "none");
+                }
                 $(".feed_center #load_more").before(res);
                 $("#load_more div").css("display", "none");
                 $("#load_more p").css("display", "block");

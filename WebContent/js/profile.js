@@ -1,29 +1,37 @@
-function base64(file, callback){
+$(document).ready(function() {
+    loadPosts(10, 0);
+});
+
+var offset = 0;
+
+function base64(file, callback) {
     var coolFile = {};
-    function readerOnload(e){
+
+    function readerOnload(e) {
         var base64 = btoa(e.target.result);
         coolFile.base64 = base64;
         callback(coolFile)
-    };
+    }
 
-    if(file[0].files[0] !== undefined) {
-    var reader = new FileReader();
-    reader.onload = readerOnload;
+    if (file[0].files[0] !== undefined) {
+        var reader = new FileReader();
+        reader.onload = readerOnload;
 
         var file = file[0].files[0];
         coolFile.filetype = file.type;
         coolFile.size = file.size;
         coolFile.filename = file.name;
         reader.readAsBinaryString(file);
-    }else{
+    } else {
         callback(coolFile.base64 = "");
     }
 }
+
 function changeModal(type) {
-    if(type === 'title'){
-        $('.send').attr("onclick","convertToBase64('titlepicture')");
-    }else if(type === 'profile'){
-        $('.send').attr("onclick","convertToBase64('profilepicture')");
+    if (type === 'title') {
+        $('.send').attr("onclick", "convertToBase64('titlepicture')");
+    } else if (type === 'profile') {
+        $('.send').attr("onclick", "convertToBase64('profilepicture')");
     }
 }
 
@@ -39,9 +47,9 @@ function convertToBase64(picture) {
                 statusCode: {
                     200: function () {
                         $('.cancel').click();
-                        if(picture === 'titlepicture') {
-                            $('.title-picture-wrapper').attr("style", "background: url('data:image; base64," + data.base64+"'");
-                        }else{
+                        if (picture === 'titlepicture') {
+                            $('.title-picture-wrapper').attr("style", "background: url('data:image; base64," + data.base64 + "'");
+                        } else {
                             $('.profile-image').attr("src", "data:image; base64," + data.base64);
                         }
                     },
@@ -55,25 +63,50 @@ function convertToBase64(picture) {
         $('.cancel').click();
     }
 }
-    function follow(id) {
-        $.ajax({
-            type: "POST",
-            url: "/api/profile/follow",
-            dataType: 'json',
-            async: true,
-            data: "{'id': '" + id+ "'}",
-            statusCode: {
-                200: function () {
-                    //window.location.reload();
-                },
-                404: function () {
-                    //window.location.reload();
-                }
+
+function follow(id) {
+    $.ajax({
+        type: "POST",
+        url: "/api/profile/follow",
+        dataType: 'json',
+        async: true,
+        data: "{'id': '" + id + "'}",
+        statusCode: {
+            200: function () {
+                //window.location.reload();
+            },
+            404: function () {
+                //window.location.reload();
             }
-        });
+        }
+    });
 
-    }
+}
 
+function loadPosts(limit, offset) {
+    $("#load_more div").css("display", "block");
+    $("#load_more p").css("display", "none");
+    $.ajax({
+        type: "GET",
+        url: "/api/post/getpostsbyuser?id=" + profileId + "&limit=" + limit + "&offset=" + offset,
+        async: true,
+        statusCode: {
+            200: function (res) {
+                if (res.trim().length === 0) {
+                    $(".profile-posts #load_more").css("display", "none");
+                }
+                $(".profile-posts #load_more").before(res);
+                $("#load_more div").css("display", "none");
+                $("#load_more p").css("display", "block");
+            }
+        }
+    });
+}
+
+function loadMorePosts(n) {
+    loadPosts(n, offset);
+    offset = offset + n;
+}
 
 
 

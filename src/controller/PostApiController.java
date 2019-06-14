@@ -13,6 +13,7 @@ public class PostApiController extends BaseApiController {
         this.addUrlMapping_Post("post/like", "addLike");
         this.addUrlMapping_Post("post/delete", "deletePost");
         this.addUrlMapping_Get("post/getposts", "getPosts");
+        this.addUrlMapping_Get("post/getpostsbyuser", "getPostsByUser");
     }
 
     /*public void createPost(HttpServletRequest request, HttpServletResponse response) {
@@ -36,7 +37,15 @@ public class PostApiController extends BaseApiController {
 
     public void getPosts(HttpServletRequest request, HttpServletResponse response) {
         try {
-            response.sendRedirect("/includes/posts.jsp?limit=" + request.getParameter("limit") + "&offset=" + request.getParameter("offset"));
+            response.sendRedirect("/includes/feed-posts.jsp?limit=" + request.getParameter("limit") + "&offset=" + request.getParameter("offset"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void getPostsByUser(HttpServletRequest request, HttpServletResponse response) {
+        try {
+            response.sendRedirect("/includes/profile-posts.jsp?id=" + request.getParameter("id") + "&limit=" + request.getParameter("limit") + "&offset=" + request.getParameter("offset"));
         } catch (IOException e) {
             e.printStackTrace();
         }

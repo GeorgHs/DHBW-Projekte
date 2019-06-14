@@ -28,13 +28,13 @@
         <div class="feed_center col-sm-6">
             <jsp:include page="../includes/create-post.jsp"/>
             <!--
-            <jsp:include page="../includes/posts.jsp">
+            <jsp:include page="../includes/feed-posts.jsp">
                 <jsp:param name="id" value="${id}"/>
                 <jsp:param name="limit" value="10"/>
                 <jsp:param name="offset" value="0"/>
             </jsp:include>
             -->
-            <div class="btn btn-sm centered" id="load_more" onclick="loadMorePosts(5)">
+            <div class="btn btn-sm centered" id="load_more" onclick="loadMorePosts(10)">
                 <div class="spinner-border" style="display: none" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
