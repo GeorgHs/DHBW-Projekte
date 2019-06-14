@@ -77,23 +77,14 @@
                     <c:if test="${edit}">
                         <jsp:include page="../includes/create-post.jsp"/>
                     </c:if>
-                    <div id="feed">
-                        <c:forEach items="${Profil.posts}" var="post">
-                            <jsp:include page="../includes/post.jsp">
-                                <jsp:param name="id" value="${post.id}"/>
-                                <jsp:param name="user_id" value="${post.user.id}"/>
-                                <jsp:param name="user_username" value="${post.user.username}"/>
-                                <jsp:param name="user_handle" value="${post.user.handle}"/>
-                                <jsp:param name="user_profilePicture" value="${post.user.profilePicture}"/>
-                                <jsp:param name="text" value="${post.text}"/>
-                                <jsp:param name="media" value="${post.media}"/>
-                                <jsp:param name="media_media" value="${post.media.media}"/>
-                                <jsp:param name="created_at_pretty" value="${post.created_at_pretty}"/>
-                                <jsp:param name="edit" value="${edit}"/>
-                            </jsp:include>
-                        </c:forEach>
+                    <div id="feed" class="profile-posts">
+                        <div class="btn btn-sm centered" id="load_more" onclick="loadMorePosts(10)">
+                            <div class="spinner-border" style="display: none" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <p>Load more</p>
+                        </div>
                     </div>
-
                 </div>
                 <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptions-tab">
                     <!--Subscriptions Tab-->
@@ -159,6 +150,10 @@
     <jsp:param name="email" value="${Profil.email}"/>
 </jsp:include>
 
+<jsp:include page="../includes/change-picture-modal.jsp"/>
+<script>
+    var profileId = ${Profil.id};
+</script>
 <script src="../js/current-user.js"></script>
 <script src="../js/sha256.min.js"></script>
 <script src="../js/profile.js"></script>

@@ -19,6 +19,8 @@ public class Profile {
     private ArrayList<Profile> subscriptions = new ArrayList<Profile>();
     private boolean following;
     private ArrayList<Post> posts = new ArrayList<Post>();
+    private int limit;
+    private int offset;
 
     public String getId() {
         return this.id;
@@ -29,11 +31,11 @@ public class Profile {
         try {
             ResultSet resultSet = DatabaseController.executeQuery("SELECT * FROM profiles WHERE id=" + this.id + ";");
             if (resultSet != null && resultSet.next()) {
-                 this.username = resultSet.getString("username");
-                 this.handle = resultSet.getString("handle");
-                 this.email = resultSet.getString("email");
-                 this.profilePictureId = resultSet.getInt("profilepicture_id");
-                 this.titlePictureId = resultSet.getInt("titlepicture_id");
+                this.username = resultSet.getString("username");
+                this.handle = resultSet.getString("handle");
+                this.email = resultSet.getString("email");
+                this.profilePictureId = resultSet.getInt("profilepicture_id");
+                this.titlePictureId = resultSet.getInt("titlepicture_id");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -62,10 +64,10 @@ public class Profile {
     public String getProfilePicture() {
         try {
             ResultSet mediaQuery = DatabaseController.executeQuery("SELECT * FROM media WHERE id=" + this.profilePictureId + ";");
-            if(mediaQuery.next()){
+            if (mediaQuery.next()) {
                 this.profilePicture = mediaQuery.getString("media");
             }
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -79,11 +81,11 @@ public class Profile {
 
     public String getTitlePicture() {
         try {
-            ResultSet mediaQuery = DatabaseController.executeQuery("SELECT * FROM media WHERE id=" + this.titlePictureId +";");
-            if(mediaQuery.next()){
+            ResultSet mediaQuery = DatabaseController.executeQuery("SELECT * FROM media WHERE id=" + this.titlePictureId + ";");
+            if (mediaQuery.next()) {
                 this.titlePicture = mediaQuery.getString("media");
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return this.titlePicture;
@@ -105,24 +107,24 @@ public class Profile {
 
     public ArrayList<Profile> getFollower() {
         try {
-        ResultSet followQuery = DatabaseController.executeQuery("SELECT * FROM followings WHERE user_id1=" + this.id +";");
-        while(followQuery.next()) {
+            ResultSet followQuery = DatabaseController.executeQuery("SELECT * FROM followings WHERE user_id1=" + this.id + ";");
+            while (followQuery.next()) {
                 String userId = followQuery.getString("user_id2");
                 Profile user = new Profile();
                 user.setId(userId);
                 int contains = 0;
-                for (Profile f:follower) {
-                    if(f.id.equals(userId)){
+                for (Profile f : follower) {
+                    if (f.id.equals(userId)) {
                         contains++;
                     }
                 }
                 if (contains == 0) {
-                this.follower.add(user);
+                    this.follower.add(user);
+                }
+
             }
-
-        }
-        }catch (Exception e){
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return this.follower;
     }
@@ -133,14 +135,14 @@ public class Profile {
 
     public ArrayList<Profile> getSubscriptions() {
         try {
-            ResultSet followQuery = DatabaseController.executeQuery("SELECT * FROM followings WHERE user_id2=" + this.id +";");
-            while(followQuery.next()) {
+            ResultSet followQuery = DatabaseController.executeQuery("SELECT * FROM followings WHERE user_id2=" + this.id + ";");
+            while (followQuery.next()) {
                 String userId = followQuery.getString("user_id1");
                 Profile user = new Profile();
                 user.setId(userId);
                 int contains = 0;
-                for (Profile s:subscriptions) {
-                    if(s.id.equals(userId)){
+                for (Profile s : subscriptions) {
+                    if (s.id.equals(userId)) {
                         contains++;
                     }
                 }
@@ -149,7 +151,7 @@ public class Profile {
                 }
 
             }
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return this.subscriptions;
@@ -157,28 +159,28 @@ public class Profile {
 
     public boolean isFollowing(String id) {
         following = false;
-        if(!this.id.equals(id)){
-        ResultSet res = DatabaseController.executeQuery("SELECT * FROM followings WHERE user_id1='"+this.id+"' AND user_id2='"+id+"';");
-        try {
-            if (res.next()) {
-                following = true;
+        if (!this.id.equals(id)) {
+            ResultSet res = DatabaseController.executeQuery("SELECT * FROM followings WHERE user_id1='" + this.id + "' AND user_id2='" + id + "';");
+            try {
+                if (res.next()) {
+                    following = true;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        }catch (Exception e){
-
-        }
         }
         return following;
     }
 
     public ArrayList<Post> getPosts() {
-        ResultSet rs = DatabaseController.executeQuery("SELECT * from posts where user_id="+ this.id +" ORDER BY created_at DESC;");
+        ResultSet rs = DatabaseController.executeQuery("SELECT * from posts where user_id=" + this.id + " ORDER BY created_at DESC " + (limit != 0 ? "LIMIT " + limit + " OFFSET " + offset : "") + ";");
         try {
-            while (rs.next()) {
+            while (rs != null && rs.next()) {
                 Post post = new Post();
                 post.setId(rs.getString("id"));
-                if(rs.getString("media_id") != null){
-                    ResultSet mediaQuery = DatabaseController.executeQuery("SELECT * from media WHERE id="+ rs.getString("media_id")+";");
-                    if(mediaQuery.next()) {
+                if (rs.getString("media_id") != null) {
+                    ResultSet mediaQuery = DatabaseController.executeQuery("SELECT * from media WHERE id=" + rs.getString("media_id") + ";");
+                    if (mediaQuery.next()) {
                         Media m = new Media();
                         m.setMedia_id(mediaQuery.getInt("id"));
                         m.setMedia(mediaQuery.getString("media"));
@@ -192,8 +194,8 @@ public class Profile {
                 post.setUser(this);
                 post.setCreated_at((rs.getString("created_at")));
                 int contains = 0;
-                for (Post p: posts) {
-                    if(p.getId() == post.getId() ){
+                for (Post p : posts) {
+                    if (p.getId() == post.getId()) {
                         contains++;
                     }
                 }
@@ -202,9 +204,17 @@ public class Profile {
                 }
 
             }
-        }catch (Exception e){
-
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return posts;
+    }
+
+    public void setLimit(int limit) {
+        this.limit = limit;
+    }
+
+    public void setOffset(int offset) {
+        this.offset = offset;
     }
 }
