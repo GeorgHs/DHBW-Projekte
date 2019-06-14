@@ -1,6 +1,7 @@
 var user_id;
 var username;
 var handle;
+var email;
 var profilePicture;
 $(document).ready(function() {
     $.ajax({
@@ -13,5 +14,6 @@ $(document).ready(function() {
         username = res[1] ;
         handle = res[2];
         profilePicture = res[3];
+        email = res[4];
     });
 });

@@ -73,6 +73,10 @@ html {
     font-size: 15px;
 }
 
+.password-form-group input{
+    margin-bottom: 20px;
+}
+
 
 
 /* Feed */

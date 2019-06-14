@@ -133,7 +133,7 @@
             <!--Edit Profile oder Follow/Unfollow Button-->
             <c:choose>
                 <c:when test="${edit}">
-                    <button class="btn">Profil bearbeiten</button>
+                    <button class="btn" data-toggle="modal" data-target="#settingsModal">Profil bearbeiten</button>
                 </c:when>
                 <c:otherwise>
                     <c:choose>
@@ -151,11 +151,19 @@
 </div>
 
 <!--Modal zum ändern von den Bildern -->
-<jsp:include page="../includes/change-picture-modal.jsp"></jsp:include>
+<jsp:include page="../includes/change-picture-modal.jsp"/>
+<jsp:include page="../includes/change-user-settings.jsp">
+    <jsp:param name="id" value="${Profil.id}"/>
+    <jsp:param name="username" value="${Profil.username}"/>
+    <jsp:param name="handle" value="${Profil.handle}"/>
+    <jsp:param name="email" value="${Profil.email}"/>
+</jsp:include>
 
 <script src="../js/current-user.js"></script>
+<script src="../js/sha256.min.js"></script>
 <script src="../js/profile.js"></script>
 <script src="../js/create-post.js"></script>
+<script src="../js/validations.js"></script>
 
 <script src="../js/scripts.js"></script>
 <script src="../js/websockets.js"></script>

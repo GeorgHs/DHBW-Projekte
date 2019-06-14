@@ -25,6 +25,13 @@ class ProfileApiController extends BaseApiController {
         this.addUrlMapping_Post("profile/postexample", "postexample");
         this.addUrlMapping_Post("profile/follow", "followUser");
         this.addUrlMapping_Post("profile/isValidHandle", "isValidHandle");
+        this.addUrlMapping_Post("profile/isValidUsername", "isValidUsername");
+        this.addUrlMapping_Post("profile/isValidEmail", "isValidEmail");
+        this.addUrlMapping_Post("profile/isValidPassword", "isValidPassword");
+        this.addUrlMapping_Post("profile/updateUsername", "updateUsername");
+        this.addUrlMapping_Post("profile/updateHandle", "updateHandle");
+        this.addUrlMapping_Post("profile/updatePassword", "updatePassword");
+        this.addUrlMapping_Post("profile/updateEmail", "updateEmail");
         this.addUrlMapping_Post("profile/post", "createPost");
     }
 
@@ -32,7 +39,7 @@ class ProfileApiController extends BaseApiController {
         String id = this.getTokenId(request);
         Profile user = new Profile();
         user.setId(id);
-        sendResponse(response, user.getId() + "," + user.getUsername() + "," + user.getHandle() + "," + user.getProfilePicture());
+        sendResponse(response, user.getId() + "," + user.getUsername() + "," + user.getHandle() + "," + user.getProfilePicture() + "," + user.getEmail());
 
     }
 
@@ -109,18 +116,112 @@ class ProfileApiController extends BaseApiController {
     public void isValidHandle(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = this.getJSON(request);
         String handle = data.getString("handle");
-        ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE handle='" + handle + "';");
-        try {
-            response.setStatus(200);
-            if (rs != null && rs.next()) {
-                sendResponse(response, "false");
-            } else {
-                sendResponse(response, "true");
+        if (handle.trim().equals("")) {
+            sendResponse(response, "false");
+        } else {
+            ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE handle='" + handle + "';");
+            try {
+                response.setStatus(200);
+                if (rs != null && rs.next()) {
+                    sendResponse(response, "false");
+                } else {
+                    sendResponse(response, "true");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
+
+    public void isValidUsername(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = this.getJSON(request);
+        String username = data.getString("username");
+        if (username.trim().equals("")) {
+            sendResponse(response, "false");
+        } else {
+            ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE username='" + username + "';");
+            try {
+                response.setStatus(200);
+                if (rs != null && rs.next()) {
+                    sendResponse(response, "false");
+                } else {
+                    sendResponse(response, "true");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void isValidEmail(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = this.getJSON(request);
+        String email = data.getString("email");
+        if (email.trim().equals("")) {
+            sendResponse(response, "false");
+        } else {
+            ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE email='" + email + "';");
+            try {
+                response.setStatus(200);
+                if (rs != null && rs.next()) {
+                    sendResponse(response, "false");
+                } else {
+                    sendResponse(response, "true");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void isValidPassword(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = this.getJSON(request);
+        String password = data.getString("password");
+        String passwordNew = data.getString("password-new");
+        String passwordNewWdh = data.getString("password-new-wdh");
+        if(passwordNew.equals(passwordNewWdh) && !passwordNew.isEmpty()) {
+            ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE id='" + getTokenId(request) + "' AND password='" + password + "';");
+            try {
+                if (rs != null && rs.next()) {
+                    response.setStatus(200);
+                    sendResponse(response, "true");
+                } else {
+                    sendResponse(response, "false");
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }else {
+            sendResponse(response, "false");
+        }
+    }
+
+    public void updateUsername(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = this.getJSON(request);
+        String username = data.getString("username");
+        DatabaseController.executeUpdate("UPDATE profiles SET username='"+username+ "' WHERE id="+getTokenId(request));
+    }
+
+    public void updateHandle(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = this.getJSON(request);
+        String handle = data.getString("handle");
+        DatabaseController.executeUpdate("UPDATE profiles SET handle='"+handle+"' WHERE id="+getTokenId(request));
+    }
+
+    public void updateEmail(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = this.getJSON(request);
+        String email = data.getString("email");
+        DatabaseController.executeUpdate("UPDATE profiles SET email='"+email+"' WHERE id="+getTokenId(request));
+    }
+
+    public void updatePassword(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = this.getJSON(request);
+        String password = data.getString("password");
+        DatabaseController.executeUpdate("UPDATE profiles SET password='"+password+ "' WHERE id="+getTokenId(request));
+    }
+
+
+
+
 
     public void createPost(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = this.getJSON(request);
