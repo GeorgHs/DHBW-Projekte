@@ -22,7 +22,8 @@ public class ApiServlet extends HttpServlet {
         this.controllers = new BaseApiController[] {
                 new ProfileApiController(),
                 new LoginApiController(),
-                new PostApiController()
+                new PostApiController(),
+                new DmApiController()
         };
     }
 
