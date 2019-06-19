@@ -141,7 +141,7 @@ html {
 }
 
 .profile_card {
-    max-width: 350px;
+    max-width: 500px;
     width: 100%;
 }
 
@@ -205,6 +205,73 @@ html {
 
 .register button {
     margin-top: 20px;
+}
+
+/* DM */
+
+.chat_carousel {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    width: 100%;
+    overflow-x: scroll;
+}
+
+.chat_carousel_person {
+    width: 60px;
+    margin: 10px 5px 10px 5px;
+}
+
+.chat_carousel_person .profile-image {
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+}
+
+.chatbox {
+    height: 500px;
+}
+
+.chat_messages {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    padding: 10px;
+}
+
+.chat_send {
+}
+
+.message_received {
+    padding: 5px;
+    border-radius: 5px;
+    background: cornflowerblue;
+    color: white;
+    float:left;
+    text-align: left;
+    clear: both;
+    max-width: 80%;
+}
+
+.message_sent {
+    padding: 5px;
+    border-radius: 5px;
+    background: cornflowerblue;
+    color: white;
+    float: right;
+    text-align: right;
+    clear: both;
+    max-width: 80%;
+    margin: 5px 0;
+}
+
+.chat_send div textarea {
+    height: 40px;
+}
+
+.timestamp {
+    font-size: 10px;
+    float: right;
 }
 
 /* Utilities */

@@ -39,30 +39,21 @@
         </div>
         <div class="feed_center col-sm-6">
             <jsp:include page="../includes/create-post.jsp"/>
-            <!--
-            <jsp:include page="../includes/feed-posts.jsp">
-                <jsp:param name="id" value="${id}"/>
-                <jsp:param name="limit" value="10"/>
-                <jsp:param name="offset" value="0"/>
-            </jsp:include>
-            -->
-            <div id="feed">
-                <div class="btn btn-sm centered" id="load_more" onclick="loadMorePosts(10)">
-                    <div class="spinner-border" style="display: none" role="status">
-                        <span class="sr-only">Loading...</span>
-                    </div>
-                    <p>Load more</p>
+            <div class="btn btn-sm centered" id="load_more" onclick="loadMorePosts(10)">
+                <div class="spinner-border" style="display: none" role="status">
+                    <span class="sr-only">Loading...</span>
                 </div>
+                <p>Load more</p>
             </div>
         </div>
         <div class="feed_right col-sm-3">
-            <p>Insert DMs here</p>
+            <jsp:include page="/includes/dm_chatbox.jsp"/>
         </div>
     </div>
 </div>
 <script src="/js/scripts.js"></script>
 <script src="/js/websockets.js"></script>
 <script src="/js/feed.js"></script>
-<script src="../js/create-post.js"></script>
+<script src="/js/create-post.js"></script>
 </body>
 </html>

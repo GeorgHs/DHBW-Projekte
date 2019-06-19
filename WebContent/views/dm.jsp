@@ -10,8 +10,6 @@
 <body>
 <%SessionController.checkLogin(request, response);%>
 <%@include file="/includes/navbar.jsp"%>
-
-<script src="../js/scripts.js"></script>
-<script src="../js/websockets.js"></script>
+<p>DMs</p>
 </body>
 </html>

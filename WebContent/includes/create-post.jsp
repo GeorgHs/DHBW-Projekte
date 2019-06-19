@@ -1,4 +1,4 @@
-<div class="input-group mb-3">
+<div class="input-group mb-3" style="margin-top: 10px">
      <textarea id="post-textarea" class="form-control" placeholder="Schreib etwas..." aria-label="Username"
                aria-describedby="basic-addon1"></textarea>
     <div class="input-group-prepend">
@@ -7,5 +7,4 @@
     </div>
 </div>
 <div class="new-post-media">
-
 </div>

@@ -20,6 +20,10 @@ $(document).ready(function () {
         location.replace("/login");
     });
 
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' })
+    })
+
 });
 
 function showinfo(title, message){
