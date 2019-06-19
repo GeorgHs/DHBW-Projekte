@@ -12,6 +12,7 @@ public class Feed {
     private int user;
     private int limit = 0;
     private int offset = 0;
+    private ArrayList<Profile> suggestions = new ArrayList<>();
 
     public void setUser(int user) {
         this.user = user;
@@ -47,6 +48,28 @@ public class Feed {
             e.printStackTrace();
         }
         return posts;
+    }
+
+    public ArrayList<Profile> getSuggestions(){
+        Profile currentUser = new Profile();
+        currentUser.setId(Integer.toString(user));
+        ArrayList<Profile> subscriptions = currentUser.getSubscriptions();
+        String sql = "SELECT * FROM profiles WHERE id!='"+ user+"'";
+        for (Profile p: subscriptions) {
+            sql += " AND id!='"+p.getId()+"'";
+        }
+        ResultSet rs = DatabaseController.executeQuery( sql + (limit != 0 ? "LIMIT " + limit + " OFFSET " + offset : ""));
+        try {
+            while (rs.next()) {
+                Profile p = new Profile();
+                p.setId(rs.getString("id"));
+                p.getProfilePicture();
+                suggestions.add(p);
+            }
+        }catch (Exception e){
+
+        }
+        return suggestions;
     }
 
     public int getLimit() {

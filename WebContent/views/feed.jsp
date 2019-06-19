@@ -24,6 +24,18 @@
                 <jsp:param name="titlePicture" value="${profile.titlePicture}"/>
                 <jsp:param name="handle" value="${profile.handle}"/>
             </jsp:include>
+
+            <div class="suggestions card">
+                <div class="card-head">
+                    <p class="h5 m-2">Vorschläge für dich:</p>
+                </div>
+                <div class="btn btn-sm centered" id="load_more_sug" onclick="loadMoreSuggestions(3)">
+                    <div class="spinner-border" style="display: none" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <p>Load more</p>
+                </div>
+            </div>
         </div>
         <div class="feed_center col-sm-6">
             <jsp:include page="../includes/create-post.jsp"/>
@@ -34,11 +46,13 @@
                 <jsp:param name="offset" value="0"/>
             </jsp:include>
             -->
-            <div class="btn btn-sm centered" id="load_more" onclick="loadMorePosts(10)">
-                <div class="spinner-border" style="display: none" role="status">
-                    <span class="sr-only">Loading...</span>
+            <div id="feed">
+                <div class="btn btn-sm centered" id="load_more" onclick="loadMorePosts(10)">
+                    <div class="spinner-border" style="display: none" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    <p>Load more</p>
                 </div>
-                <p>Load more</p>
             </div>
         </div>
         <div class="feed_right col-sm-3">

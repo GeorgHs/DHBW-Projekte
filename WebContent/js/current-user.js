@@ -4,6 +4,7 @@ var handle;
 var email;
 var profilePicture;
 $(document).ready(function() {
+    console.log(1);
     $.ajax({
         type: "GET",
         url: "/api/profile/current",
