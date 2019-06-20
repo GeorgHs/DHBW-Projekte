@@ -5,6 +5,7 @@
 <jsp:setProperty name="feed" property="user" value="${param.id}"/>
 <jsp:setProperty name="feed" property="limit" value="${param.limit}"/>
 <jsp:setProperty name="feed" property="offset" value="${param.offset}"/>
+
 <c:forEach items="${feed.posts}" var="post">
     <jsp:include page="../includes/post.jsp">
         <jsp:param name="user_id" value="${post.user.id}"/>

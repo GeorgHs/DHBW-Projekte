@@ -1,9 +1,22 @@
 $(document).ready(function() {
     loadPosts(10, 0);
+    checkEdit();
 });
 
 var offset = 0;
 
+//Funktion, die überprüft, ob man editieren darf
+//@TODO checkEdit() fertigstellen
+function checkEdit() {
+    if(profileId === user_id){
+        $('.post-body .row').before('<a class="delete-post" onclick="deletePost(${param.id}, this)"><i class="fas fa-trash-alt"></i></a>');
+    }else{
+        console.log(profileId);
+        console.log(user_id);
+    }
+}
+
+//Bild in Base64 umwandeln
 function base64(file, callback) {
     var coolFile = {};
 
@@ -27,6 +40,7 @@ function base64(file, callback) {
     }
 }
 
+//Funktion je nach Button, der geclickt wurde aufrufen
 function changeModal(type) {
     if (type === 'title') {
         $('.send').attr("onclick", "convertToBase64('titlepicture')");
@@ -35,6 +49,8 @@ function changeModal(type) {
     }
 }
 
+
+//Bild in Base64 umwandeln und in der Datenbank ändern
 function convertToBase64(picture) {
     if ($('#profilePicture')[0].files[0] !== undefined) {
         base64($('#profilePicture'), function (data) {
@@ -64,6 +80,8 @@ function convertToBase64(picture) {
     }
 }
 
+
+//folgen
 function follow(id) {
     $.ajax({
         type: "POST",
@@ -83,6 +101,7 @@ function follow(id) {
 
 }
 
+//Funktionen um das Profil zu bearbeiten
 function changeSettings() {
     if ($('#handle').val() !== handle) {
         validateHandle(function (res) {
@@ -185,6 +204,8 @@ function updatePassword() {
         }
     });
 }
+
+
 
 function loadPosts(limit, offset) {
     $("#load_more div").css("display", "block");
