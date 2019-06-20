@@ -196,6 +196,12 @@ html {
 .chat_carousel_person {
     width: 60px;
     margin: 10px 5px 10px 5px;
+    position: relative;
+}
+
+.chat_carousel_person .badge {
+    position: absolute;
+    right: 0px;
 }
 
 .chat_carousel_person .profile-image {
