@@ -47,7 +47,9 @@
             </div>
         </div>
         <div class="feed_right col-sm-3">
-            <jsp:include page="/includes/dm_chatbox.jsp"/>
+            <jsp:include page="/includes/dm_chatbox.jsp">
+                <jsp:param name="id" value="${id}"/>
+            </jsp:include>
         </div>
     </div>
 </div>

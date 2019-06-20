@@ -3,6 +3,7 @@ package models;
 import controller.DatabaseController;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Profile {
@@ -21,6 +22,8 @@ public class Profile {
     private ArrayList<Post> posts = new ArrayList<Post>();
     private int limit;
     private int offset;
+    private int chatPartner;
+    private int chatUnreadMessages;
 
     public String getId() {
         return this.id;
@@ -216,5 +219,25 @@ public class Profile {
 
     public void setOffset(int offset) {
         this.offset = offset;
+    }
+
+    public void setChatPartner(int chatPartner) {
+        this.chatPartner = chatPartner;
+    }
+
+    public int getUnreadMessages() {
+        ResultSet rs = DatabaseController.executeQuery("SELECT * FROM messages WHERE user_id_to=" + chatPartner + " AND user_id_from=" + id);
+        int count = 0;
+        try {
+            while (rs != null && rs.next()) {
+                if (rs.getInt("is_read") == 0) {
+                    count++;
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return count;
     }
 }

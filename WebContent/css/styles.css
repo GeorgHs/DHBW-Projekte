@@ -2,6 +2,12 @@ html {
     width: 100%;
 }
 
+nav {
+    z-index: 100;
+    position: fixed !important;
+    width: 100%;
+}
+
 .page_heading {
     width: 100%;
     text-align: center;
@@ -234,6 +240,10 @@ html {
     border-radius: 100%;
 }
 
+.chat_active {
+    border: 2px solid cornflowerblue;
+}
+
 .chatbox {
     height: 500px;
 }
@@ -257,6 +267,7 @@ html {
     text-align: left;
     clear: both;
     max-width: 80%;
+    margin: 5px 0;
 }
 
 .message_sent {
