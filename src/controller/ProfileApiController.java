@@ -33,6 +33,7 @@ class ProfileApiController extends BaseApiController {
         this.addUrlMapping_Post("profile/updatePassword", "updatePassword");
         this.addUrlMapping_Post("profile/updateEmail", "updateEmail");
         this.addUrlMapping_Post("profile/post", "createPost");
+        this.addUrlMapping_Get("profile/getsuggestions", "getSuggestions");
     }
 
     public void getCurrent(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -219,10 +220,6 @@ class ProfileApiController extends BaseApiController {
         DatabaseController.executeUpdate("UPDATE profiles SET password='"+password+ "' WHERE id="+getTokenId(request));
     }
 
-
-
-
-
     public void createPost(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = this.getJSON(request);
         String media = data.getString("media");
@@ -232,7 +229,8 @@ class ProfileApiController extends BaseApiController {
             int mediaId = DatabaseController.executeUpdate("INSERT into media (user_id, media_type, media) VALUES ('" + this.getTokenId(request) + "', 'image', '" + data.getString("media") + "');");
             DatabaseController.executeUpdate("INSERT into posts (user_id, text, media_id, created_at) VALUES ('" + this.getTokenId(request) + "', '" + data.getString("text") + "', '" + mediaId + "', '" + now.getTimeInMillis() + "');");
         } else {
-            DatabaseController.executeUpdate("INSERT into posts (user_id, text, created_at) VALUES ('" + this.getTokenId(request) + "', '" + data.getString("text") + "', '" + now.getTimeInMillis() + "');");
+            String sql = "INSERT into posts (user_id, text, created_at) VALUES ('" + this.getTokenId(request) + "', '" + data.getString("text") + "', '" + now.getTimeInMillis() + "');";
+            DatabaseController.executeUpdate(sql);
         }
 
         Profile p = new Profile();
@@ -240,6 +238,14 @@ class ProfileApiController extends BaseApiController {
         ArrayList<Profile> followers = p.getFollower();
         for (Profile f : followers) {
             WebsocketController.sendMessage(f.getId(), "info", "New Posts available. Please reload page");
+        }
+    }
+
+    public void getSuggestions(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        try {
+            response.sendRedirect("/includes/feed-suggestions.jsp?limit=" + request.getParameter("limit") + "&offset=" + request.getParameter("offset")+"&id="+ this.getTokenId(request));
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
