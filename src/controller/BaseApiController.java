@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.json.*;
 
 abstract class BaseApiController {
@@ -32,8 +33,7 @@ abstract class BaseApiController {
     }
 
     /**
-     *
-     * @param url Url nach "/controller/"
+     * @param url    Url nach "/controller/"
      * @param method Name der Methode, die aufgerufen wird
      */
     void addUrlMapping_Get(String url, String method) {
@@ -61,6 +61,7 @@ abstract class BaseApiController {
 
     /**
      * Parse JSON-Data from request and return it
+     *
      * @param request
      * @return
      */
@@ -86,6 +87,7 @@ abstract class BaseApiController {
 
     /**
      * Send a String as HTTP Response
+     *
      * @param response
      * @param content
      */

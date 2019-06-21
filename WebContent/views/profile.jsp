@@ -28,6 +28,7 @@
     <div class="row">
         <div class="col-md-2">
 
+
         </div>
         <div class="col-md-2" style="max-width: 150px;">
             <div class="profile-image-wrapper">
@@ -40,19 +41,16 @@
                     </div>
                 </c:if>
             </div>
-            <p class="h5">
-                <jsp:getProperty name="Profil" property="username"/>
-                <span class="handle">@<jsp:getProperty name="Profil" property="handle"/></span>
-            </p>
+            <jsp:getProperty name="Profil" property="email"/>
+            <jsp:getProperty name="Profil" property="username"/>
         </div>
         <div class="col-md-7">
-            <!--Profil Nav-->
             <ul class="nav nav-tabs" id="profileTab" role="tablist">
                 <li class="nav-item">
                     <a class="nav-link card-button active" id="posts-tab" data-toggle="tab" href="#posts" role="tab"
                        aria-controls="posts" aria-selected="true">
                         <h2>Posts</h2>
-                        <h3>${Profil.posts.size()}</h3>
+                        <h3>34</h3>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -70,41 +68,37 @@
                     </a>
                 </li>
             </ul>
-            <!--Tab Content-->
+
             <div class="tab-content" id="profileTabContent">
                 <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
-                    <!--Posts Tab-->
                     <c:if test="${edit}">
-                        <jsp:include page="../includes/create-post.jsp"/>
-                    </c:if>
-                    <div id="feed" class="profile-posts">
-                        <div class="btn btn-sm centered" id="load_more" onclick="loadMorePosts(10)">
-                            <div class="spinner-border" style="display: none" role="status">
-                                <span class="sr-only">Loading...</span>
+                        <div class="input-group mb-3">
+                            <input type="text" class="form-control" placeholder="Schreib etwas..." aria-label="Username"
+                                   aria-describedby="basic-addon1">
+                            <div class="input-group-prepend">
+                                <button class="input-group-text" onclick="alert('hi');"><i class="fas fa-camera"></i>
+                                </button>
                             </div>
-                            <p>Load more</p>
                         </div>
-                    </div>
+                    </c:if>
                 </div>
                 <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptions-tab">
-                    <!--Subscriptions Tab-->
                     <div class="row">
-                        <c:forEach items="${Profil.subscriptions}" var="subscriptions">
-                            <div class="col-md-6">
-                                <jsp:include page="../includes/profile-card.jsp">
-                                    <jsp:param name="id" value="${subscriptions.id}"/>
-                                    <jsp:param name="username" value="${subscriptions.username}"/>
-                                    <jsp:param name="profilePicture" value="${subscriptions.profilePicture}"/>
-                                    <jsp:param name="titlePicture" value="${subscriptions.titlePicture}"/>
-                                    <jsp:param name="handle" value="${subscriptions.handle}"/>
-                                </jsp:include>
-                            </div>
-                        </c:forEach>
+                    <c:forEach items="${Profil.subscriptions}" var="subscriptions">
+                        <div class="col-md-6">
+                        <jsp:include page="../includes/profile-card.jsp">
+                            <jsp:param name="id" value="${subscriptions.id}"/>
+                            <jsp:param name="username" value="${subscriptions.username}"/>
+                            <jsp:param name="profilePicture" value="${subscriptions.profilePicture}"/>
+                            <jsp:param name="titlePicture" value="${subscriptions.titlePicture}"/>
+                            <jsp:param name="handle" value="${subscriptions.handle}"/>
+                        </jsp:include>
+                        </div>
+                    </c:forEach>
                     </div>
                 </div>
                 <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follower-tab">
-                    <!--Follower Tab-->
-                    <div class="row">
+                   <div class="row">
                         <c:forEach items="${Profil.follower}" var="follow">
                             <div class="col-md-6">
                                 <jsp:include page="../includes/profile-card.jsp">
@@ -114,17 +108,16 @@
                                     <jsp:param name="titlePicture" value="${follow.titlePicture}"/>
                                     <jsp:param name="handle" value="${follow.handle}"/>
                                 </jsp:include>
-                            </div>
+                           </div>
                         </c:forEach>
-                    </div>
+                   </div>
                 </div>
             </div>
         </div>
         <div class="col-md-1">
-            <!--Edit Profile oder Follow/Unfollow Button-->
             <c:choose>
                 <c:when test="${edit}">
-                    <button class="btn" data-toggle="modal" data-target="#settingsModal">Profil bearbeiten</button>
+                    <button class="btn">Profil bearbeiten</button>
                 </c:when>
                 <c:otherwise>
                     <c:choose>
@@ -135,31 +128,37 @@
                             <button class="btn float-right" onclick="follow(${Profil.id})">Folgen</button>
                         </c:otherwise>
                     </c:choose>
+
                 </c:otherwise>
             </c:choose>
         </div>
     </div>
 </div>
 
-<!--Modal zum ändern von den Bildern -->
-<jsp:include page="../includes/change-picture-modal.jsp"/>
-<jsp:include page="../includes/change-user-settings.jsp">
-    <jsp:param name="id" value="${Profil.id}"/>
-    <jsp:param name="username" value="${Profil.username}"/>
-    <jsp:param name="handle" value="${Profil.handle}"/>
-    <jsp:param name="email" value="${Profil.email}"/>
-</jsp:include>
+<!-- Modal -->
+<div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="profileModalTitle">Profilbild bearbeiten</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <input name="profilePicture" type="file">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary send" onclick="convertToBase64('profilepicture')">Save
+                    changes
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
 
-<jsp:include page="../includes/change-picture-modal.jsp"/>
-<script>
-    var profileId = ${Profil.id};
-</script>
-<script src="../js/current-user.js"></script>
-<script src="../js/sha256.min.js"></script>
 <script src="../js/profile.js"></script>
-<script src="../js/create-post.js"></script>
-<script src="../js/validations.js"></script>
-
 <script src="../js/scripts.js"></script>
 <script src="../js/websockets.js"></script>
 </body>

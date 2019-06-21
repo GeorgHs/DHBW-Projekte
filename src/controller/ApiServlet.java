@@ -12,14 +12,14 @@ import java.util.Map;
 /**
  * Main API Controller
  */
-@WebServlet(name = "controller.ApiServlet", urlPatterns={"/api/*"})
+@WebServlet(name = "controller.ApiServlet", urlPatterns = {"/api/*"})
 public class ApiServlet extends HttpServlet {
     private BaseApiController[] controllers;
 
     @Override
     public void init() throws ServletException {
         super.init();
-        this.controllers = new BaseApiController[] {
+        this.controllers = new BaseApiController[]{
                 new ProfileApiController(),
                 new LoginApiController(),
                 new PostApiController(),
@@ -45,37 +45,38 @@ public class ApiServlet extends HttpServlet {
 
     /**
      * Leitet anfragen an den Controller weiter, der sich für die aufgerufene URL als zuständig deklariert hat
+     *
      * @param request
      * @param response
      */
-    private void serviceApi(HttpServletRequest request, HttpServletResponse response){
+    private void serviceApi(HttpServletRequest request, HttpServletResponse response) {
         String url = request.getRequestURI().replace("/api/", "");
         for (BaseApiController controller : controllers) {
             String method_name = null;
             switch (request.getMethod()) {
                 case "GET":
-                    for(Map.Entry e : controller.getUrlMappings_Get().entrySet()) {
+                    for (Map.Entry e : controller.getUrlMappings_Get().entrySet()) {
                         if (url.startsWith(e.getKey().toString())) {
                             method_name = e.getValue().toString();
                         }
                     }
                     break;
                 case "POST":
-                    for(Map.Entry e : controller.getUrlMappings_Post().entrySet()) {
+                    for (Map.Entry e : controller.getUrlMappings_Post().entrySet()) {
                         if (url.startsWith(e.getKey().toString())) {
                             method_name = e.getValue().toString();
                         }
                     }
                     break;
                 case "PUT":
-                    for(Map.Entry e : controller.getUrlMappings_Put().entrySet()) {
+                    for (Map.Entry e : controller.getUrlMappings_Put().entrySet()) {
                         if (url.startsWith(e.getKey().toString())) {
                             method_name = e.getValue().toString();
                         }
                     }
                     break;
                 case "DELETE":
-                    for(Map.Entry e : controller.getUrlMappings_Delete().entrySet()) {
+                    for (Map.Entry e : controller.getUrlMappings_Delete().entrySet()) {
                         if (url.startsWith(e.getKey().toString())) {
                             method_name = e.getValue().toString();
                         }

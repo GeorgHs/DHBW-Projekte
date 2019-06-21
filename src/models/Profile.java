@@ -18,9 +18,6 @@ public class Profile {
     private ArrayList<Profile> follower = new ArrayList<Profile>();
     private ArrayList<Profile> subscriptions = new ArrayList<Profile>();
     private boolean following;
-    private ArrayList<Post> posts = new ArrayList<Post>();
-    private int limit;
-    private int offset;
 
     public String getId() {
         return this.id;
@@ -124,7 +121,7 @@ public class Profile {
 
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
         return this.follower;
     }
@@ -166,55 +163,9 @@ public class Profile {
                     following = true;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+
             }
         }
         return following;
-    }
-
-    public ArrayList<Post> getPosts() {
-        ResultSet rs = DatabaseController.executeQuery("SELECT * from posts where user_id=" + this.id + " ORDER BY created_at DESC " + (limit != 0 ? "LIMIT " + limit + " OFFSET " + offset : "") + ";");
-        try {
-            while (rs != null && rs.next()) {
-                Post post = new Post();
-                post.setId(rs.getString("id"));
-                if (rs.getString("media_id") != null) {
-                    ResultSet mediaQuery = DatabaseController.executeQuery("SELECT * from media WHERE id=" + rs.getString("media_id") + ";");
-                    if (mediaQuery.next()) {
-                        Media m = new Media();
-                        m.setMedia_id(mediaQuery.getInt("id"));
-                        m.setMedia(mediaQuery.getString("media"));
-                        m.setMedia_type(mediaQuery.getString("media_type"));
-                        m.setUser(this);
-                        post.setMedia(m);
-                    }
-                }
-
-                post.setText(rs.getString("text"));
-                post.setUser(this);
-                post.setCreated_at((rs.getString("created_at")));
-                int contains = 0;
-                for (Post p : posts) {
-                    if (p.getId() == post.getId()) {
-                        contains++;
-                    }
-                }
-                if (contains == 0) {
-                    this.posts.add(post);
-                }
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return posts;
-    }
-
-    public void setLimit(int limit) {
-        this.limit = limit;
-    }
-
-    public void setOffset(int offset) {
-        this.offset = offset;
     }
 }

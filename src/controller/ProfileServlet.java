@@ -21,7 +21,7 @@ public class ProfileServlet extends HttpServlet {
         if (request.getRequestURI().lastIndexOf('/') == 0) {
             request.setAttribute("id", SessionController.getCurrentUserId(request));
             request.setAttribute("edit", true);
-        }else {
+        } else {
             request.setAttribute("id", request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
             request.setAttribute("tokenId", SessionController.getCurrentUserId(request));
             request.setAttribute("edit", false);

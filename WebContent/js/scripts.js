@@ -15,7 +15,7 @@ $(document).ready(function () {
 
     jwt = readCookie("token");
 
-    $("#logoutbtn").on("click", function() {
+    $("#logoutbtn").on("click", function () {
         document.cookie = "token=null;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT";
         location.replace("/login");
     });
