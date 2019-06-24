@@ -20,7 +20,14 @@
                     </c:if>
                 </div>
                 <div class="post-footer">
-                    <i class="fas fa-heart" style="color: lightgray;"></i>
+                    <c:choose>
+                        <c:when test="${Post.like.size() == 0}">
+                            <i class="fas fa-heart" style="color: lightgray;">0</i>
+                        </c:when>
+                        <c:otherwise>
+                            <i class="fas fa-heart" style="color: red;">${Post.like.size()}</i>
+                        </c:otherwise>
+                    </c:choose>
                 </div>
             </div>
         </div>

@@ -25,13 +25,6 @@
             <jsp:param name="titlePicture" value="${p.titlePicture}"/>
             <jsp:param name="handle" value="${p.handle}"/>
         </jsp:include>
-        <!--div class="profile_card card search_result">
-            <img class="card-img-top" src="data:image;base64,${p.titlePicture}">
-            <img class="profile-image" src="data:image;base64,${p.profilePicture}">
-            <div class="card-body">
-                <a href="/profile/${p.id}">${p.username} <span class="handle">@${p.handle}</span></a>
-            </div>
-        </div>-->
     </c:forEach>
 </div>
 <c:if test="${search.no_results}">

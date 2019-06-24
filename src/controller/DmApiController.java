@@ -36,7 +36,7 @@ public class DmApiController extends BaseApiController{
             Profile p = new Profile();
             p.setId(id);
             ArrayList<JSONObject> messages = new ArrayList<>();
-            String sql = "SELECT * FROM messages WHERE user_id_to=" + p.getId() + " OR user_id_from=" + p.getId();
+            String sql = "SELECT * FROM messages WHERE (user_id_to=" + p.getId() + " AND user_id_from=" + SessionController.getCurrentUserId(request) + ") OR (user_id_from=" + p.getId() + " AND user_id_to=" + SessionController.getCurrentUserId(request) + ");";
             ResultSet rs = DatabaseController.executeQuery(sql);
             try {
                 while(rs != null && rs.next()) {
