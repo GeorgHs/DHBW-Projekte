@@ -13,8 +13,7 @@ function base64(file, callback){
         var base64 = btoa(e.target.result);
         coolFile.base64 = base64;
         callback(coolFile)
-    };
-
+    }
     if(file[0].files[0] !== undefined) {
         var reader = new FileReader();
         reader.onload = readerOnload;

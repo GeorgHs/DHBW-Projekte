@@ -16,6 +16,9 @@ $(document).ready(function() {
 var current_chat_id;
 
 function changeChatWindow(id) {
+    if (id === undefined) {
+        return;
+    }
     $(".post-textarea").val("");
     current_chat_id = id;
     $(".chat_messages").html(

@@ -66,7 +66,7 @@ abstract class BaseApiController {
      */
     JSONObject getJSON(HttpServletRequest request) {
         StringBuffer jb = new StringBuffer();
-        String line = null;
+        String line;
         try {
             BufferedReader reader = request.getReader();
             while ((line = reader.readLine()) != null)
@@ -91,7 +91,7 @@ abstract class BaseApiController {
      */
     void sendResponse(HttpServletResponse response, String content) {
         try {
-            PrintWriter out = null;
+            PrintWriter out;
             out = response.getWriter();
             out.print(content);
         } catch (IOException e) {

@@ -26,7 +26,6 @@ public class DatabaseController implements ServletContextListener {
                     dbUsername,
                     dbPassword);
         } catch (Exception e) {
-            System.out.println(e);
             e.printStackTrace();
 
         }

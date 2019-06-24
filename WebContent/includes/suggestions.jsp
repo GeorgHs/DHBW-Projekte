@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: tim-o
-  Date: 18.06.2019
-  Time: 14:22
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="suggestion-card card">
 

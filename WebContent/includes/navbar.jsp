@@ -15,7 +15,7 @@
             </li>
             <li>
                 <form class="form-inline my-2 my-lg-0" action="/search">
-                    <input class="form-control mr-sm-2" name="q" type="text">
+                    <input class="form-control mr-sm-2" name="q" type="text" placeholder="'@' shows all users">
                     <button class="btn" type="submit">
                         <i class="fas fa-search"></i>
                     </button>

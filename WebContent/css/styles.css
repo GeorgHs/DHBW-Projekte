@@ -220,7 +220,7 @@ nav {
     flex-direction: row;
     flex-wrap: nowrap;
     width: 100%;
-    overflow-x: scroll;
+    overflow-x: auto;
 }
 
 .chat_carousel_person {
@@ -250,7 +250,7 @@ nav {
 
 .chat_messages {
     height: 100%;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
     padding: 10px;
 }
