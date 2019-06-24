@@ -27,3 +27,4 @@
         </ul>
     </div>
 </nav>
+<div style="height: 56px;"></div> <!-- Spacer for fixed navbar -->

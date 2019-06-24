@@ -2,6 +2,12 @@ html {
     width: 100%;
 }
 
+nav {
+    z-index: 100;
+    position: fixed !important;
+    width: 100%;
+}
+
 .page_heading {
     width: 100%;
     text-align: center;
@@ -220,12 +226,22 @@ html {
 .chat_carousel_person {
     width: 60px;
     margin: 10px 5px 10px 5px;
+    position: relative;
+}
+
+.chat_carousel_person .badge {
+    position: absolute;
+    right: 0px;
 }
 
 .chat_carousel_person .profile-image {
     height: 50px;
     width: 50px;
     border-radius: 100%;
+}
+
+.chat_active {
+    border: 2px solid cornflowerblue;
 }
 
 .chatbox {
@@ -251,6 +267,7 @@ html {
     text-align: left;
     clear: both;
     max-width: 80%;
+    margin: 5px 0;
 }
 
 .message_sent {
