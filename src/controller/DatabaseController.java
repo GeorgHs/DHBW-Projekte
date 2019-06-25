@@ -40,7 +40,6 @@ public class DatabaseController implements ServletContextListener {
      */
     public static ResultSet executeQuery(String sql) {
         try {
-            long m1 = System.currentTimeMillis();
             if(con == null || con.isClosed() || !con.isValid(0)) {
                 connect();
             } else {
