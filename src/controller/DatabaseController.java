@@ -10,9 +10,7 @@ public class DatabaseController implements ServletContextListener {
 
     private static Connection con;
 
-    @Override
-    public void contextInitialized(ServletContextEvent servletContextEvent) {
-        // This function runs on server startup. Connect to database here
+    public static void connect() {
         try {
             String dbDriver = "com.mysql.cj.jdbc.Driver";
             String dbURL = Env.dburl;
@@ -27,8 +25,12 @@ public class DatabaseController implements ServletContextListener {
                     dbPassword);
         } catch (Exception e) {
             e.printStackTrace();
-
         }
+    }
+
+    @Override
+    public void contextInitialized(ServletContextEvent servletContextEvent) {
+        connect();
     }
 
     /**
@@ -38,8 +40,13 @@ public class DatabaseController implements ServletContextListener {
      */
     public static ResultSet executeQuery(String sql) {
         try {
-            PreparedStatement st = con.prepareStatement(sql);
-            return st.executeQuery();
+            long m1 = System.currentTimeMillis();
+            if(con == null || con.isClosed() || !con.isValid(0)) {
+                connect();
+            } else {
+                PreparedStatement st = con.prepareStatement(sql);
+                return st.executeQuery();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
