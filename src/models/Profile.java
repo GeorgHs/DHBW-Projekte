@@ -31,7 +31,7 @@ public class Profile {
 
     public void setId(String id) {
         this.id = id;
-        if (id.equals("undefined")) {
+        if (id == null || id.equals("undefined")) {
             return;
         }
         try {
