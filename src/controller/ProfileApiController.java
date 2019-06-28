@@ -2,7 +2,6 @@ package controller;
 
 import com.auth0.jwt.JWT;
 import models.Profile;
-import org.apache.catalina.User;
 import org.json.JSONObject;
 
 import javax.servlet.http.Cookie;
@@ -41,7 +40,6 @@ class ProfileApiController extends BaseApiController {
         Profile user = new Profile();
         user.setId(id);
         sendResponse(response, user.getId() + "," + user.getUsername() + "," + user.getHandle() + "," + user.getProfilePicture() + "," + user.getEmail());
-
     }
 
     public void getUsername(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -83,6 +81,17 @@ class ProfileApiController extends BaseApiController {
         sendResponse(response, picture);
     }
 
+    private boolean jwtExists(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        boolean ret = false;
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("token")) {
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
     private String getTokenId(HttpServletRequest request) {
         Cookie[] cookies = request.getCookies();
         String jwt = null;
@@ -92,8 +101,11 @@ class ProfileApiController extends BaseApiController {
             }
         }
 
-        String token = JWT.decode(jwt).getSubject();
-        return token;
+        if (jwt == null) {
+            return null;
+        }
+
+        return JWT.decode(jwt).getSubject();
     }
 
     public void followUser(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -108,70 +120,98 @@ class ProfileApiController extends BaseApiController {
                 DatabaseController.executeUpdate("DELETE FROM followings WHERE user_id1=" + idToFollow + " AND user_id2= " + tokenId + ";");
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
         response.setStatus(200);
         sendResponse(response, "OK");
     }
 
-    public void isValidHandle(HttpServletRequest request, HttpServletResponse response) {
-        JSONObject data = this.getJSON(request);
-        String handle = data.getString("handle");
+    public static boolean validateHandle(String handle) {
         if (handle.trim().equals("")) {
-            sendResponse(response, "false");
+            return false;
         } else {
             ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE handle='" + handle + "';");
             try {
-                response.setStatus(200);
-                if (rs != null && rs.next()) {
-                    sendResponse(response, "false");
-                } else {
-                    sendResponse(response, "true");
-                }
+                return rs == null || !rs.next();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        return false;
+    }
+
+    public void isValidHandle(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = this.getJSON(request);
+        String handle = data.getString("handle");
+        response.setStatus(200);
+        if (validateHandle(handle)) {
+            sendResponse(response, "true");
+        } else {
+            sendResponse(response, "false");
+        }
+    }
+
+    public static boolean validateUsername(String username) {
+        return !username.trim().equals("");
     }
 
     public void isValidUsername(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = this.getJSON(request);
         String username = data.getString("username");
-        if (username.trim().equals("")) {
-            sendResponse(response, "false");
+        response.setStatus(200);
+        if (validateUsername(username)) {
+            sendResponse(response, "true");
         } else {
-            ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE username='" + username + "';");
+            sendResponse(response, "false");
+        }
+    }
+
+    public static boolean isValidEmailAddress(String email) {
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
+    }
+
+    public static boolean validateEmail(String email) {
+        if (email.trim().equals("") || !isValidEmailAddress(email)) {
+            return false;
+        } else {
+            ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE email='" + email + "';");
             try {
-                response.setStatus(200);
-                if (rs != null && rs.next()) {
-                    sendResponse(response, "false");
-                } else {
-                    sendResponse(response, "true");
-                }
+                return rs == null || !rs.next();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+        return false;
     }
 
     public void isValidEmail(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = this.getJSON(request);
         String email = data.getString("email");
-        if (email.trim().equals("")) {
-            sendResponse(response, "false");
+        response.setStatus(200);
+        if (validateEmail(email)) {
+            sendResponse(response, "true");
         } else {
-            ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE email='" + email + "';");
-            try {
-                response.setStatus(200);
-                if (rs != null && rs.next()) {
-                    sendResponse(response, "false");
-                } else {
-                    sendResponse(response, "true");
+            sendResponse(response, "false");
+        }
+    }
+
+    public static boolean validatePassword(String password, String passwordNew, String passwordNewWdh, String id) {
+        if (!id.equals("")) {
+            if (passwordNew.equals(passwordNewWdh) && !passwordNew.equals("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855") /* empty string */) {
+                ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE id='" + id + "' AND password='" + password + "';");
+                try {
+                    return rs != null && rs.next();
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            } else {
+                return false;
             }
         }
+        return !password.equals("e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855");
     }
 
     public void isValidPassword(HttpServletRequest request, HttpServletResponse response) {
@@ -179,19 +219,15 @@ class ProfileApiController extends BaseApiController {
         String password = data.getString("password");
         String passwordNew = data.getString("password-new");
         String passwordNewWdh = data.getString("password-new-wdh");
-        if(passwordNew.equals(passwordNewWdh) && !passwordNew.isEmpty()) {
-            ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE id='" + getTokenId(request) + "' AND password='" + password + "';");
-            try {
-                if (rs != null && rs.next()) {
-                    response.setStatus(200);
-                    sendResponse(response, "true");
-                } else {
-                    sendResponse(response, "false");
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }else {
+        String id = "";
+        if (jwtExists(request)) {
+            id = getTokenId(request);
+        }
+
+        response.setStatus(200);
+        if (validatePassword(password, passwordNew, passwordNewWdh, id)) {
+            sendResponse(response, "true");
+        } else {
             sendResponse(response, "false");
         }
     }
@@ -199,25 +235,25 @@ class ProfileApiController extends BaseApiController {
     public void updateUsername(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = this.getJSON(request);
         String username = data.getString("username");
-        DatabaseController.executeUpdate("UPDATE profiles SET username='"+username+ "' WHERE id="+getTokenId(request));
+        DatabaseController.executeUpdate("UPDATE profiles SET username='" + username + "' WHERE id=" + getTokenId(request));
     }
 
     public void updateHandle(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = this.getJSON(request);
         String handle = data.getString("handle");
-        DatabaseController.executeUpdate("UPDATE profiles SET handle='"+handle+"' WHERE id="+getTokenId(request));
+        DatabaseController.executeUpdate("UPDATE profiles SET handle='" + handle + "' WHERE id=" + getTokenId(request));
     }
 
     public void updateEmail(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = this.getJSON(request);
         String email = data.getString("email");
-        DatabaseController.executeUpdate("UPDATE profiles SET email='"+email+"' WHERE id="+getTokenId(request));
+        DatabaseController.executeUpdate("UPDATE profiles SET email='" + email + "' WHERE id=" + getTokenId(request));
     }
 
     public void updatePassword(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = this.getJSON(request);
         String password = data.getString("password");
-        DatabaseController.executeUpdate("UPDATE profiles SET password='"+password+ "' WHERE id="+getTokenId(request));
+        DatabaseController.executeUpdate("UPDATE profiles SET password='" + password + "' WHERE id=" + getTokenId(request));
     }
 
     public void createPost(HttpServletRequest request, HttpServletResponse response) {
@@ -243,7 +279,7 @@ class ProfileApiController extends BaseApiController {
 
     public void getSuggestions(HttpServletRequest request, HttpServletResponse response) throws IOException {
         try {
-            response.sendRedirect("/includes/feed-suggestions.jsp?limit=" + request.getParameter("limit") + "&offset=" + request.getParameter("offset")+"&id="+ this.getTokenId(request));
+            response.sendRedirect("/includes/feed-suggestions.jsp?limit=" + request.getParameter("limit") + "&offset=" + request.getParameter("offset") + "&id=" + this.getTokenId(request));
         } catch (IOException e) {
             e.printStackTrace();
         }

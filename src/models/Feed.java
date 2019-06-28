@@ -60,14 +60,14 @@ public class Feed {
         }
         ResultSet rs = DatabaseController.executeQuery( sql + (limit != 0 ? "LIMIT " + limit + " OFFSET " + offset : ""));
         try {
-            while (rs.next()) {
+            while (rs != null && rs.next()) {
                 Profile p = new Profile();
                 p.setId(rs.getString("id"));
                 p.getProfilePicture();
                 suggestions.add(p);
             }
         }catch (Exception e){
-
+            e.printStackTrace();
         }
         return suggestions;
     }

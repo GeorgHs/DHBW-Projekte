@@ -5,8 +5,6 @@ import org.json.JSONObject;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.Data;
-import java.awt.image.DataBuffer;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -61,7 +59,7 @@ class LoginApiController extends BaseApiController {
         String password = data.getString("password");
         String handle = data.getString("handle");
 
-        if (username.length() == 0 || email.length() == 0 || password.length() == 0 || handle.length() == 0) {
+        if ((!ProfileApiController.validateUsername(username) || !ProfileApiController.validatePassword(password, "", "", "") || !ProfileApiController.validateEmail(email) || !ProfileApiController.validateHandle(handle))) {
             response.setStatus(500);
             return;
         }

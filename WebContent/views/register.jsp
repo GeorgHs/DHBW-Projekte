@@ -34,6 +34,8 @@
                     Handle is already taken
                 </div>
             </div>
+            <input type="hidden" id="password-new" value="">
+            <input type="hidden" id="password-new-wdh" value="">
             <button class="btn btn-primary" id="submit_register">Register</button>
             <hr>
             <p>Already got an account? <a href="/login">Log-in here</a></p>
@@ -43,6 +45,7 @@
 
 <script src="../js/scripts.js"></script>
 <script src="../js/sha256.min.js"></script>
+<script src="../js/validations.js"></script>
 <script src="../js/register.js"></script>
 </body>
 </html>

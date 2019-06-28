@@ -8,6 +8,9 @@ $(document).ready(function() {
 
     function register() {
         validateHandle();
+        validateEmail();
+        validatePassword();
+        validateUsername();
         $.ajax({
             type: "POST",
             url: "/api/register",

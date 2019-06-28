@@ -52,7 +52,7 @@ $(document).on("keydown", function (e) {
                             '                </div>\n' +
                             '            </div>\n' +
                             '        </div>\n' +
-                            '    </div>'
+                            '    </div>';
                         var posts = document.getElementById("feed").innerHTML;
                         document.getElementById("feed").innerHTML = post;
                         document.getElementById("feed").innerHTML += posts;

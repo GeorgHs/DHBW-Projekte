@@ -3,7 +3,6 @@ package models;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.Calendar;
-import java.util.Date;
 
 public class Post {
 
@@ -60,7 +59,7 @@ public class Post {
         Calendar now = Calendar.getInstance();
         now.setTimeInMillis(System.currentTimeMillis());
 
-        String ret = "";
+        String ret;
         long minutes = Duration.between(created.toInstant(), now.toInstant()).toMinutes();
         long hours = Duration.between(created.toInstant(), now.toInstant()).toHours();
         long days = Duration.between(created.toInstant(), now.toInstant()).toDays();

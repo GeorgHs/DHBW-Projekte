@@ -12,6 +12,9 @@
                 <img class="profile-image" data-toggle="tooltip" data-placement="top" title="${profile_partner.username}" src="data:image;base64,${profile_partner.profilePicture}">
             </div>
         </c:forEach>
+        <c:if test="${profile.follower.isEmpty()}">
+            <p>No Followers to chat with</p>
+        </c:if>
     </div>
     <hr>
     <div class="chatbox">

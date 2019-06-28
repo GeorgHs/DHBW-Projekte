@@ -32,6 +32,9 @@ public class DmApiController extends BaseApiController{
 
     public void getMessages(HttpServletRequest request, HttpServletResponse response) {
         String id = request.getParameter("id");
+        if (id.equals("undefined")) {
+            return;
+        }
         if (id != null && id.length() != 0) {
             Profile p = new Profile();
             p.setId(id);
