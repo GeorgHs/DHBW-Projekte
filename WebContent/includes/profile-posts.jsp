@@ -7,6 +7,7 @@
 <jsp:setProperty name="profile" property="offset" value="${param.offset}"/>
 <c:forEach items="${profile.posts}" var="post">
     <jsp:include page="../includes/post.jsp">
+        <jsp:param name="post_id" value="${post.id}"/>
         <jsp:param name="user_id" value="${post.user.id}"/>
         <jsp:param name="user_username" value="${post.user.username}"/>
         <jsp:param name="user_handle" value="${post.user.handle}"/>
