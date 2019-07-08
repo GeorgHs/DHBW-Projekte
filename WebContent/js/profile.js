@@ -1,6 +1,6 @@
-$(document).ready(function() {
+$(document).ready(function () {
     loadPosts(10, 0);
-    checkEdit();
+
 });
 
 var offset = 0;
@@ -8,11 +8,10 @@ var offset = 0;
 //Funktion, die überprüft, ob man editieren darf
 //@TODO checkEdit() fertigstellen
 function checkEdit() {
-    if(profileId === user_id){
-        $('.post-body .row').before('<a class="delete-post" onclick="deletePost(${param.id}, this)"><i class="fas fa-trash-alt"></i></a>');
-    }else{
-        console.log(profileId);
-        console.log(user_id);
+    if(user_id == profileId) {
+        $('.post-body .row').each(function () {
+            $(this).before('<a class="delete-post" onclick="deletePost(' + $(this).data('id') + ', $(this))"><i class="fas fa-trash-alt"></i></a>');
+        });
     }
 }
 
@@ -178,7 +177,7 @@ function updateEmail() {
         data: "{'email': '" + $('#email').val() + "'}",
         statusCode: {
             200: function () {
-               email = $('#email').val();
+                email = $('#email').val();
             },
             404: function () {
                 //window.location.reload();
@@ -206,7 +205,6 @@ function updatePassword() {
 }
 
 
-
 function loadPosts(limit, offset) {
     $("#load_more div").css("display", "block");
     $("#load_more p").css("display", "none");
@@ -222,6 +220,7 @@ function loadPosts(limit, offset) {
                 $(".profile-posts #load_more").before(res);
                 $("#load_more div").css("display", "none");
                 $("#load_more p").css("display", "block");
+                checkEdit();
             }
         }
     });
