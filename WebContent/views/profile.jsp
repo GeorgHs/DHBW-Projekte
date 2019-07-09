@@ -121,7 +121,7 @@
                 </c:when>
                 <c:otherwise>
                     <c:choose>
-                        <c:when test="${Profil.isFollowing(14)}">
+                        <c:when test="${Profil.isFollowing(Profil.id)}">
                             <button class="btn float-right" onclick="follow(${Profil.id})">Nicht mehr Folgen</button>
                         </c:when>
                         <c:otherwise>

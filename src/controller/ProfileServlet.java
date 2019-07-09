@@ -21,7 +21,11 @@ public class ProfileServlet extends HttpServlet {
         } else {
             request.setAttribute("id", request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1));
             request.setAttribute("tokenId", SessionController.getCurrentUserId(request));
-            request.setAttribute("edit", false);
+            if(Integer.parseInt(request.getRequestURI().substring(request.getRequestURI().lastIndexOf('/') + 1)) == SessionController.getCurrentUserId(request)) {
+                request.setAttribute("edit", true);
+            }else{
+                request.setAttribute("edit", false);
+            }
         }
 
         getServletContext().getRequestDispatcher("/views/profile.jsp").forward(request, response);

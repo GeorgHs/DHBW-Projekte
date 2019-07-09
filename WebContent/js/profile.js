@@ -5,8 +5,7 @@ $(document).ready(function () {
 
 var offset = 0;
 
-//Funktion, die überprüft, ob man editieren darf
-//@TODO checkEdit() fertigstellen
+//Funktion, die überprüft, ob man editieren darf und fügt den Mülleimer auf die Posts ein
 function checkEdit() {
     if(user_id == profileId) {
         $('.post-body .row').each(function () {
