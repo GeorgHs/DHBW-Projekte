@@ -8,3 +8,4 @@
 </div>
 <div class="new-post-media">
 </div>
+<script src="../js/create-post.js"></script>

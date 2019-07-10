@@ -1,7 +1,5 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="controller.SessionController" %>
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="de">
 <head>
@@ -10,7 +8,6 @@
     <%@include file="../includes/head.jsp" %>
 </head>
 <body>
-<%SessionController.checkLogin(request, response);%>
 <%@include file="/includes/navbar.jsp" %>
 <jsp:useBean id="profile" class="models.Profile"/>
 <jsp:setProperty name="profile" property="id" value="${id}"/>
@@ -55,9 +52,8 @@
         </div>
     </div>
 </div>
-<script src="/js/scripts.js"></script>
-<script src="/js/websockets.js"></script>
-<script src="/js/feed.js"></script>
-<script src="/js/create-post.js"></script>
+<script src="../js/scripts.js"></script>
+<script src="../js/websockets.js"></script>
+<script src="../js/feed.js"></script>
 </body>
 </html>

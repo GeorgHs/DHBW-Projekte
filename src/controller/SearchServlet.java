@@ -14,6 +14,9 @@ public class SearchServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/views/search.jsp").forward(request, response);
+        SessionController.checkLogin(request, response);
+        if (!response.isCommitted()) {
+            getServletContext().getRequestDispatcher("/views/search.jsp").forward(request, response);
+        }
     }
 }

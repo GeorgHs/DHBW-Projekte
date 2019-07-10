@@ -1,4 +1,3 @@
-<%@ page import="controller.SessionController" %>
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <html lang="de">
@@ -8,7 +7,6 @@
     <%@include file="../includes/head.jsp" %>
 </head>
 <body>
-<%SessionController.checkLogin(request, response);%>
 <div class="container">
     <div class="row justify-content-center">
         <div class="register col-sm-10 col-md-8 col-lg-6">

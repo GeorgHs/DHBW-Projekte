@@ -14,6 +14,11 @@ public class ProfileServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        SessionController.checkLogin(request, response);
+        if (response.isCommitted()) {
+            return;
+        }
+
         String t = request.getRequestURI();
         if (request.getRequestURI().lastIndexOf('/') == 0) {
             request.setAttribute("id", SessionController.getCurrentUserId(request));

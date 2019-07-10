@@ -61,13 +61,14 @@ public class SessionController {
 
         String requestUri = request.getRequestURI();
         // check if not logged in
-        if (SessionController.decodeJWT(jwt) == null && !(requestUri.equals("/views/login.jsp") || requestUri.equals("/views/register.jsp"))) {
+        boolean on_login_or_register_page = (requestUri.equals("/views/login.jsp") || requestUri.equals("/views/register.jsp") || requestUri.equals("/login") || requestUri.equals("/register"));
+        if (SessionController.decodeJWT(jwt) == null && !on_login_or_register_page) {
             try {
-                response.sendRedirect("/login");
+                response.sendRedirect("/login?requestUri=" + requestUri);
             } catch (IOException e) {
                 e.printStackTrace();
             }
-        } else if (SessionController.decodeJWT(jwt) != null && (requestUri.equals("/views/login.jsp") || requestUri.equals("/views/register.jsp"))) {
+        } else if (SessionController.decodeJWT(jwt) != null && on_login_or_register_page) {
             try {
                 response.sendRedirect("/feed");
             } catch (IOException e) {

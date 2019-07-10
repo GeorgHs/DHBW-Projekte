@@ -14,7 +14,10 @@ public class RegisterServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        getServletContext().getRequestDispatcher("/views/register.jsp").forward(request, response);
         DatabaseController.executeQuery("SELECT 1 FROM dual");
+        SessionController.checkLogin(request, response);
+        if (!response.isCommitted()) {
+            getServletContext().getRequestDispatcher("/views/register.jsp").forward(request, response);
+        }
     }
 }

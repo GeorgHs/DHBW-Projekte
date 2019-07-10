@@ -1,4 +1,3 @@
-<%@ page import="controller.SessionController" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
@@ -8,7 +7,6 @@
     <%@include file="../includes/head.jsp" %>
 </head>
 <body>
-<%SessionController.checkLogin(request, response);%>
 <%@include file="/includes/navbar.jsp" %>
 
 <jsp:useBean id="search" class="models.Search"/>

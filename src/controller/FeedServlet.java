@@ -15,6 +15,9 @@ public class FeedServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("id", SessionController.getCurrentUserId(request));
-        getServletContext().getRequestDispatcher("/views/feed.jsp").forward(request, response);
+        SessionController.checkLogin(request, response);
+        if (!response.isCommitted()) {
+            getServletContext().getRequestDispatcher("/views/feed.jsp").forward(request, response);
+        }
     }
 }

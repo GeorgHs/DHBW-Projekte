@@ -15,7 +15,11 @@ $(document).ready(function () {
             data: "{'email': '" + $("#email").val() + "', 'password' : '" + sha256($("#password").val()) + "'}",
             statusCode: {
                 200: function () {
-                    location.replace("/feed");
+                    if (requestUri.length === 0) {
+                        location.replace("/feed");
+                    } else {
+                        location.replace(requestUri);
+                    }
                 },
                 403: function () {
                     $("#email").addClass("is-invalid");

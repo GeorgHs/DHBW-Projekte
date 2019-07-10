@@ -6,9 +6,9 @@ var offset = 0;
 
 //Funktion, die überprüft, ob man editieren darf und fügt den Mülleimer auf die Posts ein
 function checkEdit() {
-    if(user_id == profileId) {
+    if(user_id === profileId) {
         $('.post-body .row').each(function () {
-            $(this).before('<a class="delete-post" onclick="deletePost(' + $(this).data('id') + ', $(this))"><i class="fas fa-trash-alt"></i></a>');
+            $(this).before('<a class="delete-post" style="cursor: pointer;" onclick="deletePost(' + $(this).data('id') + ', $(this))"><i class="fas fa-trash-alt"></i></a>');
         });
     }
 }

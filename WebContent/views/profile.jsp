@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
-<%@ page import="controller.SessionController" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html lang="de">
 <head>
@@ -9,15 +8,14 @@
     <%@include file="../includes/head.jsp" %>
 </head>
 <body>
-<%SessionController.checkLogin(request, response);%>
 <%@include file="/includes/navbar.jsp" %>
-<jsp:useBean id="Profil" class="models.Profile"/>
+<jsp:useBean id="Profile" class="models.Profile"/>
 <jsp:useBean id="Post" class="models.Post"/>
 
-<jsp:setProperty name="Profil" property="id" value="${id}"/>
+<jsp:setProperty name="Profile" property="id" value="${id}"/>
 
 <div class="profile-heading container-fluid p-0">
-    <div class="title-picture-wrapper" style="background: url('data:image;base64,${Profil.titlePicture}');">
+    <div class="title-picture-wrapper" style="background: url('data:image;base64,${Profile.titlePicture}');">
         <c:if test="${edit}">
             <div class="edit-picture-btn">
                 <a data-toggle="modal" data-target="#profileModal" onclick="changeModal('title')"><i
@@ -31,7 +29,7 @@
         </div>
         <div class="col-md-2" style="max-width: 150px;">
             <div class="profile-image-wrapper">
-                <img src="data:image;base64, ${Profil.profilePicture}" width="150px"
+                <img src="data:image;base64, ${Profile.profilePicture}" width="150px"
                      height="150px" class="profile-image">
                 <c:if test="${edit}">
                     <div class="edit-picture-btn">
@@ -40,8 +38,8 @@
                     </div>
                 </c:if>
             </div>
-            <jsp:getProperty name="Profil" property="email"/>
-            <jsp:getProperty name="Profil" property="username"/>
+            <jsp:getProperty name="Profile" property="email"/>
+            <jsp:getProperty name="Profile" property="username"/>
         </div>
         <div class="col-md-7">
             <ul class="nav nav-tabs" id="profileTab" role="tablist">
@@ -49,21 +47,21 @@
                     <a class="nav-link card-button active" id="posts-tab" data-toggle="tab" href="#posts" role="tab"
                        aria-controls="posts" aria-selected="true">
                         <h2>Posts</h2>
-                        <h3>${Profil.posts.size()}</h3>
+                        <h3>${Profile.posts.size()}</h3>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link card-button" id="subscriptions-tab" data-toggle="tab" href="#subscriptions"
                        role="tab" aria-controls="subsrciptions" aria-selected="false">
                         <h2>Folge ich</h2>
-                        <h3>${Profil.subscriptions.size()}</h3>
+                        <h3>${Profile.subscriptions.size()}</h3>
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link card-button" id="follower-tab" data-toggle="tab" href="#follower" role="tab"
                        aria-controls="follower" aria-selected="false">
                         <h2>Follower</h2>
-                        <h3>${Profil.follower.size()}</h3>
+                        <h3>${Profile.follower.size()}</h3>
                     </a>
                 </li>
             </ul>
@@ -71,14 +69,7 @@
             <div class="tab-content" id="profileTabContent">
                 <div class="tab-pane fade show active" id="posts" role="tabpanel" aria-labelledby="posts-tab">
                     <c:if test="${edit}">
-                        <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Schreib etwas..." aria-label="Username"
-                                   aria-describedby="basic-addon1">
-                            <div class="input-group-prepend">
-                                <button class="input-group-text" onclick="alert('hi');"><i class="fas fa-camera"></i>
-                                </button>
-                            </div>
-                        </div>
+                        <jsp:include page="/includes/create-post.jsp"/>
                     </c:if>
                     <div id="feed" class="profile-posts">
                         <div class="btn btn-sm centered" id="load_more" onclick="loadMorePosts(10)">
@@ -91,7 +82,7 @@
                 </div>
                 <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptions-tab">
                     <div class="row">
-                    <c:forEach items="${Profil.subscriptions}" var="subscriptions">
+                    <c:forEach items="${Profile.subscriptions}" var="subscriptions">
                         <div class="col-md-6">
                         <jsp:include page="../includes/profile-card.jsp">
                             <jsp:param name="id" value="${subscriptions.id}"/>
@@ -106,7 +97,7 @@
                 </div>
                 <div class="tab-pane fade" id="follower" role="tabpanel" aria-labelledby="follower-tab">
                    <div class="row">
-                        <c:forEach items="${Profil.follower}" var="follow">
+                        <c:forEach items="${Profile.follower}" var="follow">
                             <div class="col-md-6">
                                 <jsp:include page="../includes/profile-card.jsp">
                                     <jsp:param name="id" value="${follow.id}"/>
@@ -128,11 +119,11 @@
                 </c:when>
                 <c:otherwise>
                     <c:choose>
-                        <c:when test="${Profil.isFollowing(Profil.id)}">
-                            <button class="btn float-right" onclick="follow(${Profil.id})">Nicht mehr Folgen</button>
+                        <c:when test="${Profile.isFollowing(Profile.id)}">
+                            <button class="btn float-right" onclick="follow(${Profile.id})">Nicht mehr Folgen</button>
                         </c:when>
                         <c:otherwise>
-                            <button class="btn float-right" onclick="follow(${Profil.id})">Folgen</button>
+                            <button class="btn float-right" onclick="follow(${Profile.id})">Folgen</button>
                         </c:otherwise>
                     </c:choose>
                 </c:otherwise>
@@ -165,7 +156,7 @@
 </div>
 
 <script>
-    var profileId = <%= Profil.getId() %>;
+    var profileId = "<%= Profile.getId() %>";
 </script>
 <script src="../js/profile.js"></script>
 <script src="../js/scripts.js"></script>
