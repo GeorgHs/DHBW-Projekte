@@ -21,7 +21,6 @@ class ProfileApiController extends BaseApiController {
         this.addUrlMapping_Get("profile/current", "getCurrent");
         this.addUrlMapping_Post("profile/profilepicture", "setProfilepicture");
         this.addUrlMapping_Post("profile/titlepicture", "setTitlepicture");
-        this.addUrlMapping_Post("profile/postexample", "postexample");
         this.addUrlMapping_Post("profile/follow", "followUser");
         this.addUrlMapping_Post("profile/isValidHandle", "isValidHandle");
         this.addUrlMapping_Post("profile/isValidUsername", "isValidUsername");
@@ -53,12 +52,6 @@ class ProfileApiController extends BaseApiController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
-
-    public void postexample(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        JSONObject data = this.getJSON(request);
-        String test = data.getString("test");
-        sendResponse(response, test);
     }
 
     public void setProfilepicture(HttpServletRequest request, HttpServletResponse response) throws IOException {

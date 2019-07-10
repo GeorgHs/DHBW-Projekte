@@ -1,6 +1,5 @@
 $(document).ready(function () {
-    loadPosts(10, 0);
-
+    loadMorePosts(10);
 });
 
 var offset = 0;

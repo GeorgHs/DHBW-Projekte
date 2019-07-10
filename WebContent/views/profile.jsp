@@ -28,7 +28,6 @@
     <div class="row">
         <div class="col-md-2">
 
-
         </div>
         <div class="col-md-2" style="max-width: 150px;">
             <div class="profile-image-wrapper">
@@ -50,7 +49,7 @@
                     <a class="nav-link card-button active" id="posts-tab" data-toggle="tab" href="#posts" role="tab"
                        aria-controls="posts" aria-selected="true">
                         <h2>Posts</h2>
-                        <h3>34</h3>
+                        <h3>${Profil.posts.size()}</h3>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -81,6 +80,14 @@
                             </div>
                         </div>
                     </c:if>
+                    <div id="feed" class="profile-posts">
+                        <div class="btn btn-sm centered" id="load_more" onclick="loadMorePosts(10)">
+                            <div class="spinner-border" style="display: none" role="status">
+                                <span class="sr-only">Loading...</span>
+                            </div>
+                            <p>Load more</p>
+                        </div>
+                    </div>
                 </div>
                 <div class="tab-pane fade" id="subscriptions" role="tabpanel" aria-labelledby="subscriptions-tab">
                     <div class="row">
@@ -128,7 +135,6 @@
                             <button class="btn float-right" onclick="follow(${Profil.id})">Folgen</button>
                         </c:otherwise>
                     </c:choose>
-
                 </c:otherwise>
             </c:choose>
         </div>
@@ -158,6 +164,9 @@
     </div>
 </div>
 
+<script>
+    var profileId = <%= Profil.getId() %>;
+</script>
 <script src="../js/profile.js"></script>
 <script src="../js/scripts.js"></script>
 <script src="../js/websockets.js"></script>

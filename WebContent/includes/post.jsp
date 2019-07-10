@@ -20,10 +20,10 @@
                 </div>
                 <div class="post-footer">
                     <c:choose>
-                        <c:when test="${Post.like.isliked == false">
+                        <c:when test="${Post.like.isliked == false}">
                             <button class="fas fa-heart" onclick="${Post.like.isliked = true}, ${Post.like.size()}+1" style="color: gray">${Post.like.size()}</button>
                         </c:when>
-                        <c:when test="${Post.like.isliked == true}"
+                        <c:when test="${Post.like.isliked == true}">
                             <button class="fas fa-heart" onclick="${Post.like.isliked = false}, ${Post.like.size()}-1" style="color: red">${Post.like.size()}</button>
                         </c:when>
                     </c:choose>
