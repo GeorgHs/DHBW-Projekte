@@ -17,6 +17,9 @@
             <div class="form-group">
                 <label for="email">Email address</label>
                 <input type="email" class="form-control" name="email" id="email" placeholder="Enter email" required>
+                <div class="invalid-feedback" id="invalid-email" style="display: none">
+                    Email not valid
+                </div>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
