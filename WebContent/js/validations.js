@@ -1,4 +1,4 @@
-function validateUsername() {
+function validateUsername(callback) {
     $.ajax({
         type: "POST",
         url: "/api/profile/isValidUsername",
@@ -17,10 +17,13 @@ function validateUsername() {
                     $("#invalid-username").css("display", "block");
                 }
             }
+        },
+        success: function (response) {
+            callback(response);
         }
     });
 }
-function validateHandle() {
+function validateHandle(callback) {
     $.ajax({
         type: "POST",
         url: "/api/profile/isValidHandle",
@@ -39,11 +42,14 @@ function validateHandle() {
                     $("#invalid-handle").css("display", "block");
                 }
             }
+        },
+        success: function (response) {
+            callback(response);
         }
     });
 
 }
-function validateEmail() {
+function validateEmail(callback) {
     $.ajax({
         type: "POST",
         url: "/api/profile/isValidEmail",
@@ -62,10 +68,13 @@ function validateEmail() {
                     $("#invalid-email").css("display", "block");
                 }
             }
+        },
+        success: function (response) {
+            callback(response);
         }
     });
 }
-function validatePassword() {
+function validatePassword(callback) {
     $.ajax({
         type: "POST",
         url: "/api/profile/isValidPassword",
@@ -94,6 +103,9 @@ function validatePassword() {
                     $("#invalid-password").css("display", "block");
                 }
             }
+        },
+        success: function (response) {
+            callback(response);
         }
     });
 }

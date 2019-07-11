@@ -24,6 +24,7 @@
         </c:if>
     </div>
     <div class="row">
+
         <div class="col-md-2">
 
         </div>
@@ -64,6 +65,21 @@
                         <h3>${Profile.follower.size()}</h3>
                     </a>
                 </li>
+                <c:choose>
+                    <c:when test="${edit}">
+                        <button class="btn btn-primary follow-btn" data-toggle="modal" data-target="#settingsModal">Profil bearbeiten</button>
+                    </c:when>
+                    <c:otherwise>
+                        <c:choose>
+                            <c:when test="${Profil.isFollowing(tokenId)}">
+                                <button class="btn btn-primary follow-btn" onclick="follow(${Profil.id}, this)">Nicht mehr Folgen</button>
+                            </c:when>
+                            <c:otherwise>
+                                <button class="btn btn-primary follow-btn" onclick="follow(${Profil.id}, this)">Folgen</button>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:otherwise>
+                </c:choose>
             </ul>
 
             <div class="tab-content" id="profileTabContent">
@@ -111,27 +127,18 @@
                    </div>
                 </div>
             </div>
+
         </div>
         <div class="col-md-1">
-            <c:choose>
-                <c:when test="${edit}">
-                    <button class="btn">Profil bearbeiten</button>
-                </c:when>
-                <c:otherwise>
-                    <c:choose>
-                        <c:when test="${Profile.isFollowing(Profile.id)}">
-                            <button class="btn float-right" onclick="follow(${Profile.id})">Nicht mehr Folgen</button>
-                        </c:when>
-                        <c:otherwise>
-                            <button class="btn float-right" onclick="follow(${Profile.id})">Folgen</button>
-                        </c:otherwise>
-                    </c:choose>
-                </c:otherwise>
-            </c:choose>
+
         </div>
     </div>
 </div>
-
+<jsp:include page="../includes/change-user-settings.jsp" >
+    <jsp:param name="email" value="${Profile.email}"/>
+    <jsp:param name="handle" value="${Profile.handle}"/>
+    <jsp:param name="username" value="${Profile.username}"/>
+</jsp:include>
 <!-- Modal -->
 <div class="modal fade" id="profileModal" tabindex="-1" role="dialog" aria-labelledby="profileModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -158,6 +165,7 @@
 <script>
     var profileId = "<%= Profile.getId() %>";
 </script>
+<script src="../js/validations.js"></script>
 <script src="../js/profile.js"></script>
 <script src="../js/scripts.js"></script>
 <script src="../js/websockets.js"></script>

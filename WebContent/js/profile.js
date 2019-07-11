@@ -79,7 +79,7 @@ function convertToBase64(picture) {
 
 
 //folgen
-function follow(id) {
+function follow(id, button) {
     $.ajax({
         type: "POST",
         url: "/api/profile/follow",
@@ -88,7 +88,11 @@ function follow(id) {
         data: "{'id': '" + id + "'}",
         statusCode: {
             200: function () {
-                //window.location.reload();
+                if($(button).text()==="Folgen"){
+                    $(button).text("Nicht mehr Folgen");
+                }else if($(button).text()==="Nicht mehr Folgen"){
+                    $(button).text("Folgen");
+                }
             },
             404: function () {
                 //window.location.reload();
@@ -104,6 +108,9 @@ function changeSettings() {
         validateHandle(function (res) {
             if (res) {
                 updateHandle();
+                console.log(1234);
+            }else{
+                console.log(res);
             }
         });
     }

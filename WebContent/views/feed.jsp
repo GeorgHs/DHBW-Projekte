@@ -13,7 +13,7 @@
 <jsp:setProperty name="profile" property="id" value="${id}"/>
 <div class="container_fluid">
     <div class="row">
-        <div class="feed_left col-sm-3">
+        <div class="feed_left col-sm-3 d-none d-lg-block">
                 <jsp:include page="../includes/profile-card.jsp">
                     <jsp:param name="id" value="${profile.id}"/>
                     <jsp:param name="username" value="${profile.username}"/>
@@ -45,7 +45,7 @@
                 </div>
             </div>
         </div>
-        <div class="feed_right col-sm-3">
+        <div class="feed_right col-sm-6 col-md-6 col-lg-3">
             <jsp:include page="/includes/dm_chatbox.jsp">
                 <jsp:param name="id" value="${id}"/>
             </jsp:include>

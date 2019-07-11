@@ -12,15 +12,33 @@ public class Feed {
     private int user;
     private int limit = 0;
     private int offset = 0;
+    private int current;
     private ArrayList<Profile> suggestions = new ArrayList<>();
 
     public void setUser(int user) {
         this.user = user;
     }
+    public void setCurrent(int current) {
+        this.current = current;
+    }
 
     public ArrayList<Post> getPosts() {
         posts.clear();
-        ResultSet rs = DatabaseController.executeQuery("SELECT * FROM posts ORDER BY created_at DESC " + (limit != 0 ? "LIMIT " + limit + " OFFSET " + offset : ""));
+        Profile currentUser = new Profile();
+        currentUser.setId(String.valueOf(current));
+        ArrayList<Profile> subscriptions = currentUser.getSubscriptions();
+        String sql = "SELECT * FROM posts";
+        if (subscriptions.size() > 0) {
+            sql += " WHERE ";
+            for (int i = 0; i < subscriptions.size(); i++) {
+                sql += "user_id='" + subscriptions.get(i).getId() + "' ";
+                if (i + 1 != subscriptions.size()) {
+                    sql += "OR ";
+                }
+            }
+            sql += "ORDER BY created_at DESC " + (limit != 0 ? "LIMIT " + limit + " OFFSET " + offset : "");
+        }
+        ResultSet rs = DatabaseController.executeQuery(sql);
         try {
             if (rs != null) {
                 while (rs.next()) {

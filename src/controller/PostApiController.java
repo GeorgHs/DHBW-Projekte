@@ -37,7 +37,7 @@ public class PostApiController extends BaseApiController {
 
     public void getPosts(HttpServletRequest request, HttpServletResponse response) {
         try {
-            response.sendRedirect("/includes/feed-posts.jsp?limit=" + request.getParameter("limit") + "&offset=" + request.getParameter("offset"));
+            response.sendRedirect("/includes/feed-posts.jsp?limit=" + request.getParameter("limit") + "&offset=" + request.getParameter("offset")+"&current="+SessionController.getCurrentUserId(request));
         } catch (IOException e) {
             e.printStackTrace();
         }

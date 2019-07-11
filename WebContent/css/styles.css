@@ -83,7 +83,11 @@ nav {
     margin-bottom: 20px;
 }
 
-
+.follow-btn{
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
 
 /* Feed */
 
@@ -261,7 +265,7 @@ nav {
 .message_received {
     padding: 5px;
     border-radius: 5px;
-    background: cornflowerblue;
+    background: #adb5bd;
     color: white;
     float:left;
     text-align: left;
