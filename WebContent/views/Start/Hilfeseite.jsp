@@ -73,7 +73,7 @@
   <div class="tab-pane fade" id="posts" role="tabpanel" aria-labelledby="profile-tab">
 				<h3>Post ver&#xF6;ffentlichen</h3>			
   				<div class="rcorners1">
-					<p>Im Feed (Seite nach Einloggen) oben mittig in der Textbox mit der Inschrift &#x201E;Schreib etwas&#x2026;&#x201C; Text eingeben, der dann per dr&#xFC;cken der Enter-Taste ver&#xF6;ffentlicht wird. Alle die einem folgen sehen diesen Post. Rechts daneben ist ein Button mit einem Bild-Icon. Nach Klick auf diese Schaltfl&#xE4;che und Auswahl eines Bildes, kann dieses im Newsfeed ver&#xF6;ffentlicht werden und von allen, die einem folgen gesehen werden. Achtung: Die Posts sind f&#xFC;r immer und ewig ver&#xF6;ffentlicht!</p>				
+					<p>Im Feed (Seite nach Einloggen) oben mittig in der Textbox mit der Inschrift &#x201E;Schreib etwas&#x2026;&#x201C; Text eingeben, der dann per dr&#xFC;cken der Enter-Taste ver&#xF6;ffentlicht wird. Alle die einem folgen sehen diesen Post. Rechts daneben ist ein Button mit einem Bild-Icon. Nach Klick auf diese Schaltfl&#xE4;che und Auswahl eines Bildes, kann dieses im Newsfeed ver&#xF6;ffentlicht werden und von allen, die einem folgen gesehen werden. Der Post kann per Icon Mülltonne gelöscht werden.</p>				
 				</div>
   				<h3>Posts liken</h3>				
   				<div class="rcorners1">
