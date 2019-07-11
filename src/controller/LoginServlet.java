@@ -17,6 +17,7 @@ public class LoginServlet extends HttpServlet {
         DatabaseController.executeQuery("SELECT 1 FROM dual");
         SessionController.checkLogin(request, response);
         if (!response.isCommitted()) {
+            //getServletContext().getRequestDispatcher("/views/login.jsp").forward(request, response);
             getServletContext().getRequestDispatcher("/views/login.jsp").forward(request, response);
         }
     }
