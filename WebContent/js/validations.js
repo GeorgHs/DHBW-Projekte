@@ -19,6 +19,9 @@ function validateUsername(callback) {
             }
         },
         success: function (response) {
+            if (callback === undefined) {
+                return;
+            }
             callback(response);
         }
     });
@@ -44,6 +47,9 @@ function validateHandle(callback) {
             }
         },
         success: function (response) {
+            if (callback === undefined) {
+                return;
+            }
             callback(response);
         }
     });
@@ -70,6 +76,9 @@ function validateEmail(callback) {
             }
         },
         success: function (response) {
+            if (callback === undefined) {
+                return;
+            }
             callback(response);
         }
     });
@@ -105,6 +114,9 @@ function validatePassword(callback) {
             }
         },
         success: function (response) {
+            if (callback === undefined) {
+                return;
+            }
             callback(response);
         }
     });

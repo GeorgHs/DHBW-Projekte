@@ -2,9 +2,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"  pageEncoding="UTF-8"%>
 <html lang="de">
 <head>
+	<%@include file="../includes/head.jsp"%>
     <meta charset="utf-8">
     <title>Login</title>
-    <%@include file="../includes/head.jsp"%>
 </head>
 <body>
 <div class="container">
@@ -24,6 +24,7 @@
             </div>
             <hr>
             <p>Haven't got an account? <a href="/register">Register here</a></p>
+            <a href="/views/help/hilfeseite.jsp" class="btn btn-outline-info">Help</a>
         </div>
     </div>
 </div>

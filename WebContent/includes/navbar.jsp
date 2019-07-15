@@ -23,7 +23,8 @@
             </li>
         </ul>
         <ul class="navbar-nav">
-            <button class="btn" id="logoutbtn">Logout</button>
+            <li><a href="/views/help/hilfeseite.jsp" class="btn">Help</a></li>
+            <li><button class="btn btn-outline-secondary" id="logoutbtn">Logout</button></li>
         </ul>
     </div>
 </nav>
