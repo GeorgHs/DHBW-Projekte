@@ -21,12 +21,12 @@ $(document).ready(function () {
     });
 
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip({ boundary: 'window' })
+        $('[data-toggle="tooltip"]').tooltip({boundary: 'window'})
     })
 
 });
 
-function showinfo(title, message){
+function showinfo(title, message) {
     $("body").append("<div class=\"toast\" role=\"alert\" aria-live=\"assertive\" aria-atomic=\"true\" data-delay=\"5000\">\n" +
         "                <div class=\"toast-header\">\n" +
         "                    <strong class=\"mr-auto\">" + title + "</strong>\n" +
@@ -36,8 +36,54 @@ function showinfo(title, message){
         "                    </button>\n" +
         "                </div>\n" +
         "                <div class=\"toast-body\">\n" +
-        "                    "+ message +"\n" +
+        "                    " + message + "\n" +
         "                </div>\n" +
         "            </div>");
     $('.toast').toast('show')
 }
+
+function likePost(id, button) {
+    $.ajax({
+        type: "POST",
+        url: "/api/post/like",
+        dataType: 'json',
+        async: true,
+        data: "{'id': '" + id + "'}",
+        statusCode: {
+            200: function () {
+                var likes = parseInt($(button).text(), 10) + 1;
+                $(button).html(likes + '<i class="fas fa-heart" style="color: red"></i>');
+                $(button).attr("onclick", "unlikePost("+id+", this)");
+                return false;
+            },
+            404: function () {
+
+            }
+        }
+    });
+}
+
+function unlikePost(id, button) {
+
+    $.ajax({
+        type: "POST",
+        url: "/api/post/unlike",
+        dataType: 'json',
+        async: true,
+        data: "{'id': '" + id + "'}",
+        statusCode: {
+            200: function () {
+                var likes = parseInt($(button).text(), 10) - 1;
+                console.log($(button));
+                $(button).html(likes + '<i class="fas fa-heart" style="color: gray"></i>');
+                $(button).attr("onclick", "likePost("+id+",this)");
+
+
+            },
+            404: function () {
+
+            }
+        }
+    });
+}
+

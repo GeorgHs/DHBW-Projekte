@@ -71,11 +71,11 @@
                     </c:when>
                     <c:otherwise>
                         <c:choose>
-                            <c:when test="${Profil.isFollowing(tokenId)}">
-                                <button class="btn btn-primary follow-btn" onclick="follow(${Profil.id}, this)">Nicht mehr Folgen</button>
+                            <c:when test="${Profile.isFollowing(tokenId)}">
+                                <button class="btn btn-primary follow-btn" onclick="follow(${Profile.id}, this)">Nicht mehr Folgen</button>
                             </c:when>
                             <c:otherwise>
-                                <button class="btn btn-primary follow-btn" onclick="follow(${Profil.id}, this)">Folgen</button>
+                                <button class="btn btn-primary follow-btn" onclick="follow(${Profile.id}, this)">Folgen</button>
                             </c:otherwise>
                         </c:choose>
                     </c:otherwise>

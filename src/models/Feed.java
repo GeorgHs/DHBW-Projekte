@@ -57,6 +57,7 @@ public class Feed {
                             post.setMedia(media);
                         }
                     }
+                    post.getLikes();
                     post.setText(rs.getString("text"));
                     post.setCreated_at((rs.getString("created_at")));
                     posts.add(post);

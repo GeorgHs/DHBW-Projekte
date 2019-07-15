@@ -18,15 +18,18 @@
                         <img src="data:image;base64,${param.media_media}" class="card-img-top">
                     </c:if>
                 </div>
-                <div class="post-footer">
+                <div class="post-footer" data-id="${param.post_id}">
                     <c:choose>
-                        <c:when test="${Post.like.isliked == false}">
-                            <button class="fas fa-heart" onclick="${Post.like.isliked = true}, ${Post.like.size()}+1" style="color: gray">${Post.like.size()}</button>
+                        <c:when test="${param.isLiked}">
+                            <button class="btn" onclick="unlikePost(${param.post_id}, this)">${param.likes}<i class="fas fa-heart" style="color: red"></i></button>
                         </c:when>
-                        <c:when test="${Post.like.isliked == true}">
-                            <button class="fas fa-heart" onclick="${Post.like.isliked = false}, ${Post.like.size()}-1" style="color: red">${Post.like.size()}</button>
-                        </c:when>
+                        <c:otherwise>
+                            <button class="btn" onclick="likePost(${param.post_id}, this)">${param.likes}<i class="fas fa-heart" style="color: gray"></i></button>
+                        </c:otherwise>
                     </c:choose>
+
+
+
                 </div>
             </div>
         </div>

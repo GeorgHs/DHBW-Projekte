@@ -14,18 +14,10 @@ public class PostApiController extends BaseApiController {
         this.addUrlMapping_Post("post/delete", "deletePost");
         this.addUrlMapping_Get("post/getposts", "getPosts");
         this.addUrlMapping_Get("post/getpostsbyuser", "getPostsByUser");
+        this.addUrlMapping_Post("post/like", "likePost");
+        this.addUrlMapping_Post("post/unlike", "unlikePost");
     }
 
-    /*public void createPost(HttpServletRequest request, HttpServletResponse response) {
-        JSONObject data = getJSON(request);
-        int media_id = -1;
-        int user_id = SessionController.getCurrentUserId(request);
-        if (data.has("media")) {
-            media_id = DatabaseController.executeUpdate("INSERT INTO media (user_id, media_type, media) VALUES ('" + user_id + "', '" + "image" + "', '" + data.getString("media") + "');");
-        }
-        DatabaseController.executeUpdate("INSERT INTO posts (user_id, text, media_id, created_at) VALUES ('" + user_id + "', '" + data.getString("text") + "', " + (media_id == -1 ? "NULL" : "'" + media_id + "'") + ", '" + System.currentTimeMillis() + "');");
-        response.setStatus(201);
-    }*/
     public void deletePost(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = getJSON(request);
         int user_id = SessionController.getCurrentUserId(request);
@@ -45,9 +37,27 @@ public class PostApiController extends BaseApiController {
 
     public void getPostsByUser(HttpServletRequest request, HttpServletResponse response) {
         try {
-            response.sendRedirect("/includes/profile-posts.jsp?id=" + request.getParameter("id") + "&limit=" + request.getParameter("limit") + "&offset=" + request.getParameter("offset"));
+            response.sendRedirect("/includes/profile-posts.jsp?id=" + request.getParameter("id") + "&limit=" + request.getParameter("limit") + "&offset=" + request.getParameter("offset")+"&current="+SessionController.getCurrentUserId(request));
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void likePost(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = getJSON(request);
+        int user_id = SessionController.getCurrentUserId(request);
+
+        int id = data.getInt("id");
+        DatabaseController.executeUpdate("INSERT INTO likes (post_id, user_id) VALUES ("+id+", "+user_id+");");
+        response.setStatus(200);
+        sendResponse(response, "OK");
+    }
+    public void unlikePost(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = getJSON(request);
+        int user_id = SessionController.getCurrentUserId(request);
+
+        int id = data.getInt("id");
+        DatabaseController.executeUpdate("DELETE from likes WHERE post_id='"+id+"' AND user_id='"+user_id+"';");
+        response.setStatus(200);
+        sendResponse(response, "OK");
     }
 }
