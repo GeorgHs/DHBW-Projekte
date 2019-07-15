@@ -3,6 +3,8 @@ var username;
 var handle;
 var email;
 var profilePicture;
+var titlePicture;
+var theme;
 $(document).ready(function() {
     $.ajax({
         type: "GET",
@@ -15,5 +17,7 @@ $(document).ready(function() {
         handle = res[2];
         profilePicture = res[3];
         email = res[4];
+        titlePicture = res[5];
+        theme = res[6];
     });
 });

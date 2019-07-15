@@ -32,13 +32,14 @@ class ProfileApiController extends BaseApiController {
         this.addUrlMapping_Post("profile/updateEmail", "updateEmail");
         this.addUrlMapping_Post("profile/post", "createPost");
         this.addUrlMapping_Get("profile/getsuggestions", "getSuggestions");
+        this.addUrlMapping_Post("profile/settheme", "setTheme");
     }
 
     public void getCurrent(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String id = this.getTokenId(request);
         Profile user = new Profile();
         user.setId(id);
-        sendResponse(response, user.getId() + "," + user.getUsername() + "," + user.getHandle() + "," + user.getProfilePicture() + "," + user.getEmail());
+        sendResponse(response, user.getId() + "," + user.getUsername() + "," + user.getHandle() + "," + user.getProfilePicture() + "," + user.getEmail() + "," + user.getTitlePicture() + "," + user.getTheme());
     }
 
     public void getUsername(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -278,5 +279,10 @@ class ProfileApiController extends BaseApiController {
         }
     }
 
-
+    public void setTheme(HttpServletRequest request, HttpServletResponse response) {
+        JSONObject data = getJSON(request);
+        String theme = data.getString("theme");
+        DatabaseController.executeUpdate("UPDATE profiles SET theme='" + theme + "' WHERE id=" + this.getTokenId(request));
+        response.setStatus(200);
+    }
 }

@@ -8,6 +8,10 @@ nav {
     width: 100%;
 }
 
+.navbar * {
+    color: white;
+}
+
 .page_heading {
     width: 100%;
     text-align: center;
@@ -103,6 +107,11 @@ nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+}
+
+.post-footer button {
+    margin: 0;
+    padding: 0;
 }
 
 .post-date {
@@ -221,6 +230,7 @@ nav {
 
 .chat_carousel {
     display: flex;
+    margin-top: 10px;
     flex-direction: row;
     flex-wrap: nowrap;
     width: 100%;
@@ -306,4 +316,12 @@ nav {
 .centered {
     margin-left: 50%;
     transform: translateX(-50%);
+}
+
+.liked, .not_liked:hover {
+    color: red;
+}
+
+.not_liked {
+    color: gray;
 }

@@ -24,6 +24,7 @@ public class Profile {
     private int offset;
     private int chatPartner;
     private int chatUnreadMessages;
+    private String theme;
 
     public String getId() {
         return this.id;
@@ -31,7 +32,7 @@ public class Profile {
 
     public void setId(String id) {
         this.id = id;
-        if (id == null || id.equals("undefined")) {
+        if (id == null || id.equals("undefined") || id.equals("-1")) {
             return;
         }
         try {
@@ -42,6 +43,7 @@ public class Profile {
                 this.email = resultSet.getString("email");
                 this.profilePictureId = resultSet.getInt("profilepicture_id");
                 this.titlePictureId = resultSet.getInt("titlepicture_id");
+                this.theme = resultSet.getString("theme");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -242,5 +244,9 @@ public class Profile {
         }
 
         return count;
+    }
+
+    public String getTheme() {
+        return theme;
     }
 }

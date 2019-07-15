@@ -8,8 +8,8 @@
     <%@include file="../includes/head.jsp" %>
 </head>
 <body>
-<%@include file="/includes/navbar.jsp" %>
 <jsp:useBean id="profile" class="models.Profile"/>
+<jsp:include page="/includes/navbar.jsp"/>
 <jsp:setProperty name="profile" property="id" value="${id}"/>
 <div class="container_fluid">
     <div class="row">

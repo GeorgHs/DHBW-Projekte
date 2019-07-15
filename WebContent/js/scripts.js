@@ -52,7 +52,7 @@ function likePost(id, button) {
         statusCode: {
             200: function () {
                 var likes = parseInt($(button).text(), 10) + 1;
-                $(button).html(likes + '<i class="fas fa-heart" style="color: red"></i>');
+                $(button).html(likes + ' <i class="fas fa-heart liked"></i>');
                 $(button).attr("onclick", "unlikePost("+id+", this)");
                 return false;
             },
@@ -75,7 +75,7 @@ function unlikePost(id, button) {
             200: function () {
                 var likes = parseInt($(button).text(), 10) - 1;
                 console.log($(button));
-                $(button).html(likes + '<i class="fas fa-heart" style="color: gray"></i>');
+                $(button).html(likes + ' <i class="fas fa-heart not_liked"></i>');
                 $(button).attr("onclick", "likePost("+id+",this)");
 
 
@@ -87,3 +87,17 @@ function unlikePost(id, button) {
     });
 }
 
+function changeTheme(theme) {
+    $.ajax({
+        type: "POST",
+        url: "/api/profile/settheme",
+        dataType: 'json',
+        async: true,
+        data: "{'theme': '" + theme + "'}",
+        statusCode: {
+            200: function () {
+                location.reload();
+            }
+        }
+    });
+}

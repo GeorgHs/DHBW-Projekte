@@ -21,15 +21,12 @@
                 <div class="post-footer" data-id="${param.post_id}">
                     <c:choose>
                         <c:when test="${param.isLiked}">
-                            <button class="btn" onclick="unlikePost(${param.post_id}, this)">${param.likes}<i class="fas fa-heart" style="color: red"></i></button>
+                            <button class="btn" onclick="unlikePost(${param.post_id}, this)">${param.likes} <i class="fas fa-heart liked"></i></button>
                         </c:when>
                         <c:otherwise>
-                            <button class="btn" onclick="likePost(${param.post_id}, this)">${param.likes}<i class="fas fa-heart" style="color: gray"></i></button>
+                            <button class="btn" onclick="likePost(${param.post_id}, this)">${param.likes} <i class="fas fa-heart not_liked"></i></button>
                         </c:otherwise>
                     </c:choose>
-
-
-
                 </div>
             </div>
         </div>
