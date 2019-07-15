@@ -25,7 +25,9 @@
         </c:forEach>
     </c:when>
     <c:otherwise>
-        <h5>Noch keine Beiträge vorhanden!</h5>
+        <c:if test="${param.offset == 0}">
+            <h5>Noch keine Beiträge vorhanden!</h5>
+        </c:if>
     </c:otherwise>
 </c:choose>
 
