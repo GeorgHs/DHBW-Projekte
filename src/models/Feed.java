@@ -37,6 +37,8 @@ public class Feed {
                 }
             }
             sql += "ORDER BY created_at DESC " + (limit != 0 ? "LIMIT " + limit + " OFFSET " + offset : "");
+        }else{
+            return null;
         }
         ResultSet rs = DatabaseController.executeQuery(sql);
         try {

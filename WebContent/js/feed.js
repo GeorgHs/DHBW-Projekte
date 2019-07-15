@@ -38,7 +38,7 @@ function loadPosts(limit, offset) {
         async: true,
         statusCode: {
             200: function (res) {
-                if (res.trim().length === 0) {
+                if (res.trim() === '<h5>Keine Posts vorhanden folge Personen um ihre Beiträge hier zu sehen!</h5>') {
                     $(".feed_center #load_more").css("display", "none");
                 }
                 $(".feed_center #load_more").before(res);
@@ -102,7 +102,6 @@ function follow(id, button) {
                 }
             },
             404: function () {
-                //window.location.reload();
             }
         }
     });

@@ -95,7 +95,6 @@ function follow(id, button) {
                 }
             },
             404: function () {
-                //window.location.reload();
             }
         }
     });
@@ -219,9 +218,10 @@ function loadPosts(limit, offset) {
         async: true,
         statusCode: {
             200: function (res) {
-                if (res.trim().length === 0) {
+                if (res.trim() === '<h5>Noch keine Beiträge vorhanden!</h5>') {
                     $(".profile-posts #load_more").css("display", "none");
                 }
+                console.log(res.trim());
                 $(".profile-posts #load_more").before(res);
                 $("#load_more div").css("display", "none");
                 $("#load_more p").css("display", "block");
