@@ -46,7 +46,7 @@
                     <button class="btn btn-outline-primary" id="logoutbtn">Logout</button>
                 </li>
             </c:if>
-            <c:if test="${param.id == -1}">
+            <c:if test="${nav_profile.id == -1}">
                 <li><a class="btn btn-outline-secondary" id="loginbtn" href="/login">Login</a></li>
             </c:if>
         </ul>
