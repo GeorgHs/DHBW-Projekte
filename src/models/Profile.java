@@ -24,7 +24,7 @@ public class Profile {
     private int offset;
     private int chatPartner;
     private int chatUnreadMessages;
-    private String theme;
+    private String theme = "light";
 
     public String getId() {
         return this.id;
