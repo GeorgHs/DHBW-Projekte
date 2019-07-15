@@ -56,6 +56,7 @@ public class DmApiController extends BaseApiController{
             }
             JSONObject res = new JSONObject();
             res.put("messages", messages);
+            response.setCharacterEncoding("UTF-8");
             sendResponse(response, res.toString());
             response.setStatus(200);
         }

@@ -107,9 +107,8 @@ function changeSettings() {
         validateHandle(function (res) {
             if (res) {
                 updateHandle();
-                console.log(1234);
             }else{
-                console.log(res);
+                //console.log(res);
             }
         });
     }
@@ -221,7 +220,7 @@ function loadPosts(limit, offset) {
                 if (res.trim() === '<h5>Noch keine Beiträge vorhanden!</h5>') {
                     $(".profile-posts #load_more").css("display", "none");
                 }
-                console.log(res.trim());
+                //console.log(res.trim());
                 $(".profile-posts #load_more").before(res);
                 $("#load_more div").css("display", "none");
                 $("#load_more p").css("display", "block");

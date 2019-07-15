@@ -74,11 +74,8 @@ function unlikePost(id, button) {
         statusCode: {
             200: function () {
                 var likes = parseInt($(button).text(), 10) - 1;
-                console.log($(button));
                 $(button).html(likes + ' <i class="fas fa-heart not_liked"></i>');
                 $(button).attr("onclick", "likePost("+id+",this)");
-
-
             },
             404: function () {
 

@@ -9,7 +9,7 @@ $(document).ready(function () {
 
         socket.onmessage = function (event) {
             var data = JSON.parse(event.data);
-            console.log("New Message: ", data);
+            //console.log("New Message: ", data);
             if (data.type === "info") {
                 showinfo("Information", data.message);
             } else if (data.type === "message") {
