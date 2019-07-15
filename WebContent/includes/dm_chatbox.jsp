@@ -3,7 +3,7 @@
 <jsp:setProperty name="profile" property="id" value="${id}"/>
 <div>
     <div class="chat_carousel">
-        <c:forEach items="${profile.follower}" var="profile_partner">
+        <c:forEach items="${profile.availableChatPartners}" var="profile_partner">
             <jsp:setProperty name="profile_partner" property="chatPartner" value="${profile.id}"/>
             <div class="chat_carousel_person" data-id="${profile_partner.id}">
                 <c:if test="${profile_partner.unreadMessages != 0}">
@@ -12,8 +12,8 @@
                 <img class="profile-image" data-toggle="tooltip" data-placement="top" title="${profile_partner.username}" src="data:image;base64,${profile_partner.profilePicture}">
             </div>
         </c:forEach>
-        <c:if test="${profile.follower.isEmpty()}">
-            <p>No Followers to chat with</p>
+        <c:if test="${profile.availableChatPartners.isEmpty()}">
+            <p>No Chats... Follow some People to start chatting</p>
         </c:if>
     </div>
     <hr>

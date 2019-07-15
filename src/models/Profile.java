@@ -23,7 +23,7 @@ public class Profile {
     private int limit;
     private int offset;
     private int chatPartner;
-    private int chatUnreadMessages;
+    private ArrayList<Profile> availableChatPartners;
     private String theme = "light";
 
     public String getId() {
@@ -244,6 +244,30 @@ public class Profile {
         }
 
         return count;
+    }
+
+    public ArrayList<Profile> getAvailableChatPartners() {
+        ArrayList<Profile> partners = new ArrayList<>(getSubscriptions());
+        ResultSet rs = DatabaseController.executeQuery("SELECT * FROM messages where user_id_to=" + id);
+        try {
+            if (rs != null && rs.next()) {
+                Profile p = new Profile();
+                p.setId(rs.getString("user_id_from"));
+                var found = false;
+                for (Profile p2 : partners) {
+                    if (p2.id.equals(p.id)) {
+                        found = true;
+                        break;
+                    }
+                }
+                if (!found) {
+                    partners.add(p);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return partners;
     }
 
     public String getTheme() {

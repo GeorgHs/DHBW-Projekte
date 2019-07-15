@@ -20,6 +20,8 @@
                     <jsp:param name="profilePicture" value="${profile.profilePicture}"/>
                     <jsp:param name="titlePicture" value="${profile.titlePicture}"/>
                     <jsp:param name="handle" value="${profile.handle}"/>
+                    <jsp:param name="follower" value="${profile.follower.size()}"/>
+                    <jsp:param name="following" value="${profile.subscriptions.size()}"/>
                 </jsp:include>
 
                 <div class="suggestions card">

@@ -22,6 +22,8 @@
             <jsp:param name="profilePicture" value="${p.profilePicture}"/>
             <jsp:param name="titlePicture" value="${p.titlePicture}"/>
             <jsp:param name="handle" value="${p.handle}"/>
+            <jsp:param name="follower" value="${p.follower.size()}"/>
+            <jsp:param name="following" value="${p.subscriptions.size()}"/>
         </jsp:include>
     </c:forEach>
 </div>

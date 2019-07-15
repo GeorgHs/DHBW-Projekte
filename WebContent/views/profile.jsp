@@ -106,6 +106,8 @@
                             <jsp:param name="profilePicture" value="${subscriptions.profilePicture}"/>
                             <jsp:param name="titlePicture" value="${subscriptions.titlePicture}"/>
                             <jsp:param name="handle" value="${subscriptions.handle}"/>
+                            <jsp:param name="follower" value="${subscriptions.follower.size()}"/>
+                            <jsp:param name="following" value="${subscriptions.subscriptions.size()}"/>
                         </jsp:include>
                         </div>
                     </c:forEach>
@@ -121,6 +123,8 @@
                                     <jsp:param name="profilePicture" value="${follow.profilePicture}"/>
                                     <jsp:param name="titlePicture" value="${follow.titlePicture}"/>
                                     <jsp:param name="handle" value="${follow.handle}"/>
+                                    <jsp:param name="follower" value="${follow.follower.size()}"/>
+                                    <jsp:param name="following" value="${follow.subscriptions.size()}"/>
                                 </jsp:include>
                            </div>
                         </c:forEach>
