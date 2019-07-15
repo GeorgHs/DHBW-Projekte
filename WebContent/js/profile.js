@@ -49,8 +49,8 @@ function changeModal(type) {
 
 //Bild in Base64 umwandeln und in der Datenbank ändern
 function convertToBase64(picture) {
-    if ($('#profilePicture')[0].files[0] !== undefined) {
-        base64($('#profilePicture'), function (data) {
+    if ($('#profilePictureInput')[0].files[0] !== undefined) {
+        base64($('#profilePictureInput'), function (data) {
             $.ajax({
                 type: "POST",
                 url: "/api/profile/" + picture,

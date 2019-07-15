@@ -150,7 +150,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <input name="profilePicture" type="file">
+                <input id="profilePictureInput" type="file">
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary cancel" data-dismiss="modal">Close</button>
