@@ -26,7 +26,6 @@
     <div class="row">
 
         <div class="col-md-2">
-
         </div>
         <div class="col-md-2" style="max-width: 150px;">
             <div class="profile-image-wrapper">
@@ -39,8 +38,8 @@
                     </div>
                 </c:if>
             </div>
-            <jsp:getProperty name="Profile" property="email"/>
-            <jsp:getProperty name="Profile" property="username"/>
+            <c:out value="${Profile.email}"/>
+            <c:out value="${Profile.username}"/>
         </div>
         <div class="col-md-7">
             <ul class="nav nav-tabs" id="profileTab" role="tablist">

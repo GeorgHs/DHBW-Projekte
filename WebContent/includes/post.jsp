@@ -8,12 +8,12 @@
             </div>
             <div class="col-md-10 col-xl-11">
                 <div class="post-header">
-                    <a href="/profile/${param.user_id}"><b>${param.user_username}</b><span
-                            class="handle">@${param.user_handle}</span></a>
+                    <a href="/profile/${param.user_id}"><b><c:out value="${param.user_username}"/></b><span
+                            class="handle">@<c:out value="${param.user_handle}"/></span></a>
                     <p class="post-date">${param.created_at_pretty}</p>
                 </div>
                 <div class="post-content">
-                    <p>${param.text}</p>
+                    <p><c:out value="${param.text}"/></p>
                     <c:if test="${param.media != ''}">
                         <img src="data:image;base64,${param.media_media}" class="card-img-top">
                     </c:if>

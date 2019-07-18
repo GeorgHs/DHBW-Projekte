@@ -13,9 +13,9 @@
                 <form>
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email" value="${param.email}">
+                        <input type="email" class="form-control" id="email" value="<c:out value="${param.email}"/>">
                         <div class="invalid-feedback" id="invalid-email" style="display: none">
-                            Email wird bereits verwendet
+                            Email wird bereits verwendet oder ist invalide
                         </div>
                     </div>
                     <div class="form-group">

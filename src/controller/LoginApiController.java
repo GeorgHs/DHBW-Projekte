@@ -1,5 +1,6 @@
 package controller;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONObject;
 
 import javax.servlet.http.Cookie;
@@ -25,7 +26,7 @@ class LoginApiController extends BaseApiController {
     public void doLogin(HttpServletRequest request, HttpServletResponse response) {
         JSONObject data = getJSON(request);
         String email = data.getString("email");
-        String password = data.getString("password");
+        String password = DigestUtils.sha256Hex(data.getString("password"));
 
         ResultSet rs = DatabaseController.executeQuery("SELECT id FROM profiles WHERE email='" + email + "' AND password='" + password + "';");
 
@@ -75,6 +76,7 @@ class LoginApiController extends BaseApiController {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        password = DigestUtils.sha256Hex(password);
         String sql = "INSERT INTO profiles (username, email, password, handle) VALUES ('" + username + "', '" + email + "', '" + password + "', '" + handle + "')";
         int id = DatabaseController.executeUpdate(sql);
         if (id == -1) {
